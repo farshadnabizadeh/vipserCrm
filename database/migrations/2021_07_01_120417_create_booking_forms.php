@@ -17,13 +17,9 @@ class CreateBookingForms extends Migration
            $table->increments('id');
             $table->date('reservation_date');
             $table->string('reservation_time')->nullable();
-            $table->lon('name_surname')->nullable();
+            $table->string('name_surname')->nullable();
             $table->string('phone')->nullable();
             $table->string('country')->nullable();
-            $table->string('massage_package')->nullable();
-            $table->string('hammam_package')->nullable();
-            $table->string('male_pax')->nullable();
-            $table->string('female_pax')->nullable();
             $table->integer('form_status_id')->unsigned()->nullable();
             $table->foreign('form_status_id')->references('id')
                 ->on('form_statuses')

@@ -2,7 +2,7 @@
     <div class="scrollbar-inner">
         <div class="sidenav-header  align-items-center">
             <a class="navbar-brand" href="{{ url('/home') }}">
-                <img src="{{ asset('assets/img/catmamescitlogosiyah.png') }}" class="navbar-brand-img">
+                <img src="{{ asset('assets/img/logo.png') }}" class="navbar-brand-img">
             </a>
         </div>
         <div class="navbar-inner">
@@ -101,24 +101,10 @@
                                 </a>
                             </li>
                             @endcan
-                            @can('show guides')
-                            <li>
-                                <a class="{{ request()->is('definitions/guides*') ? 'active' : '' }}" href="{{ url('/definitions/guides'); }}">
-                                    <span>Rehberler</span>
-                                </a>
-                            </li>
-                            @endcan
                             @can('show services')
                             <li>
                                 <a class="{{ request()->is('definitions/services*') ? 'active' : '' }}" href="{{ url('/definitions/services'); }}">
                                     <span>Hizmetler</span>
-                                </a>
-                            </li>
-                            @endcan
-                            @can('show therapist')
-                            <li>
-                                <a class="{{ request()->is('definitions/therapists*') ? 'active' : '' }}" href="{{ url('/definitions/therapists'); }}">
-                                    <span>Terapistler</span>
                                 </a>
                             </li>
                             @endcan

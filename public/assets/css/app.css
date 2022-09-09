@@ -544,12 +544,11 @@ textarea
 }
 
 .logo {
-    width: 170px;
+    width: 263px;
     margin-top: 13px;
     margin-left: auto;
     margin-right: auto;
-    display: table;
-    line-height: 14px !important
+    display: table
 }
 
 .update-page-btn {
@@ -4465,17 +4464,17 @@ fieldset:disabled a.btn
 .btn-primary
 {
     color: #fff;
-    border-color: #511124;
+    border-color: #b98c6d;
     font-family: var(--font-montserrat);
     font-weight: 500;
-    background-color: #511124;
+    background-color: #b98c6d;
     box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
 }
 .btn-primary:hover
 {
     color: #fff;
-    border-color: #700f2c;
-    background-color: #700f2c
+    border-color: #d4986f;
+    background-color: #d4986f
 }
 .btn-primary:focus,
 .btn-primary.focus
