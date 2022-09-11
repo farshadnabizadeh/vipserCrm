@@ -453,46 +453,6 @@ class ReservationController extends Controller
         }
     }
 
-    public function destroyPaymentType($id){
-        try {
-            ReservationPaymentType::find($id)->delete();
-            return back()->with('message', 'Ödeme Türü Başarıyla Silindi!');
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-
-    public function destroyService($id){
-        try {
-            ReservationService::find($id)->delete();
-            return back()->with('message', 'Hizmet Başarıyla Silindi!');
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-
-    public function destroyTherapist($id){
-        try {
-            ReservationTherapist::find($id)->delete();
-            return back()->with('message', 'Terapist Başarıyla Silindi!');
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-
-    public function destroyHotelComission($id){
-        try {
-            ReservationTherapist::find($id)->delete();
-            return back()->with('message', 'Terapist Başarıyla Silindi!');
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-
     public function download(Request $request, $id)
     {
         try {

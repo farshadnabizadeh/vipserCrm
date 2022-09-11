@@ -23,19 +23,11 @@ class HomeController extends Controller
     {
         try {
 
-            $lastReservations = Reservation::latest()->take(5)->get();
-
             $customerCount = Customer::count();
-            $hotelCount = Hotel::count();
-            $serviceCount = Service::count();
-            $therapistCount = Therapist::count();
-            $reservationCount = Reservation::count();
             $contactFormCount = ContactForm::count();
             $bookingFormCount = BookingForm::count();
 
-            $user = auth()->user();
-
-            $dashboard = array('lastReservations' => $lastReservations, 'customerCount' => $customerCount, 'hotelCount' => $hotelCount, 'serviceCount' => $serviceCount, 'therapistCount' => $therapistCount, 'reservationCount' => $reservationCount, 'contactFormCount' => $contactFormCount, 'bookingFormCount' => $bookingFormCount);
+            $dashboard = array('customerCount' => $customerCount, 'contactFormCount' => $contactFormCount, 'bookingFormCount' => $bookingFormCount);
 
             return view('home')->with($dashboard);
         }
