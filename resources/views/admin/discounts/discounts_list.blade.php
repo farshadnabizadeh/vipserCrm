@@ -9,7 +9,7 @@
         <div class="col-md-12 table-responsive">
              <nav aria-label="breadcrumb" class="mt-3">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item home-page"><a href="{{ url('home') }}">Arayüz</a></li>
+                    <li class="breadcrumb-item home-page"><a href="{{ route('home') }}">Arayüz</a></li>
                     <li class="breadcrumb-item active" aria-current="page">İndirimler</li>
                 </ol>
             </nav>
@@ -20,9 +20,7 @@
                             <h2>İndirimler</h2>
                         </div>
                         <div class="col-lg-6">
-                            @can('create discount')
                             <button data-toggle="modal" data-target="#serviceModal" class="btn btn-primary float-right"><i class="fa fa-plus" aria-hidden="true"></i> Yeni İndirim</button>
-                            @endcan
                         </div>
                     </div>
                 </div>

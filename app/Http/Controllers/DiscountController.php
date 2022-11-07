@@ -18,7 +18,7 @@ class DiscountController extends Controller
         try {
             $discounts = Discount::orderBy('name', 'asc')->get();
             $data = array('discounts' => $discounts);
-            return view('admin.discounts.discounts_list')->with($data);   
+            return view('admin.discounts.discounts_list')->with($data);
         }
         catch (\Throwable $th) {
             throw $th;

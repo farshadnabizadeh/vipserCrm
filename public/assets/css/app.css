@@ -437,7 +437,7 @@ caption
 }
 
 .swal-button {
-    background-color: #511124 !important
+    background-color: #b98c6d !important
 }
 
 #reservationSave {
@@ -7839,7 +7839,7 @@ input[type='button'].btn-block
 
 .breadcrumb-item.active
 {
-    color: #900e35;
+    color: #b98c6d;
     font-weight: 600;
     font-family: var(--font-montserrat)
 }
@@ -7907,8 +7907,8 @@ input[type='button'].btn-block
     z-index: 3;
 
     color: #fff;
-    border-color: #511124;
-    background-color: #511124
+    border-color: #000;
+    background-color: #000
 }
 
 .page-item.disabled .page-link
@@ -19062,7 +19062,7 @@ button.bg-darker:focus
 
 .text-primary
 {
-    color: #511124 !important;
+    color: #000 !important;
 }
 
 a.text-primary:hover,

@@ -36,7 +36,7 @@ class PaymentTypeController extends Controller
             $result = $newData->save();
 
             if ($result) {
-                return redirect('/definitions/payment_types')->with('message', 'Ödeme Türü Başarıyla Kaydedildi!');
+                return redirect()->route('paymenttype.index')->with('message', 'Ödeme Türü Başarıyla Kaydedildi!');
             }
             else {
                 return response(false, 500);

@@ -20,12 +20,12 @@
                         <div class="col">
                             <h5 class="card-title text-dashboard-card">Rezervasyon Formları</h5>
                             <hr>
-                            <a href="{{ url('/definitions/bookings') }}">
+                            <a href="{{ route('booking.index') }}">
                                 <span class="h2 mb-0 count-card">{{ $bookingFormCount }}</span>
                             </a>
                         </div>
                         <div class="col-auto">
-                            <div class="icon icon-shape bg-gradient-danger text-white rounded-circle shadow">
+                            <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
                                 <i class="fa fa-wpforms"></i>
                             </div>
                         </div>
@@ -40,13 +40,33 @@
                         <div class="col">
                             <h5 class="card-title text-dashboard-card">İletişim Formları</h5>
                             <hr>
-                            <a href="{{ url('/definitions/contactforms') }}">
+                            <a href="{{ route('contactform.index') }}">
                                 <span class="h2 mb-0 count-card">{{ $contactFormCount }}</span>
                             </a>
                         </div>
                         <div class="col-auto">
-                            <div class="icon icon-shape bg-gradient-danger text-white rounded-circle shadow">
+                            <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
                                 <i class="fa fa-wpforms"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6">
+            <div class="card card-stats">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="card-title text-dashboard-card">Araçlar</h5>
+                            <hr>
+                            <a href="{{ route('vehicle.index') }}">
+                                <span class="h2 mb-0 count-card">{{ $vehicleCount }}</span>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                                <i class="fa fa-car"></i>
                             </div>
                         </div>
                     </div>

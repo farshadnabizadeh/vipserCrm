@@ -1,7 +1,7 @@
 <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
     <div class="scrollbar-inner">
         <div class="sidenav-header  align-items-center">
-            <a class="navbar-brand" href="{{ url('/home') }}">
+            <a class="navbar-brand" href="{{ route('home') }}">
                 <img src="{{ asset('assets/img/logo.png') }}" class="navbar-brand-img">
             </a>
         </div>
@@ -14,16 +14,19 @@
                             <span class="nav-link-text">Arayüz</span>
                         </a>
                     </li>
-                    @can('show customers')
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('definitions/customers*') ? 'active' : '' }}" href="{{ url('/definitions/customers'); }}">
+                        <a class="nav-link {{ request()->is('vehicles*') ? 'active' : '' }}" href="{{ route('vehicle.index'); }}">
+                            <i class="fa fa-car text-primary"></i>
+                            <span class="nav-link-text">Araçlar</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->is('customers*') ? 'active' : '' }}" href="{{ route('customer.index'); }}">
                             <i class="fa fa-users text-primary"></i>
                             <span class="nav-link-text">Müşteriler</span>
                         </a>
                     </li>
-                    @endcan
-                    @can('show contactform')
-                    <li class="nav-item {{ request()->is('definitions/bookings*') || request()->is('definitions/contactforms*') ? 'active' : '' }}">
+                    <li class="nav-item">
                         <a class="nav-link" href="javascript:;">
                             <i class="fa fa-wpforms text-primary"></i>
                             <span class="nav-link-text">Formlar</span>
@@ -31,20 +34,18 @@
                         </a>
                         <ul class="nav-item_sub">
                             <li>
-                                <a class="{{ request()->is('definitions/contactforms*') ? 'active' : '' }}" href="{{ url('/definitions/contactforms?startDate='.date("Y-m-d").'&endDate='.date("Y-m-d").''); }}">
+                                <a href="{{ route('contactform.index', ['startDate' => date("Y-m-d"), 'endDate' => date("Y-m-d")]) }}">
                                     <span>İletişim Formları</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="{{ request()->is('definitions/bookings') ? 'active' : '' }}" href="{{ url('/definitions/bookings?startDate='.date("Y-m-d").'&endDate='.date("Y-m-d").'') }}">
+                                <a href="{{ route('bookingform.index', ['startDate' => date("Y-m-d"), 'endDate' => date("Y-m-d")]) }}">
                                     <span>Rezervasyon Formları</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    @endcan
-                    @can('show reservation')
-                    <li class="nav-item {{ request()->is('definitions/reservations/calendar*') ? 'active' : '' }}">
+                    <li class="nav-item">
                         <a class="nav-link" href="javascript:;">
                             <i class="fa fa-calendar text-primary"></i>
                             <span class="nav-link-text">Takvimler</span>
@@ -58,56 +59,43 @@
                             </li>
                         </ul>
                     </li>
-                    @endcan
-                    <li class="nav-item {{ request()->is('definitions/formstatuses*') || request()->is('definitions/guides*') || request()->is('definitions/discounts*') || request()->is('definitions/hotels*') || request()->is('definitions/payment_types*') || request()->is('definitions/sources*') || request()->is('definitions/services*') || request()->is('definitions/therapists*') ? 'active' : '' }}">
+                    <li class="nav-item">
                         <a class="nav-link" href="javascript:;">
                             <i class="fa fa-tasks text-primary"></i>
                             <span class="nav-link-text">Tanımlamalar</span>
                             <i class="fa fa-caret-right sub-icon"></i>
                         </a>
                         <ul class="nav-item_sub">
-                            @can('show form statuses')
                             <li>
-                                <a class="{{ request()->is('definitions/formstatuses*') ? 'active' : '' }}" href="{{ url('/definitions/formstatuses'); }}">
+                                <a href="{{ url('/definitions/formstatuses'); }}">
                                     <span>Form Durumları</span>
                                 </a>
                             </li>
-                            @endcan
-                            @can('show discount')
                             <li>
-                                <a class="{{ request()->is('definitions/discounts*') ? 'active' : '' }}" href="{{ url('/definitions/discounts'); }}">
+                                <a href="{{ url('/definitions/discounts'); }}">
                                     <span>İndirimler</span>
                                 </a>
                             </li>
-                            @endcan
-                            @can('show hotel')
-                            <li>
-                                <a class="{{ request()->is('definitions/hotels*') ? 'active' : '' }}" href="{{ url('/definitions/hotels'); }}">
-                                    <span>Oteller</span>
-                                </a>
-                            </li>
-                            @endcan
-                            @can('show payment type')
                             <li>
                                 <a class="{{ request()->is('definitions/payment_types*') ? 'active' : '' }}" href="{{ url('/definitions/payment_types'); }}">
                                     <span>Ödeme Türleri</span>
                                 </a>
                             </li>
-                            @endcan
-                            @can('show sources')
+                            <li>
+                                <a href="{{ route('brand.index'); }}">
+                                    <span>Markalar</span>
+                                </a>
+                            </li>
                             <li>
                                 <a class="{{ request()->is('definitions/sources*') ? 'active' : '' }}" href="{{ url('/definitions/sources'); }}">
                                     <span>Rezervasyon Kaynakları</span>
                                 </a>
                             </li>
-                            @endcan
-                            @can('show services')
                             <li>
                                 <a class="{{ request()->is('definitions/services*') ? 'active' : '' }}" href="{{ url('/definitions/services'); }}">
                                     <span>Hizmetler</span>
                                 </a>
                             </li>
-                            @endcan
                         </ul>
                     </li>
                     <li class="nav-item {{ request()->is('reports*') ? 'active' : '' }}">
@@ -151,7 +139,6 @@
                                     <span>Rezervasyon Listesi</span>
                                 </a>
                             </li>
-
                         </ul>
                     </li>
                     @can('show users')

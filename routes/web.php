@@ -26,67 +26,84 @@ Route::group(['middleware' => ['auth']], function(){
     Route::GET('getCurrencies', 'CurrencyController@getCurrencies');
 
     //Users Operations
-    Route::GET('definitions/users', 'UserController@index')->middleware(['middleware' => 'permission:show users']);
+    Route::GET('definitions/users', 'UserController@index')->middleware(['middleware' => 'permission:show users'])->name('user.index');
     Route::GET('definitions/users/create', 'UserController@create')->middleware(['middleware' => 'permission:create users']);
-    Route::POST('definitions/users/store', 'UserController@store')->middleware(['middleware' => 'permission:create users']);
-    Route::GET('definitions/users/edit/{id}', 'UserController@edit')->middleware(['middleware' => 'permission:edit users']);
-    Route::POST('definitions/users/update/{id}', 'UserController@update')->middleware(['middleware' => 'permission:edit users']);
-    Route::GET('definitions/users/delete/{id}', 'UserController@destroy')->middleware(['middleware' => 'permission:delete users']);
+    Route::POST('definitions/users/store', 'UserController@store')->middleware(['middleware' => 'permission:create users'])->name('user.store');
+    Route::GET('definitions/users/edit/{id}', 'UserController@edit')->middleware(['middleware' => 'permission:edit users'])->name('user.edit');
+    Route::POST('definitions/users/update/{id}', 'UserController@update')->middleware(['middleware' => 'permission:edit users'])->name('user.update');
+    Route::GET('definitions/users/delete/{id}', 'UserController@destroy')->middleware(['middleware' => 'permission:delete users'])->name('user.destroy');
 
     //Roles and Permissions
-    Route::GET('roles', 'RolePermissionController@index')->middleware(['middleware' => 'permission:show roles']);
-    Route::GET('roles/create', 'RolePermissionController@create')->middleware(['middleware' => 'permission:create roles']);
-    Route::POST('roles/store', 'RolePermissionController@store')->middleware(['middleware' => 'permission:create roles']);
-    Route::GET('roles/edit/{id}', 'RolePermissionController@edit')->middleware(['middleware' => 'permission:edit roles']);
-    Route::POST('roles/update/{id}', 'RolePermissionController@update')->middleware(['middleware' => 'permission:edit roles']);
-    Route::GET('roles/delete/{id}', 'RolePermissionController@destroy')->middleware(['middleware' => 'permission:delete roles']);
-    Route::GET('roles/clone/{id}', 'RolePermissionController@cloneRole')->middleware(['middleware' => 'permission:edit roles']);
+    Route::GET('roles', 'RolePermissionController@index')->middleware(['middleware' => 'permission:show roles'])->name('role.index');
+    Route::GET('roles/create', 'RolePermissionController@create')->middleware(['middleware' => 'permission:create roles'])->name('role.create');
+    Route::POST('roles/store', 'RolePermissionController@store')->middleware(['middleware' => 'permission:create roles'])->name('role.store');
+    Route::GET('roles/edit/{id}', 'RolePermissionController@edit')->middleware(['middleware' => 'permission:edit roles'])->name('role.edit');
+    Route::POST('roles/update/{id}', 'RolePermissionController@update')->middleware(['middleware' => 'permission:edit roles'])->name('role.update');
+    Route::GET('roles/delete/{id}', 'RolePermissionController@destroy')->middleware(['middleware' => 'permission:delete roles'])->name('role.destroy');
+    Route::GET('roles/clone/{id}', 'RolePermissionController@cloneRole')->middleware(['middleware' => 'permission:edit roles'])->name('role.clone');
     //Roles and Permissions end
 
     //Customers
-    Route::GET('definitions/customers', 'CustomersController@index')->middleware(['middleware' => 'permission:show customers']);
-    Route::POST('definitions/customers/store', 'CustomersController@store')->middleware(['middleware' => 'permission:create customers']);
-    Route::POST('definitions/customers/save', 'CustomersController@save')->middleware(['middleware' => 'permission:create customers']);
-    Route::GET('definitions/customers/edit/{id}', 'CustomersController@edit')->middleware(['middleware' => 'permission:edit customers']);
-    Route::POST('definitions/customers/update/{id}', 'CustomersController@update')->middleware(['middleware' => 'permission:edit customers']);
-    Route::GET('definitions/customers/destroy/{id}', 'CustomersController@destroy')->middleware(['middleware' => 'permission:delete customers']);
+    Route::GET('customers', 'CustomersController@index')->name('customer.index');
+    Route::POST('customers/store', 'CustomersController@store')->name('customer.store');
+    Route::POST('customers/save', 'CustomersController@save')->name('customer.save');
+    Route::GET('customers/edit/{id}', 'CustomersController@edit')->name('customer.edit');
+    Route::POST('customers/update/{id}', 'CustomersController@update')->name('customer.update');
+    Route::GET('customers/destroy/{id}', 'CustomersController@destroy')->name('customer.destroy');
     //Customers end
 
+    //Vehicles
+    Route::GET('vehicles', 'VehicleController@index')->name('vehicle.index');
+    Route::POST('vehicles/store', 'VehicleController@store')->name('vehicle.store');
+    Route::POST('vehicles/save', 'VehicleController@save')->name('vehicle.save');
+    Route::GET('vehicles/edit/{id}', 'VehicleController@edit')->name('vehicle.edit');
+    Route::POST('vehicles/update/{id}', 'VehicleController@update')->name('vehicle.update');
+    Route::GET('vehicles/destroy/{id}', 'VehicleController@destroy')->name('vehicle.destroy');
+    //Vehicles end
+
+    //Brands
+    Route::GET('brands', 'BrandController@index')->name('brand.index');
+    Route::POST('brands/store', 'BrandController@store')->name('brand.store');
+    Route::GET('brands/edit/{id}', 'BrandController@edit')->name('brand.edit');
+    Route::POST('brands/update/{id}', 'BrandController@update')->name('brand.update');
+    Route::GET('brands/destroy/{id}', 'BrandController@destroy')->name('brand.destroy');
+    //Brands end
+
     //Booking Forms
-    Route::GET('definitions/bookings', 'BookingFormController@index')->middleware(['middleware' => 'permission:show bookingform']);
-    Route::POST('definitions/bookings/change/{id}', 'BookingFormController@changeStatus')->middleware(['middleware' => 'permission:edit bookingform']);
-    Route::GET('definitions/bookings/edit/{id}', 'BookingFormController@edit')->middleware(['middleware' => 'permission:edit bookingform']);
-    Route::POST('definitions/bookings/update/{id}', 'BookingFormController@update')->middleware(['middleware' => 'permission:edit bookingform']);
-    Route::GET('definitions/bookings/destroy/{id}', 'BookingFormController@destroy')->middleware(['middleware' => 'permission:delete bookingform']);
+    Route::GET('definitions/bookings', 'BookingFormController@index')->name('bookingform.index');
+    Route::POST('definitions/bookings/change/{id}', 'BookingFormController@changeStatus');
+    Route::GET('definitions/bookings/edit/{id}', 'BookingFormController@edit')->name('bookingform.edit');
+    Route::POST('definitions/bookings/update/{id}', 'BookingFormController@update')->name('bookingform.update');
+    Route::GET('definitions/bookings/destroy/{id}', 'BookingFormController@destroy')->name('bookingform.destroy');
     //Booking Forms end
 
     //Contact Forms
-    Route::GET('definitions/contactforms', 'ContactFormController@index')->middleware(['middleware' => 'permission:show contactform']);
-    Route::POST('definitions/contactforms/change/{id}', 'ContactFormController@changeStatus')->middleware(['middleware' => 'permission:edit contactform']);
-    Route::GET('definitions/contactforms/edit/{id}', 'ContactFormController@edit')->middleware(['middleware' => 'permission:edit contactform']);
-    Route::POST('definitions/contactforms/update/{id}', 'ContactFormController@update')->middleware(['middleware' => 'permission:edit contactform']);
-    Route::GET('definitions/contactforms/destroy/{id}', 'ContactFormController@destroy')->middleware(['middleware' => 'permission:delete contactform']);
+    Route::GET('contactforms', 'ContactFormController@index')->name('contactform.index');
+    Route::POST('contactforms/change/{id}', 'ContactFormController@changeStatus');
+    Route::GET('contactforms/edit/{id}', 'ContactFormController@edit')->name('contactform.edit');
+    Route::POST('contactforms/update/{id}', 'ContactFormController@update')->name('contactform.update');
+    Route::GET('contactforms/destroy/{id}', 'ContactFormController@destroy')->name('contactform.destroy');
     //Contact Forms end
 
     //Comissions
     Route::POST('addComissiontoReservation', 'ReservationController@addComissiontoReservation');
 
     //Payments Types
-    Route::GET('definitions/payment_types', 'PaymentTypeController@index')->middleware(['middleware' => 'permission:show payment type']);
-    Route::POST('definitions/payment_types/store', 'PaymentTypeController@store')->middleware(['middleware' => 'permission:create payment type']);
-    Route::GET('definitions/payment_types/edit/{id}', 'PaymentTypeController@edit')->middleware(['middleware' => 'permission:edit payment type']);
-    Route::POST('definitions/payment_types/update/{id}', 'PaymentTypeController@update')->middleware(['middleware' => 'permission:edit payment type']);
-    Route::GET('definitions/payment_types/destroy/{id}', 'PaymentTypeController@destroy')->middleware(['middleware' => 'permission:delete payment type']);
+    Route::GET('definitions/payment_types', 'PaymentTypeController@index')->name('paymenttype.index');
+    Route::POST('definitions/payment_types/store', 'PaymentTypeController@store')->name('paymenttype.store');
+    Route::GET('definitions/payment_types/edit/{id}', 'PaymentTypeController@edit')->name('paymenttype.edit');
+    Route::POST('definitions/payment_types/update/{id}', 'PaymentTypeController@update')->name('paymenttype.update');
+    Route::GET('definitions/payment_types/destroy/{id}', 'PaymentTypeController@destroy')->name('paymenttype.destroy');
     //Payment Types end
 
     //Reservations
-    Route::GET('definitions/reservations', 'ReservationController@index')->middleware(['middleware' => 'permission:show reservation']);
-    Route::GET('definitions/reservations/calendar', 'ReservationController@reservationCalendar')->middleware(['middleware' => 'permission:show reservation']);
-    Route::GET('definitions/reservations/create', 'ReservationController@create')->middleware(['middleware' => 'permission:create reservation']);
-    Route::POST('definitions/reservations/store', 'ReservationController@store')->middleware(['middleware' => 'permission:create reservation']);
-    Route::GET('definitions/reservations/edit/{id}', 'ReservationController@edit')->middleware(['middleware' => 'permission:edit reservation']);
-    Route::GET('definitions/reservations/download/{id}', 'ReservationController@download')->middleware(['middleware' => 'permission:edit reservation']);
-    Route::POST('definitions/reservations/update/{id}', 'ReservationController@update')->middleware(['middleware' => 'permission:edit reservation']);
+    Route::GET('definitions/reservations', 'ReservationController@index');
+    Route::GET('definitions/reservations/calendar', 'ReservationController@reservationCalendar');
+    Route::GET('definitions/reservations/create', 'ReservationController@create');
+    Route::POST('definitions/reservations/store', 'ReservationController@store');
+    Route::GET('definitions/reservations/edit/{id}', 'ReservationController@edit');
+    Route::GET('definitions/reservations/download/{id}', 'ReservationController@download');
+    Route::POST('definitions/reservations/update/{id}', 'ReservationController@update');
     Route::POST('definitions/reservations/addCustomertoReservation', 'ReservationController@addCustomertoReservation')->middleware(['middleware' => 'permission:create reservation']);
 
     //payment type
@@ -100,19 +117,19 @@ Route::group(['middleware' => ['auth']], function(){
     //Reservations end
 
     //Sources
-    Route::GET('definitions/sources', 'SourceController@index')->middleware(['middleware' => 'permission:show sources']);
-    Route::POST('definitions/sources/store', 'SourceController@store')->middleware(['middleware' => 'permission:create sources']);
-    Route::GET('definitions/sources/edit/{id}', 'SourceController@edit')->middleware(['middleware' => 'permission:edit sources']);
-    Route::POST('definitions/sources/update/{id}', 'SourceController@update')->middleware(['middleware' => 'permission:edit sources']);
-    Route::GET('definitions/sources/destroy/{id}', 'SourceController@destroy')->middleware(['middleware' => 'permission:delete sources']);
+    Route::GET('definitions/sources', 'SourceController@index')->name('source.index');
+    Route::POST('definitions/sources/store', 'SourceController@store')->name('source.store');
+    Route::GET('definitions/sources/edit/{id}', 'SourceController@edit')->name('source.edit');
+    Route::POST('definitions/sources/update/{id}', 'SourceController@update')->name('source.update');
+    Route::GET('definitions/sources/destroy/{id}', 'SourceController@destroy')->name('source.destroy');
     //Sources end
 
     //Form Statuses
-    Route::GET('definitions/formstatuses', 'FormStatusesController@index')->middleware(['middleware' => 'permission:show form statuses']);
-    Route::POST('definitions/formstatuses/store', 'FormStatusesController@store')->middleware(['middleware' => 'permission:create form statuses']);
-    Route::GET('definitions/formstatuses/edit/{id}', 'FormStatusesController@edit')->middleware(['middleware' => 'permission:edit form statuses']);
-    Route::POST('definitions/formstatuses/update/{id}', 'FormStatusesController@update')->middleware(['middleware' => 'permission:edit form statuses']);
-    Route::GET('definitions/formstatuses/destroy/{id}', 'FormStatusesController@destroy')->middleware(['middleware' => 'permission:delete form statuses']);
+    Route::GET('definitions/formstatuses', 'FormStatusesController@index')->name('formstatus.index');
+    Route::POST('definitions/formstatuses/store', 'FormStatusesController@store')->name('formstatus.store');
+    Route::GET('definitions/formstatuses/edit/{id}', 'FormStatusesController@edit')->name('formstatus.edit');
+    Route::POST('definitions/formstatuses/update/{id}', 'FormStatusesController@update')->name('formstatus.update');
+    Route::GET('definitions/formstatuses/destroy/{id}', 'FormStatusesController@destroy')->name('formstatus.destroy');
     //Form Statuses end
 
     //Services
@@ -126,11 +143,11 @@ Route::group(['middleware' => ['auth']], function(){
     //Services end
 
     //Discounts
-    Route::GET('definitions/discounts', 'DiscountController@index')->middleware(['middleware' => 'permission:show discount']);
-    Route::POST('definitions/discounts/store', 'DiscountController@store')->middleware(['middleware' => 'permission:create discount']);
-    Route::GET('definitions/discounts/edit/{id}', 'DiscountController@edit')->middleware(['middleware' => 'permission:edit discount']);
-    Route::POST('definitions/discounts/update/{id}', 'DiscountController@update')->middleware(['middleware' => 'permission:edit discount']);
-    Route::GET('definitions/discounts/destroy/{id}', 'DiscountController@destroy')->middleware(['middleware' => 'permission:delete discount']);
+    Route::GET('definitions/discounts', 'DiscountController@index');
+    Route::POST('definitions/discounts/store', 'DiscountController@store');
+    Route::GET('definitions/discounts/edit/{id}', 'DiscountController@edit');
+    Route::POST('definitions/discounts/update/{id}', 'DiscountController@update');
+    Route::GET('definitions/discounts/destroy/{id}', 'DiscountController@destroy');
     //api
     Route::GET('getDiscount/{id}', 'DiscountController@getDiscount')->middleware(['middleware' => 'permission:show discount']);
     //Discounts end

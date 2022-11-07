@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Hotel;
-use App\Models\ContactForm;
 use App\Models\BookingForm;
+use App\Models\ContactForm;
+use App\Models\Vehicle;
 use App\Models\Service;
 use App\Models\Reservation;
 use App\Models\Therapist;
@@ -23,11 +24,11 @@ class HomeController extends Controller
     {
         try {
 
-            $customerCount = Customer::count();
-            $contactFormCount = ContactForm::count();
             $bookingFormCount = BookingForm::count();
+            $contactFormCount = ContactForm::count();
+            $vehicleCount = Vehicle::count();
 
-            $dashboard = array('customerCount' => $customerCount, 'contactFormCount' => $contactFormCount, 'bookingFormCount' => $bookingFormCount);
+            $dashboard = array('bookingFormCount' => $bookingFormCount, 'contactFormCount' => $contactFormCount, 'vehicleCount' => $vehicleCount);
 
             return view('home')->with($dashboard);
         }

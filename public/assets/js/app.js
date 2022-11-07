@@ -321,15 +321,21 @@ var app = (function() {
     $("#colorpicker").spectrum();
     $("#general").select2({ placeholder: "", dropdownAutoWidth: true, allowClear: true });
     $("#formStatusId").select2({ placeholder: "Form Durumunu Seçiniz", dropdownAutoWidth: true, allowClear: true });
-    $("#serviceCurrency").select2({ placeholder: "Para Birimi Seç", dropdownAutoWidth: true, allowClear: true });
-    $("#serviceId").select2({ placeholder: "Hizmet Seç", dropdownAutoWidth: true, allowClear: true });
-    $("#therapistId").select2({ placeholder: "Terapist Seç", dropdownAutoWidth: true, allowClear: true });
-    $("#customerId").select2({ placeholder: "Select Customer", dropdownAutoWidth: true, allowClear: true });
-    $("#discountId").select2({ placeholder: "İndirim Seç", dropdownAutoWidth: true, allowClear: true });
     $("#country").select2({ placeholder: "Ülke Seç", dropdownAutoWidth: true, allowClear: true });
     $("#sobId").select2({ placeholder: "Rezervasyon Kaynağı", dropdownAutoWidth: true, allowClear: true });
     $("#paymentType").select2({ placeholder: "Ödeme Türü Seç", dropdownAutoWidth: true, allowClear: true });
-    $("#hotelId").select2({ placeholder: "Otel Seç", dropdownAutoWidth: true, allowClear: true });
+    $("#brandId").select2({ placeholder: "Marka Seç", dropdownAutoWidth: true, allowClear: true });
+
+    var pageurl = window.location.href;
+        $(".nav-item_sub li a").each(function(){
+            if ($(this).attr("href") == pageurl || $(this).attr("href") == '')
+            $(this).addClass("active");
+        });
+
+        $(".nav-item_sub li a").each(function(){
+            if ($(this).attr("href") == pageurl || $(this).attr("href") == '')
+            $(this).parents(':eq(2)').addClass("active");
+        });
 
     $.ajax({
         url: '/getCurrencies',
