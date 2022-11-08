@@ -18,14 +18,14 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="sourceName">Kaynak Adı</label>
-                                <input type="text" class="form-control" id="sourceName" name="sourceName" placeholder="Kaynak Adı" value="{{ $source->name }}" required>
+                                <label for="name">Kaynak Adı</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Kaynak Adı" value="{{ $source->name }}" required>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="sourceColor">Kaynak Rengi</label>
-                                <input type="text" class="form-control" id="colorpicker" name="sourceColor" placeholder="Kaynak Rengi" value="{{ $source->color }}" required>
+                                <label for="color">Kaynak Rengi</label>
+                                <input type="text" class="form-control" id="colorpicker" name="color" placeholder="Kaynak Rengi" value="{{ $source->color }}" required>
                             </div>
                         </div>
                     </div>

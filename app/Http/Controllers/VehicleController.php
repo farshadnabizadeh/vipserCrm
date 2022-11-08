@@ -65,14 +65,10 @@ class VehicleController extends Controller
 
     public function edit($id)
     {
-        try {
-            $vehicle = Vehicle::where('id','=',$id)->first();
+        $vehicle = Vehicle::where('id','=',$id)->first();
+        $brands = Brand::all();
 
-            return view('admin.vehicles.edit_vehicle', ['vehicle' => $vehicle]);
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        return view('admin.vehicles.edit_vehicle', ['vehicle' => $vehicle, 'brands' => $brands]);
     }
 
     public function update(Request $request, $id)
@@ -80,9 +76,10 @@ class VehicleController extends Controller
         try {
             $user = auth()->user();
 
-            $temp['name'] = $request->input('name');
-            $temp['currency'] = $request->input('currency');
-            $temp['cost'] = $request->input('cost');
+            $temp['brand_id'] = $request->input('brandId');
+            $temp['model'] = $request->input('model');
+            $temp['seat'] = $request->input('seat');
+            $temp['suitcase'] = $request->input('suitcase');
 
             if (Vehicle::where('id', '=', $id)->update($temp)) {
                 return redirect()->route('vehicle.index')->with('message', 'Araç Başarıyla Güncellendi!');

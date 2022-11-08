@@ -281,8 +281,7 @@ var app = (function() {
             }
         },
 
-        error: function () {
-        },
+        error: function () { },
     });
 
     reservationStep();
@@ -296,16 +295,6 @@ var app = (function() {
     addPaymentTypeOperation();
     createPaymentTypeOperation();
     //payment type end
-
-    //service
-    createServiceOperation();
-    addServiceOperation();
-    //service end
-
-    //therapist
-    createTherapistOperation();
-    addTherapistOperation();
-    //therapist end
 
     //booking forms
     bookingFormStatusBtn();
@@ -324,7 +313,8 @@ var app = (function() {
     $("#country").select2({ placeholder: "Ülke Seç", dropdownAutoWidth: true, allowClear: true });
     $("#sobId").select2({ placeholder: "Rezervasyon Kaynağı", dropdownAutoWidth: true, allowClear: true });
     $("#paymentType").select2({ placeholder: "Ödeme Türü Seç", dropdownAutoWidth: true, allowClear: true });
-    $("#brandId").select2({ placeholder: "Marka Seç", dropdownAutoWidth: true, allowClear: true });
+    $("#vehicleId").select2({ placeholder: "Araç Seçiniz", dropdownAutoWidth: true, allowClear: true });
+    $("#brandId").select2({ placeholder: "Marka Seçiniz", dropdownAutoWidth: true, allowClear: true });
 
     var pageurl = window.location.href;
         $(".nav-item_sub li a").each(function(){
@@ -418,8 +408,6 @@ var app = (function() {
         });
     });
 
-    $("#tableTherapist").dataTable({ paging: true, pageLength: 25 });
-    $("#tableServices").dataTable({ paging: true, pageLength: 25 });
     $("#tableData").dataTable({ paging: true, pageLength: 25 });
     $("#tableGuides").dataTable({ paging: true, pageLength: 25 });
 
@@ -628,20 +616,14 @@ function previousPage() {
 }
 
 function deleteTableRow(id) {
-    try {
-        $('table#therapistTable tr#' + id).remove();
-        $('#therapistTable').trigger('rowAddOrRemove');
+    $('table#therapistTable tr#' + id).remove();
+    $('#therapistTable').trigger('rowAddOrRemove');
 
-        $('table#serviceTable tr#' + id).remove();
-        $('#serviceTable').trigger('rowAddOrRemove');
+    $('table#serviceTable tr#' + id).remove();
+    $('#serviceTable').trigger('rowAddOrRemove');
 
-        $('table#paymentTypeTable tr#' + id).remove();
-        $('#paymentTypeTable').trigger('rowAddOrRemove');
-    }
-    catch(error){
-        console.log(error);
-    }
-    finally { }
+    $('table#paymentTypeTable tr#' + id).remove();
+    $('#paymentTypeTable').trigger('rowAddOrRemove');
 }
 
 function bookingFormStatusBtn() {
@@ -784,13 +766,7 @@ function datePicker(){
 }
 
 function clockPicker(){
-    try {
-        $('#arrivalTime').clockpicker({ autoclose: true, donetext: 'Done', placement: 'left', align: 'top' });
-    }
-    catch(error){
-        console.log(error);
-    }
-    finally { }
+    $('#arrivalTime').clockpicker({ autoclose: true, donetext: 'Done', placement: 'left', align: 'top' });
 }
 
 function reservationStep() {
@@ -846,7 +822,6 @@ function reservationStep() {
                 alert('Wizard Completed');
             }
         });
-
     }
     catch (error) {
         console.log(error);
@@ -951,62 +926,6 @@ function createPaymentTypeOperation() {
                 $("#addPaymentType").find('#paymentPrice').val("");
                 $('#paymentTypeTable tbody').append(markup);
                 $('#paymentTypeTable').trigger('rowAddOrRemove');
-            }
-        });
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-function createServiceOperation() {
-    try {
-        $('#createService').on('click', function () {
-            var serviceId = $("#addService").find('#serviceId').children("option:selected").val();
-            var serviceName = $("#addService").find('#serviceId').children("option:selected").text();
-            var customerNumber = $("#addService").find('#customerNumber').val();
-
-            if (serviceId == "" || customerNumber == "") {
-                swal({ icon: 'error', title: 'Lütfen Boşlukları Doldurunuz!', text: '' });
-            }
-            else {
-                var rowId = serviceId;
-                var markup = "<tr class='service' id='" + rowId + "'>" +
-                    "<td id='" + rowId + "'>" + serviceName + "</td>" +
-                    "<td>" + customerNumber + "</td>" +
-                    "<td><button onclick='deleteTableRow(" + rowId + ")' class='btn btn-danger delete-btn'><i class='fa fa-window-close'></i> Kaldır</button></td>" +
-                    "</tr>";
-
-                $("#addService").find('#customerNumber').val("");
-                $('#serviceTable tbody').append(markup);
-                $('#serviceTable').trigger('rowAddOrRemove');
-            }
-        });
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-function createTherapistOperation(){
-    try {
-        $('#createTherapist').on('click', function () {
-            var therapistId = $("#addTherapist").find('#therapistId').children("option:selected").val();
-            var therapistName = $("#addTherapist").find('#therapistId').children("option:selected").text();
-            var is = $("#addTherapist").find('#is').val();
-
-            if (therapistId == "" || is == "") {
-                swal({ icon: 'error', title: 'Lütfen Boşlukları Doldurunuz!', text: '' });
-            }
-            else {
-                var rowId = therapistId;
-                var markup = "<tr class='therapist' id='" + rowId + "'>" +
-                    "<td id='" + rowId + "'>" + therapistName + "</td>" +
-                    "<td>" + is + "</td>" +
-                    "<td><button onclick='deleteTableRow(" + rowId + ")' class='btn btn-danger delete-btn'><i class='fa fa-window-close'></i> Kaldır</button></td>" +
-                    "</tr>";
-
-                $("#addTherapist").find('#is').val("");
-                $('#therapistTable tbody').append(markup);
-                $('#therapistTable').trigger('rowAddOrRemove');
             }
         });
     } catch (error) {
@@ -1187,66 +1106,6 @@ function addPaymentTypetoReservation(reservationID, paymentTypeId, paymentPrice)
     }
 }
 
-function addServicetoReservation(reservationID, serviceId, piece) {
-    try {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            url: '/definitions/reservations/addServicetoReservation',
-            type: 'POST',
-            data: {
-                'reservationId': reservationID,
-                'serviceId': serviceId,
-                'piece': piece
-            },
-            async: false,
-            dataType: 'json',
-            success: function (response) {
-                if (response) {
-                    swal({ icon: 'success', title: 'Başarılı!', text: 'Hizmet Başarıyla Eklendi!', timer: 1000 });
-                }
-            },
-
-            error: function () { },
-        });
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-function addTherapisttoReservation(reservationID, therapistId, piece) {
-    try {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            url: '/definitions/reservations/addTherapisttoReservation',
-            type: 'POST',
-            data: {
-                'reservationId': reservationID,
-                'therapistId': therapistId,
-                'piece': piece
-            },
-            async: false,
-            dataType: 'json',
-            success: function (response) {
-                if (response) {
-                    swal({ icon: 'success', title: 'Başarılı!', text: 'Terapist Başarıyla Eklendi!', timer: 1000 });
-                }
-            },
-
-            error: function () { },
-        });
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 function addComission(hotelId, guideId) {
     try {
         $.ajaxSetup({
@@ -1322,50 +1181,6 @@ function addPaymentTypeOperation() {
             else {
                 addPaymentTypetoReservation(reservationID, paymentTypeId, paymentPrice);
                 swal({ icon: 'success', title: 'Başarılı!', text: 'Ödeme Türü Başarıyla Eklendi!', timer: 1000 });
-                setTimeout(() => {
-                    location.reload();
-                }, 1500);
-            }
-        });
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-function addServiceOperation() {
-    try {
-        $('#addServicetoReservationSave').on('click', function () {
-            var reservationID = $("#addServiceModal").find('#reservation_id').val();
-            var serviceId = $("#addServiceModal").find('#serviceId').children("option:selected").val();
-            var piece = $("#addServiceModal").find('#piece').val();
-            if (serviceId == "" || piece == "") {
-                swal({ icon: 'error', title: 'Lütfen Boşlukları Doldurunuz!', text: '' });
-            }
-            else {
-                addServicetoReservation(reservationID, serviceId, piece);
-                swal({ icon: 'success', title: 'Başarılı!', text: 'Hizmet Başarıyla Eklendi!', timer: 1000 });
-                setTimeout(() => {
-                    location.reload();
-                }, 1500);
-            }
-        });
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-function addTherapistOperation() {
-    try {
-        $('#addTherapisttoReservationSave').on('click', function () {
-            var reservationID = $("#addTherapistModal").find('#reservation_id').val();
-            var therapistId = $("#addTherapistModal").find('#therapistId').children("option:selected").val();
-            var piece = $("#addTherapistModal").find('#piece').val();
-            if (serviceId == "" || piece == "") {
-                swal({ icon: 'error', title: 'Lütfen Boşlukları Doldurunuz!', text: '' });
-            }
-            else {
-                addTherapisttoReservation(reservationID, therapistId, piece);
-                swal({ icon: 'success', title: 'Başarılı!', text: 'Terapist Başarıyla Eklendi!', timer: 1000 });
                 setTimeout(() => {
                     location.reload();
                 }, 1500);

@@ -29,8 +29,11 @@
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">İşlem</th>
+                                <th scope="col">Plaka</th>
                                 <th scope="col">Marka</th>
                                 <th scope="col">Model</th>
+                                <th scope="col">Koltuk Sayısı (Max)</th>
+                                <th scope="col">Bavul Sayısı (Max)</th>
                             </tr>
                         </thead>
                         @foreach ($vehicles as $vehicle)
@@ -44,8 +47,11 @@
                                     </ul>
                                 </div>
                             </td>
+                            <td>{{ $vehicle->number_plate }}</td>
                             <td>{{ $vehicle->brand->name }}</td>
                             <td>{{ $vehicle->model }}</td>
+                            <td>{{ $vehicle->seat }}</td>
+                            <td>{{ $vehicle->suitcase }}</td>
                         </tr>
                         @endforeach
                     </table>

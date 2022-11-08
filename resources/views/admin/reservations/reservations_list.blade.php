@@ -39,7 +39,7 @@
                             <h2>Rezervasyonlar</h2>
                         </div>
                         <div class="col-lg-6">
-                            <a href="{{ url('/definitions/reservations/create') }}" class="btn btn-primary float-right"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Rezervasyon</a>
+                            <a href="{{ route('reservation.create') }}" class="btn btn-primary float-right"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Rezervasyon</a>
                         </div>
                     </div>
                 </div>

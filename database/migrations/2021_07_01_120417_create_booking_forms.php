@@ -15,8 +15,8 @@ class CreateBookingForms extends Migration
     {
         Schema::create('booking_forms', function (Blueprint $table) {
            $table->increments('id');
-            $table->date('reservation_date');
-            $table->string('reservation_time')->nullable();
+            $table->date('pickup_date');
+            $table->string('person_count')->nullable();
             $table->string('name_surname')->nullable();
             $table->string('phone')->nullable();
             $table->string('country')->nullable();

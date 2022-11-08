@@ -55,7 +55,7 @@ class UserController extends Controller
 
             if ($newData->save()) {
                 $newData->assignRole($request->input('roles'));
-                return redirect('definitions/users')->with('message', 'New Users Added Successfully!');
+                return redirect()->route('user.index')->with('message', 'Yeni Kullanıcı Başarıyla Eklendi!');
             }
             else {
                 return back()->withInput($request->input());

@@ -38,7 +38,7 @@ class ContactFormController extends Controller
                                 <button class="btn btn-primary dropdown-toggle action-btn" type="button" data-toggle="dropdown">İşlem <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                    <a href="'.url()->current().'/edit/'.$item->id.'" class="btn btn-success text-white edit-btn"><i class="fa fa-check"></i> Durum</a>
+                                    <a href="'.route('contactform.edit', ['id' => $item->id]).'" class="btn btn-success text-white edit-btn"><i class="fa fa-check"></i> Durum</a>
                                     </li>
                                 </ul>
                             </div>';
@@ -83,15 +83,10 @@ class ContactFormController extends Controller
 
     public function edit($id)
     {
-        try {
-            $contact_form = ContactForm::where('id','=',$id)->first();
-            $form_statuses = FormStatuses::all();
+        $contact_form = ContactForm::where('id','=',$id)->first();
+        $form_statuses = FormStatuses::all();
 
-            return view('admin.contactforms.edit_contactform', ['contact_form' => $contact_form, 'form_statuses' => $form_statuses]);
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        return view('admin.contactforms.edit_contactform', ['contact_form' => $contact_form, 'form_statuses' => $form_statuses]);
     }
 
     public function update(Request $request, $id)
@@ -103,7 +98,7 @@ class ContactFormController extends Controller
             $temp['email'] = $request->input('email');
 
             if (ContactForm::where('id', '=', $id)->update($temp)) {
-                return redirect('/definitions/contactforms')->with('message', 'İletişim Formu Başarıyla Güncellendi!');
+                return redirect()->route('contactform.index')->with('message', 'İletişim Formu Başarıyla Güncellendi!');
             }
             else {
                 return back()->withInput($request->input());
@@ -121,7 +116,7 @@ class ContactFormController extends Controller
             $temp['answered_time'] = Carbon::now()->toDateTimeString();
 
             if (ContactForm::where('id', '=', $id)->update($temp)) {
-                return redirect('/definitions/contactforms')->with('message', 'İletişim Formu Başarıyla Güncellendi!');
+                return redirect()->route('contactform.index')->with('message', 'İletişim Formu Başarıyla Güncellendi!');
             }
             else {
                 return back()->withInput($request->input());
@@ -133,12 +128,7 @@ class ContactFormController extends Controller
     }
 
     public function destroy($id){
-        try {
-            ContactForm::find($id)->delete();
-            return redirect('definitions/contactforms')->with('message', 'İletişim Formu Başarıyla Silindi!');
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        ContactForm::find($id)->delete();
+        return redirect()->route('contactform.index')->with('message', 'İletişim Formu Başarıyla Silindi!');
     }
 }

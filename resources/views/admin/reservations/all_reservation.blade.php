@@ -15,9 +15,7 @@
                             <h2>{{ $tableTitle }}</h2>
                         </div>
                         <div class="col-md-6">
-                            @can('create treatmentplan')
-                            <a href="{{ url('/definitions/treatmentplans/create') }}" class="btn btn-primary float-right"><i class="fa fa-plus" aria-hidden="true"></i> New Request</a>
-                            @endcan
+                            <a href="{{ route('reservation.create') }}" class="btn btn-primary float-right"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Rezervasyon</a>
                         </div>
                     </div>
                 </div>

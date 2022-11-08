@@ -36,13 +36,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New Customer</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Yeni Müşteri</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('/definitions/customers/store') }}" method="POST">
+                <form action="{{ route('customer.store') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-lg-6">

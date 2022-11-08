@@ -8,7 +8,7 @@ use App\Models\ReservationService;
 use App\Models\ReservationTherapist;
 use App\Models\ReservationComission;
 use App\Models\ReservationPaymentType;
-use App\Models\Service;
+use App\Models\Vehicle;
 use App\Models\PaymentType;
 use App\Models\Source;
 use App\Models\Therapist;
@@ -41,17 +41,20 @@ class ReservationController extends Controller
             $storages = array('start' => $start, 'end' => $end);
 
             if (request()->ajax()) {
-                $data = Reservation::with('customer', 'source')->orderBy('reservation_date', 'desc')->orderBy('reservation_time', 'asc')->whereBetween('reservations.reservation_date', [$start, $end]);
+                $data = Reservation::with('customer', 'source')
+                ->orderBy('reservation_date', 'desc')
+                ->orderBy('reservation_time', 'asc')
+                ->whereBetween('reservations.reservation_date', [$start, $end]);
                 return DataTables::of($data)
                     ->editColumn('action', function ($item) {
                         return '<div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle action-btn" type="button" data-toggle="dropdown">İşlem <span class="caret"></span></button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="/definitions/reservations/edit/'.$item->id.'" class="btn btn-info edit-btn"><i class="fa fa-pencil-square-o"></i> Güncelle</a>
+                                    <a href="'.route('reservation.edit', ['id' => $item->id]).'" class="btn btn-info edit-btn"><i class="fa fa-pencil-square-o"></i> Güncelle</a>
                                 </li>
                                 <li>
-                                    <a href="/definitions/reservations/destroy/'.$item->id.'" onclick="return confirm(Are you sure?);" class="btn btn-danger edit-btn"><i class="fa fa-trash"></i> Sil</a>
+                                    <a href="'.route('reservation.destroy', ['id' => $item->id]).'" onclick="return confirm(Are you sure?);" class="btn btn-danger edit-btn"><i class="fa fa-trash"></i> Sil</a>
                                 </li>
                                 <li>
                                     <a href="/definitions/reservations/download/'.$item->id.'?lang=en" class="btn btn-success edit-btn"><i class="fa fa-download"></i> İndir</a>
@@ -97,12 +100,12 @@ class ReservationController extends Controller
     public function create()
     {
         try {
-            $services = Service::orderBy('name', 'asc')->get();
             $sources = Source::orderBy('name', 'asc')->get();
-            $therapists = Therapist::orderBy('name', 'asc')->get();
+            $vehicles = Vehicle::all();
             $customers = Customer::orderBy('name_surname', 'asc')->get();
             $payment_types = PaymentType::orderBy('type_name', 'asc')->get();
-            $data = array('services' => $services, 'sources' => $sources, 'therapists' => $therapists, 'customers' => $customers, 'payment_types' => $payment_types);
+
+            $data = array('sources' => $sources, 'vehicles' => $vehicles, 'customers' => $customers, 'payment_types' => $payment_types);
             return view('admin.reservations.new_reservation')->with($data);
         }
         catch (\Throwable $th) {

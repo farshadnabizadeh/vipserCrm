@@ -57,6 +57,31 @@
                                     <form method="POST">
                                         @csrf
                                         <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="vehicleId">Araç</label>
+                                                    <select class="form-control" name="vehicleId" id="vehicleId">
+                                                        <option></option>
+                                                        @foreach($vehicles as $vehicle)
+                                                            <option>{{ $vehicle->brand->name .' '. $vehicle->model }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="pickup_location">Alınış Lokasyonu</label>
+                                                    <input type="text" class="form-control" placeholder="Alınış Lokasyonu" id="pickup_location" name="pickup_location" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="return_location">Bırakılış Lokasyonu</label>
+                                                    <input type="text" class="form-control" placeholder="Bırakılış Lokasyonu" id="return_location" name="return_location" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="arrivalDate">Rezervasyon Tarihi</label>
@@ -232,74 +257,6 @@
                         <th></th>
                     </tr>
                 </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="addService" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Bakım Ekle</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <label for="serviceId">Bakım</label>
-                        <select id="serviceId" class="form-control">
-                            <option></option>
-                            @foreach ($services as $service)
-                            <option value="{{ $service->id }}">{{ $service->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-lg-4">
-                        <label for="customerNumber">Kaç Kişi</label>
-                        <input type="number" class="form-control" id="customerNumber">
-                    </div>
-                </div>
-                <button type="button" class="btn btn-primary float-right mt-3" id="createService">Kaydet <i class="fa fa-check" aria-hidden="true"></i></button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="addTherapist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Terapist Ekle</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <label for="therapistId">Terapist</label>
-                        <select id="therapistId" name="therapistId" class="form-control">
-                            <option></option>
-                            @foreach ($therapists as $therapist)
-                            <option value="{{ $therapist->id }}">{{ $therapist->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-lg-4">
-                        <label for="is">Kaç İş</label>
-                        <input type="number" class="form-control" name="is" id="is">
-                    </div>
-                </div>
-                <button type="button" class="btn btn-primary float-right mt-3" id="createTherapist">Kaydet <i class="fa fa-check" aria-hidden="true"></i></button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>

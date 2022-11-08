@@ -13,19 +13,19 @@
                     <h3>Durumu Güncelle</h3>
                     <p class="float-right last-user">İşlem Yapan Son Kullanıcı: {{ $form_status->user->name }}</p>
                 </div>
-                <form action="{{ url('/definitions/formstatuses/update/'.$form_status->id) }}" method="POST">
+                <form action="{{ route('formstatus.update', ['id' => $form_status->id]) }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="statusName">Durum Adı</label>
-                                <input type="text" class="form-control" id="statusName" name="statusName" placeholder="Durum Adı" value="{{ $form_status->name }}" required>
+                                <label for="name">Durum Adı</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Durum Adı" value="{{ $form_status->name }}" required>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="statusColor">Durum Rengi</label>
-                                <input type="text" class="form-control" id="colorpicker" name="statusColor" placeholder="Durum Rengi" value="{{ $form_status->color }}">
+                                <input type="text" class="form-control" id="colorpicker" name="color" placeholder="Durum Rengi" value="{{ $form_status->color }}">
                             </div>
                         </div>
                     </div>

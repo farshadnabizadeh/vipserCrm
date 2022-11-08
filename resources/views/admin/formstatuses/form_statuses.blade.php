@@ -65,23 +65,23 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('/definitions/formstatuses/store') }}" method="POST">
+                <form action="{{ route('formstatus.store') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="statusName">Durum Adı</label>
-                                <input type="text" class="form-control" id="statusName" name="statusName" placeholder="Durum Adı" required>
+                                <label for="name">Durum Adı</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Durum Adı" required>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="sourceColor">Durum Rengi</label>
-                                <input type="text" class="form-control" id="colorpicker" value='#276cb8' name="statusColor" placeholder="Durum Rengi">
+                                <label for="color">Durum Rengi</label>
+                                <input type="text" class="form-control" id="colorpicker" value='#276cb8' name="color" placeholder="Durum Rengi">
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success float-right" id="saveCustomerBtn">Kaydet <i class="fa fa-check" aria-hidden="true"></i></button>
+                    <button type="submit" class="btn btn-success float-right">Kaydet <i class="fa fa-check" aria-hidden="true"></i></button>
                 </form>
             </div>
             <div class="modal-footer">

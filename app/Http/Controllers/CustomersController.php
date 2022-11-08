@@ -141,12 +141,7 @@ class CustomersController extends Controller
     }
 
     public function destroy($id){
-        try {
-            Customer::where('id', '=', $id)->delete();
-            return redirect()->route('customer.index')->with('message', 'Müşteri Başarıyla Silindi!');
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        Customer::where('id', '=', $id)->delete();
+        return redirect()->route('customer.index')->with('message', 'Müşteri Başarıyla Silindi!');
     }
 }

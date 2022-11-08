@@ -38,7 +38,7 @@ class DiscountController extends Controller
             $result = $newData->save();
 
             if ($result){
-                return redirect('/definitions/discounts')->with('message', 'İndiirm Başarıyla Kaydedildi!');
+                return redirect()->route('discount.index')->with('message', 'İndiirm Başarıyla Kaydedildi!');
             }
             else {
                 return response(false, 500);

@@ -65,7 +65,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('/definitions/sources/store') }}" method="POST">
+                <form action="{{ route('source.store') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-lg-6">

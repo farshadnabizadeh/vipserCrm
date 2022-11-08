@@ -20,9 +20,7 @@
                      <h2>Ödeme Türleri</h2>
                   </div>
                   <div class="col-lg-6">
-                     @can('create payment type')
                      <button data-toggle="modal" data-target="#createPaymentTypeModal" class="btn btn-primary float-right"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Ödeme Türü</button>
-                     @endcan
                   </div>
                </div>
             </div>
@@ -41,12 +39,8 @@
                         <div class="dropdown">
                            <button class="btn btn-danger dropdown-toggle action-btn" type="button" data-toggle="dropdown">İşlem <span class="caret"></span></button>
                            <ul class="dropdown-menu">
-                              @can('edit payment type')
                               <li><a href="{{ url('/definitions/payment_types/edit/'.$payment_type->id) }}" class="btn btn-info edit-btn inline-popups"><i class="fa fa-pencil-square-o"></i> Güncelle</a></li>
-                              @endcan
-                              {{-- @can('delete payment type')
                               <li><a href="{{ url('/definitions/payment_types/destroy/'.$payment_type->id) }}" onclick="return confirm('Are you sure?');" class="btn btn-danger edit-btn"><i class="fa fa-trash"></i> Sil</a></li>
-                              @endcan --}}
                            </ul>
                         </div>
                      </td>
@@ -65,13 +59,13 @@
    <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">New Payment Type</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Ödeme Türü Ekle</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
          </div>
          <div class="modal-body">
-            <form action="{{ url('/definitions/payment_types/store') }}" method="POST">
+            <form action="{{ route('paymenttype.store') }}" method="POST">
                @csrf
                <div class="row">
                   <div class="col-lg-6">

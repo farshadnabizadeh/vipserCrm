@@ -15,6 +15,7 @@ class CreateVehicles extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('number_plate')->nullable();
             $table->integer('brand_id')->unsigned();
             $table->foreign('brand_id')->references('id')->on('brands')
                 ->onDelete('cascade');

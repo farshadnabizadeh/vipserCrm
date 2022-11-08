@@ -26,12 +26,12 @@ Route::group(['middleware' => ['auth']], function(){
     Route::GET('getCurrencies', 'CurrencyController@getCurrencies');
 
     //Users Operations
-    Route::GET('definitions/users', 'UserController@index')->middleware(['middleware' => 'permission:show users'])->name('user.index');
-    Route::GET('definitions/users/create', 'UserController@create')->middleware(['middleware' => 'permission:create users']);
-    Route::POST('definitions/users/store', 'UserController@store')->middleware(['middleware' => 'permission:create users'])->name('user.store');
-    Route::GET('definitions/users/edit/{id}', 'UserController@edit')->middleware(['middleware' => 'permission:edit users'])->name('user.edit');
-    Route::POST('definitions/users/update/{id}', 'UserController@update')->middleware(['middleware' => 'permission:edit users'])->name('user.update');
-    Route::GET('definitions/users/delete/{id}', 'UserController@destroy')->middleware(['middleware' => 'permission:delete users'])->name('user.destroy');
+    Route::GET('users', 'UserController@index')->name('user.index');
+    Route::GET('users/create', 'UserController@create')->name('user.create');
+    Route::POST('users/store', 'UserController@store')->name('user.store');
+    Route::GET('users/edit/{id}', 'UserController@edit')->name('user.edit');
+    Route::POST('users/update/{id}', 'UserController@update')->name('user.update');
+    Route::GET('users/delete/{id}', 'UserController@destroy')->name('user.destroy');
 
     //Roles and Permissions
     Route::GET('roles', 'RolePermissionController@index')->middleware(['middleware' => 'permission:show roles'])->name('role.index');
@@ -97,23 +97,22 @@ Route::group(['middleware' => ['auth']], function(){
     //Payment Types end
 
     //Reservations
-    Route::GET('definitions/reservations', 'ReservationController@index');
-    Route::GET('definitions/reservations/calendar', 'ReservationController@reservationCalendar');
-    Route::GET('definitions/reservations/create', 'ReservationController@create');
-    Route::POST('definitions/reservations/store', 'ReservationController@store');
-    Route::GET('definitions/reservations/edit/{id}', 'ReservationController@edit');
-    Route::GET('definitions/reservations/download/{id}', 'ReservationController@download');
-    Route::POST('definitions/reservations/update/{id}', 'ReservationController@update');
-    Route::POST('definitions/reservations/addCustomertoReservation', 'ReservationController@addCustomertoReservation')->middleware(['middleware' => 'permission:create reservation']);
+    Route::GET('reservations', 'ReservationController@index')->name('reservation.index');
+    Route::GET('reservations/calendar', 'ReservationController@reservationCalendar')->name('reservation.calendar');
+    Route::GET('reservations/create', 'ReservationController@create')->name('reservation.create');
+    Route::POST('reservations/store', 'ReservationController@store')->name('reservation.store');
+    Route::GET('reservations/edit/{id}', 'ReservationController@edit')->name('reservation.edit');
+    Route::GET('reservations/download/{id}', 'ReservationController@download')->name('reservation.download');
+    Route::POST('reservations/update/{id}', 'ReservationController@update')->name('reservation.update');
 
     //payment type
-    Route::POST('definitions/reservations/addPaymentTypetoReservation', 'ReservationController@addPaymentTypetoReservation')->middleware(['middleware' => 'permission:create reservation']);
-    Route::GET('definitions/reservations/paymenttype/edit/{id}', 'ReservationController@editPaymentType')->middleware(['middleware' => 'permission:edit reservation']);
-    Route::POST('definitions/reservations/paymenttype/update/{id}', 'ReservationController@updatePaymentType')->middleware(['middleware' => 'permission:edit reservation']);
-    Route::GET('definitions/reservations/paymenttype/destroy/{id}', 'ReservationController@destroyPaymentType')->middleware(['middleware' => 'permission:delete reservation']);
+    Route::POST('reservations/addPaymentTypetoReservation', 'ReservationController@addPaymentTypetoReservation');
+    Route::GET('reservations/paymenttype/edit/{id}', 'ReservationController@editPaymentType');
+    Route::POST('reservations/paymenttype/update/{id}', 'ReservationController@updatePaymentType');
+    Route::GET('reservations/paymenttype/destroy/{id}', 'ReservationController@destroyPaymentType');
 
-    Route::GET('reservationbydate', 'ReservationController@allReservationByDate')->middleware(['middleware' => 'permission:show reservation']);
-    Route::GET('definitions/reservations/destroy/{id}', 'ReservationController@destroy')->middleware(['middleware' => 'permission:delete reservation']);
+    Route::GET('reservationbydate', 'ReservationController@allReservationByDate');
+    Route::GET('reservations/destroy/{id}', 'ReservationController@destroy');
     //Reservations end
 
     //Sources
@@ -143,7 +142,7 @@ Route::group(['middleware' => ['auth']], function(){
     //Services end
 
     //Discounts
-    Route::GET('definitions/discounts', 'DiscountController@index');
+    Route::GET('definitions/discounts', 'DiscountController@index')->name('discount.index');
     Route::POST('definitions/discounts/store', 'DiscountController@store');
     Route::GET('definitions/discounts/edit/{id}', 'DiscountController@edit');
     Route::POST('definitions/discounts/update/{id}', 'DiscountController@update');

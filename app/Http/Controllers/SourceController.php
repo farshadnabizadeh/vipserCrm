@@ -37,7 +37,7 @@ class SourceController extends Controller
             $result = $newData->save();
 
             if ($result) {
-                return redirect('/definitions/sources')->with('message', 'Rezervasyon Kaynağı Başarıyla Eklendi!');
+                return redirect()->route('source.index')->with('message', 'Rezervasyon Kaynağı Başarıyla Eklendi!');
             }
             else {
                 return response(false, 500);
@@ -50,13 +50,8 @@ class SourceController extends Controller
 
     public function edit($id)
     {
-        try {
-            $source = Source::where('id','=',$id)->first();
-            return view('admin.sources.edit_source', ['source' => $source]);
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        $source = Source::where('id','=',$id)->first();
+        return view('admin.sources.edit_source', ['source' => $source]);
     }
 
     public function update(Request $request, $id)
@@ -66,7 +61,7 @@ class SourceController extends Controller
             $temp['color'] = $request->input('sourceColor');
 
             if (Source::where('id', '=', $id)->update($temp)) {
-                return redirect('/definitions/sources')->with('message', 'Rezervasyon Kaynağı Başarıyla Güncellendi!');
+                return redirect()->route('source.index')->with('message', 'Rezervasyon Kaynağı Başarıyla Güncellendi!');
             }
             else {
                 return back()->withInput($request->input());
@@ -78,12 +73,7 @@ class SourceController extends Controller
     }
 
     public function destroy($id){
-        try {
-            Source::where('id', '=', $id)->delete();
-            return redirect('definitions/sources')->with('message', 'Rezervasyon Kaynağı Başarıyla Silindi!');
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        Source::where('id', '=', $id)->delete();
+        return redirect()->route('source.index')->with('message', 'Rezervasyon Kaynağı Başarıyla Silindi!');
     }
 }
