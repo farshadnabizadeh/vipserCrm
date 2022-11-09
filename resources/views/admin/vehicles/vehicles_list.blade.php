@@ -76,6 +76,12 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
+                                <label for="plate">Plaka</label>
+                                <input type="text" class="form-control" id="plate" name="plate" placeholder="Plaka" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
                                 <label for="brandId">Marka</label>
                                 <select name="brandId" id="brandId" class="form-control">
                                     <option></option>
@@ -85,10 +91,26 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="model">Model</label>
                                 <input type="text" class="form-control" id="model" name="model" placeholder="Model" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="seat">Koltuk Sayısı (Max)</label>
+                                <input type="text" class="form-control" id="seat" name="seat" placeholder="Koltuk Sayısı Max" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="suitcase">Bavul Sayısı (Max)</label>
+                                <input type="text" class="form-control" id="suitcase" name="suitcase" placeholder="Bavul Sayısı Max" required>
                             </div>
                         </div>
                     </div>

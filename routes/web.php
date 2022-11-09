@@ -112,7 +112,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::GET('reservations/paymenttype/destroy/{id}', 'ReservationController@destroyPaymentType');
 
     Route::GET('reservationbydate', 'ReservationController@allReservationByDate');
-    Route::GET('reservations/destroy/{id}', 'ReservationController@destroy');
+    Route::GET('reservations/destroy/{id}', 'ReservationController@destroy')->name('reservation.destroy');
     //Reservations end
 
     //Sources
@@ -131,16 +131,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::GET('definitions/formstatuses/destroy/{id}', 'FormStatusesController@destroy')->name('formstatus.destroy');
     //Form Statuses end
 
-    //Services
-    Route::GET('definitions/services', 'ServiceController@index')->middleware(['middleware' => 'permission:show services']);
-    Route::POST('definitions/services/store', 'ServiceController@store')->middleware(['middleware' => 'permission:create services']);
-    Route::GET('definitions/services/edit/{id}', 'ServiceController@edit')->middleware(['middleware' => 'permission:edit services']);
-    Route::POST('definitions/services/update/{id}', 'ServiceController@update')->middleware(['middleware' => 'permission:edit services']);
-    Route::GET('definitions/services/destroy/{id}', 'ServiceController@destroy')->middleware(['middleware' => 'permission:delete services']);
-    //api
-    Route::GET('getService/{id}', 'ServiceController@getService')->middleware(['middleware' => 'permission:show services']);
-    //Services end
-
     //Discounts
     Route::GET('definitions/discounts', 'DiscountController@index')->name('discount.index');
     Route::POST('definitions/discounts/store', 'DiscountController@store');
@@ -155,7 +145,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::GET('reports/reservations', 'ReportController@reservationReport');
     Route::GET('reports/payments', 'ReportController@paymentReport');
     Route::GET('reports/comissions', 'ReportController@comissionReport');
-    Route::GET('reports/serviceReport', 'ReportController@serviceReport');
+    Route::GET('reports/vehicleReport', 'ReportController@vehicleReport');
     Route::GET('reports/therapistReport', 'ReportController@therapistReport');
     Route::GET('reports/sourceReport', 'ReportController@sourceReport');
     //Report end

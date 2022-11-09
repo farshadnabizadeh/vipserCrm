@@ -9,7 +9,7 @@ use App\Models\ReservationComission;
 use App\Models\ReservationTherapist;
 use App\Models\ReservationService;
 use App\Models\Therapist;
-use App\Models\Service;
+use App\Models\Vehicle;
 use App\Models\Source;
 use App\Models\Guide;
 use App\Models\Hotel;
@@ -107,11 +107,11 @@ class ReportController extends Controller
         }
     }
 
-    public function serviceReport(Request $request)
+    public function vehicleReport(Request $request)
     {
         try {
 
-            $data = Service::select("services.name", \DB::raw("(SELECT count(*) FROM reservations_services a WHERE a.service_id = services.id) as aCount"))->get();
+            $data = Vehicle::select("vehicles.*", \DB::raw("(SELECT count(*) FROM reservations a WHERE a.vehicle_id = vehicles.id) as aCount"))->get();
 
             return json_encode($data);
         }

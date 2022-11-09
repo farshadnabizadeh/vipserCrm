@@ -63,35 +63,35 @@
                                                     <select class="form-control" name="vehicleId" id="vehicleId">
                                                         <option></option>
                                                         @foreach($vehicles as $vehicle)
-                                                            <option>{{ $vehicle->brand->name .' '. $vehicle->model }}</option>
+                                                            <option value="{{ $vehicle->id }}">{{ $vehicle->brand->name .' '. $vehicle->model }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label for="pickup_location">Alınış Lokasyonu</label>
-                                                    <input type="text" class="form-control" placeholder="Alınış Lokasyonu" id="pickup_location" name="pickup_location" required>
+                                                    <label for="pickupLocation">Alınış Lokasyonu</label>
+                                                    <input type="text" class="form-control" placeholder="Alınış Lokasyonu" id="pickupLocation" name="pickupLocation" required>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label for="return_location">Bırakılış Lokasyonu</label>
-                                                    <input type="text" class="form-control" placeholder="Bırakılış Lokasyonu" id="return_location" name="return_location" required>
+                                                    <label for="returnLocation">Bırakılış Lokasyonu</label>
+                                                    <input type="text" class="form-control" placeholder="Bırakılış Lokasyonu" id="returnLocation" name="returnLocation" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="arrivalDate">Rezervasyon Tarihi</label>
-                                                    <input type="text" class="form-control datepicker" id="arrivalDate" name="arrivalDate" placeholder="Rezervasyon Tarihi" autocomplete="off" required>
+                                                    <label for="reservationDate">Rezervasyon Tarihi</label>
+                                                    <input type="text" class="form-control datepicker" id="reservationDate" name="reservationDate" placeholder="Rezervasyon Tarihi" autocomplete="off" required>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="arrivalTime">Rezervasyon Saati</label>
-                                                    <input type="text" class="form-control" id="arrivalTime" name="arrivalTime" placeholder="Rezervasyon Saati" maxlength="5" onkeypress="timeFormat(this)" autocomplete="off" required>
+                                                    <label for="reservationTime">Rezervasyon Saati</label>
+                                                    <input type="text" class="form-control" id="reservationTime" name="reservationTime" placeholder="Rezervasyon Saati" maxlength="5" onkeypress="timeFormat(this)" autocomplete="off" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -113,44 +113,10 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4 hide-section">
-                                                <div class="form-group">
-                                                    <label class="changeName"></label>
-                                                    <select id="general" class="form-control">
-                                                        <option></option>
-                                                    </select>
-                                                </div>
-                                            </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="note">Rezervasyon Notu</label>
                                                     <textarea class="form-control" id="note" placeholder="Rezervasyon Notu"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addService">Bakım Ekle</button>
-                                                    <table class="table table-bordered mt-3" id="serviceTable">
-                                                        <tr>
-                                                            <th>Bakım</th>
-                                                            <th>Adeti</th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTherapist">Terapist Ekle</button>
-                                                    <table class="table table-bordered mt-3" id="therapistTable">
-                                                        <tr>
-                                                            <th>Terapist</th>
-                                                            <th>İş</th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
@@ -177,41 +143,40 @@
                                     <div class="table-responsive resultTable mt-4">
                                         <div class="row">
                                             <div class="col-lg-3">
+                                                <p>Araç: <span class="vehicle-name"></span></p>
+                                            </div>
+                                            <div class="col-lg-3"></div>
+                                            <div class="col-lg-3">
+                                                <p>Alınış Lokasyonu: <span class="pickup_location"></span></p>
+                                            </div>
+                                            <div class="col-lg-3"></div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <p>Bırakılış Lokasyonu: <span class="dropoff_location"></span></p>
+                                            </div>
+                                            <div class="col-lg-3"></div>
+                                            <div class="col-lg-3">
                                                 <p>Rezervasyon Tarihi: <span class="reservation-date"></span></p>
                                             </div>
                                             <div class="col-lg-3"></div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
                                             <div class="col-lg-3">
                                                 <p>Rezervasyon Saati: <span class="reservation-time"></span></p>
                                             </div>
                                             <div class="col-lg-3"></div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
                                             <div class="col-lg-3">
                                                 <p>Toplam Müşteri: <span class="total-customer"></span></p>
                                             </div>
-                                            <div class="col-lg-3">
-                                                <p ></p>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <p>Terapist: <span class="therapist-name"></span></p>
-                                            </div>
+                                            <div class="col-lg-3"></div>
                                         </div>
                                         <hr>
                                         <div class="row">
-                                            <div class="col-lg-3">
-                                                <p>Hizmet: <span class="service-name"></span></p>
-                                            </div>
-                                            <div class="col-lg-3"></div>
                                             <div class="col-lg-3">
                                                 <p>Rezervasyon Kaynağı: <span class="sob-name"></span></p>
-                                            </div>
-                                            <div class="col-lg-3"></div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <p>Ödeme Türü: <span class="payment-type"></span></p>
                                             </div>
                                             <div class="col-lg-3"></div>
                                         </div>

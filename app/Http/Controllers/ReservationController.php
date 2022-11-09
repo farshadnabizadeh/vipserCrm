@@ -11,7 +11,6 @@ use App\Models\ReservationPaymentType;
 use App\Models\Vehicle;
 use App\Models\PaymentType;
 use App\Models\Source;
-use App\Models\Therapist;
 use App\Models\Discount;
 use App\Models\Customer;
 use App\Models\Hotel;
@@ -83,6 +82,8 @@ class ReservationController extends Controller
                     ['data' => 'source.name', 'name' => 'source.name', 'title' => 'Kaynak'],
                     ['data' => 'reservation_date', 'name' => 'reservation_date', 'title' => 'Rezervasyon Tarihi'],
                     ['data' => 'reservation_time', 'name' => 'reservation_time', 'title' => 'Rezervasyon Saati'],
+                    ['data' => 'pickup_location', 'name' => 'pickup_location', 'title' => 'Alınış Yeri'],
+                    ['data' => 'return_location', 'name' => 'return_location', 'title' => 'Bırakılış Yeri'],
                     ['data' => 'customer.name_surname', 'name' => 'customer.name_surname', 'title' => 'Müşteri Adı'],
                     ['data' => 'total_customer', 'name' => 'total_customer', 'title' => 'Kişi Sayısı'],
                 ];
@@ -117,22 +118,18 @@ class ReservationController extends Controller
     {
         try {
             $newData = new Reservation();
-            $newData->reservation_date = $request->input('arrivalDate');
-            $newData->reservation_time = $request->input('arrivalTime');
+            $newData->vehicle_id = $request->input('vehicleId');
+            $newData->reservation_date = $request->input('reservationDate');
+            $newData->reservation_time = $request->input('reservationTime');
+            $newData->pickup_location = $request->input('pickupLocation');
+            $newData->return_location = $request->input('returnLocation');
             $newData->total_customer = $request->input('totalCustomer');
             $newData->customer_id = $request->input('customerId');
-            $newData->discount_id = $request->input('discountId');
             $newData->source_id = $request->input('sourceId');
             $newData->reservation_note = $request->input('reservationNote');
 
             $newData->user_id = auth()->user()->id;
             $result = $newData->save();
-
-            $body = [
-                'newID' => $newData->id
-            ];
-
-            Mail::to(['enesdemir12@outlook.com.tr'])->send(new NotificationMail($body));
 
             if ($result) {
                 return response($newData->id, 200);
@@ -154,52 +151,6 @@ class ReservationController extends Controller
             $newData = new ReservationCustomer();
             $newData->reservation_id = $request->input('reservationId');
             $newData->customer_id = $request->input('customer_id');
-            $newData->user_id = $user->id;
-
-            if ($newData->save()) {
-                return response(true, 200);
-            }
-            else {
-                return response(false, 500);
-            }
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-
-    public function addServicetoReservation(Request $request)
-    {
-        try {
-            $user = auth()->user();
-
-            $newData = new ReservationService();
-            $newData->reservation_id = $request->input('reservationId');
-            $newData->service_id = $request->input('serviceId');
-            $newData->piece = $request->input('piece');
-            $newData->user_id = $user->id;
-
-            if ($newData->save()) {
-                return response(true, 200);
-            }
-            else {
-                return response(false, 500);
-            }
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-
-    public function addTherapisttoReservation(Request $request)
-    {
-        try {
-            $user = auth()->user();
-
-            $newData = new ReservationTherapist();
-            $newData->reservation_id = $request->input('reservationId');
-            $newData->therapist_id = $request->input('therapistId');
-            $newData->piece = $request->input('piece');
             $newData->user_id = $user->id;
 
             if ($newData->save()) {
@@ -276,12 +227,14 @@ class ReservationController extends Controller
         try {
             $user = auth()->user();
 
-            $calendarCount = Reservation::select('reservations.reservation_date as date', 'reservations.reservation_time as time', 'sources.id as sId', 'sources.color', 'sources.name', DB::raw('count(name) as countR'))
+            $calendarCount = Reservation::select('reservations.reservation_date as date', 'reservations.reservation_time as time', 'sources.id as sId', 'vehicles.id as vId', 'vehicles.*', 'sources.color', 'sources.name', DB::raw('count(name) as countR'))
             ->leftJoin('sources', 'reservations.source_id', '=', 'sources.id')
+            ->leftJoin('vehicles', 'reservations.vehicle_id', '=', 'vehicles.id')
             ->whereNull('reservations.deleted_at')
             ->whereNotNull('reservations.source_id')
+            ->whereNotNull('reservations.vehicle_id')
             // ->whereMonth('treatment_plans.created_date', Carbon::now()->month)
-            ->groupBy(['date', 'time', 'sId']);
+            ->groupBy(['date', 'time', 'sId', 'vId']);
 
             $listCountByMonth = DB::select($calendarCount->groupBy(DB::raw('sId'))->toSql(),
             $calendarCount->getBindings());
@@ -298,29 +251,13 @@ class ReservationController extends Controller
     {
         try {
             $reservation = Reservation::where('id','=', $id)->first();
-            $services = Service::orderBy('name', 'asc')->get();
-            $therapists = Therapist::orderBy('name', 'asc')->get();
             $payment_types = PaymentType::all();
-            $hotels = Hotel::all();
             $sources = Source::all();
 
             $reservation_payment_type = ReservationPaymentType::where('reservations_payments_types.reservation_id', '=', $id);
 
             $hasPaymentType = false;
             $hasPaymentType = $reservation_payment_type->get()->count() > 0 ? true : false;
-
-            $reservation_comission = ReservationComission::where('reservations_comissions.reservation_id', '=', $id);
-
-            $hasComission = false;
-            $hasComission = $reservation_comission->get()->count() > 0 ? true : false;
-
-            $reservation_service = ReservationService::where('reservations_services.reservation_id', '=', $id);
-            $hasService = false;
-            $hasService = $reservation_service->get()->count() > 0 ? true : false;
-
-            $reservation_therapist = ReservationTherapist::where('reservations_therapists.reservation_id', '=', $id);
-            $hasTherapist = false;
-            $hasTherapist = $reservation_therapist->get()->count() > 0 ? true : false;
 
             $totalPrice = [];
 
@@ -329,7 +266,7 @@ class ReservationController extends Controller
             }
             $totalPayment = array_sum($totalPrice);
 
-            $data = array('reservation' => $reservation, 'services' => $services, 'sources' => $sources, 'therapists' => $therapists, 'payment_types' => $payment_types, 'hasPaymentType' => $hasPaymentType, 'hasComission' => $hasComission, 'hasService' => $hasService, 'hasTherapist' => $hasTherapist, 'totalPayment' => $totalPayment, 'hotels' => $hotels);
+            $data = array('reservation' => $reservation, 'sources' => $sources, 'payment_types' => $payment_types, 'hasPaymentType' => $hasPaymentType, 'totalPayment' => $totalPayment);
 
             $page = $request->input('page');
 
@@ -380,12 +317,14 @@ class ReservationController extends Controller
 
             $temp['reservation_date'] = $request->input('reservationDate');
             $temp['reservation_time'] = $request->input('reservationTime');
+            $temp['pickup_location'] = $request->input('pickupLocation');
+            $temp['return_location'] = $request->input('returnLocation');
             $temp['total_customer'] = $request->input('totalCustomer');
             $temp['source_id'] = $request->input('sourceId');
             $temp['reservation_note'] = $request->input('note');
 
             if (Reservation::where('id', '=', $id)->update($temp)) {
-                return redirect('/definitions/reservations/calendar')->with('message', 'Rezervasyon Başarıyla Güncellendi!');
+                return redirect()->route('reservation.calendar')->with('message', 'Rezervasyon Başarıyla Güncellendi!');
             }
             else {
                 return back()->withInput($request->input());
@@ -406,46 +345,6 @@ class ReservationController extends Controller
 
             if (ReservationPaymentType::where('id', '=', $id)->update($temp)) {
                 return back()->with('message', 'Ödeme Türü Başarıyla Güncellendi!');
-            }
-            else {
-                return back()->withInput($request->input());
-            }
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-
-    public function updateService(Request $request, $id)
-    {
-        try {
-            $user = auth()->user();
-
-            $temp['service_id'] = $request->input('serviceId');
-            $temp['piece'] = $request->input('piece');
-
-            if (ReservationService::where('id', '=', $id)->update($temp)) {
-                return back()->with('message', 'Hizmet Başarıyla Güncellendi!');
-            }
-            else {
-                return back()->withInput($request->input());
-            }
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-
-    public function updateTherapist(Request $request, $id)
-    {
-        try {
-            $user = auth()->user();
-
-            $temp['therapist_id'] = $request->input('therapistId');
-            $temp['piece'] = $request->input('piece');
-
-            if (ReservationTherapist::where('id', '=', $id)->update($temp)) {
-                return back()->with('message', 'Terapist Başarıyla Güncellendi!');
             }
             else {
                 return back()->withInput($request->input());
@@ -508,12 +407,7 @@ class ReservationController extends Controller
     }
 
     public function destroy($id){
-        try {
-            Reservation::find($id)->delete();
-            return back()->with('message', 'Rezervasyon Başarıyla Silindi!');
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        Reservation::find($id)->delete();
+        return back()->with('message', 'Rezervasyon Başarıyla Silindi!');
     }
 }

@@ -38,10 +38,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <h5 class="card-title text-dashboard-card">İletişim Formları</h5>
+                            <h5 class="card-title text-dashboard-card">Rezervasyonlar</h5>
                             <hr>
                             <a href="{{ route('contactform.index') }}">
-                                <span class="h2 mb-0 count-card">{{ $contactFormCount }}</span>
+                                <span class="h2 mb-0 count-card">{{ $reservationCount }}</span>
                             </a>
                         </div>
                         <div class="col-auto">
@@ -97,28 +97,12 @@
                 <div class="card-header border-0" style="padding: 0; padding-top: 10px">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="mb-0">Terapist Özetleri</h3>
+                            <h3 class="mb-0">Araç Özetleri</h3>
                         </div>
                     </div>
                 </div>
                 <div class="card-body" style="padding: 0">
-                    <canvas id="therapist-chart" width="800" height="450"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header border-0" style="padding: 0; padding-top: 10px">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h3 class="mb-0">Hizmet Özetleri</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body" style="padding: 0">
-                    <canvas id="services-chart" width="800" height="450"></canvas>
+                    <canvas id="vehicles-chart" width="800" height="450"></canvas>
                 </div>
             </div>
         </div>

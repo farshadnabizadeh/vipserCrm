@@ -78,7 +78,7 @@ class PaymentTypeController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $temp['type_name'] = $request->input('paymentTypeName');
+            $temp['type_name'] = $request->input('typeName');
             $temp['note'] = $request->input('note');
 
             if (PaymentType::where('id', '=', $id)->update($temp)) {

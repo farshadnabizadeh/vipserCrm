@@ -94,7 +94,7 @@
                     events: [
                         @foreach($listCountByMonth as $reservation)
                         {
-                            title: '{{ $reservation->countR }} {{ $reservation->name }}',
+                            title: '{{ $reservation->countR }} {{ $reservation->name }} / {{ $reservation->model }} - {{ $reservation->number_plate }}',
                             start: '{{ $reservation->date }}T{{ $reservation->time }}',
                             description: '{{ $reservation->countR }} {{ $reservation->name }}',
                             end: '{{ $reservation->date }}',

@@ -47,22 +47,22 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="customerName">Müşteri Adı Soyadı</label>
-                                <input type="text" class="form-control" id="customerName" name="customerNameSurname" placeholder="Müşteri Adı Soyadı" required>
+                                <label for="nameSurname">Müşteri Adı Soyadı</label>
+                                <input type="text" class="form-control" id="nameSurname" name="nameSurname" placeholder="Müşteri Adı Soyadı" required>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="phone_get">Müşteri Telefon Numarası</label>
-                                <input type="text" class="form-control" id="phone_get" name="customerPhone" placeholder="Müşteri Telefon Numarası">
+                                <label for="phone">Müşteri Telefon Numarası</label>
+                                <input type="text" class="form-control" id="phone" name="phone" placeholder="Müşteri Telefon Numarası">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="customerCountry">Ülkesi</label>
-                                <select class="form-control" name="customerCountry" id="country">
+                                <label for="country">Ülkesi</label>
+                                <select class="form-control" name="country" id="country">
                                     <option></option>
                                     <option value="United Kingdom">United Kingdom</option>
                                     <option value="Germany">Germany</option>
@@ -315,8 +315,8 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="customerEmail">Email Adresi</label>
-                                <input type="email" class="form-control" id="customerEmail" name="customerEmail" placeholder="Email Adresi">
+                                <label for="email">Email Adresi</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email Adresi">
                             </div>
                         </div>
                     </div>

@@ -30,8 +30,8 @@ class SourceController extends Controller
     {
         try {
             $newData = new Source();
-            $newData->name = $request->input('sourceName');
-            $newData->color = $request->input('sourceColor');
+            $newData->name = $request->input('name');
+            $newData->color = $request->input('color');
             $newData->user_id = auth()->user()->id;
 
             $result = $newData->save();
@@ -57,8 +57,8 @@ class SourceController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $temp['name'] = $request->input('sourceName');
-            $temp['color'] = $request->input('sourceColor');
+            $temp['name'] = $request->input('name');
+            $temp['color'] = $request->input('color');
 
             if (Source::where('id', '=', $id)->update($temp)) {
                 return redirect()->route('source.index')->with('message', 'Rezervasyon Kaynağı Başarıyla Güncellendi!');

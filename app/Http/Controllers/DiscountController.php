@@ -78,13 +78,13 @@ class DiscountController extends Controller
         try {
             $user = auth()->user();
 
-            $temp['discount_name'] = $request->input('discountName');
-            $temp['discount_code'] = $request->input('discountCode');
-            $temp['discount_percentage'] = $request->input('discountPercentage');
-            $temp['note'] = $request->input('discountNote');
+            $temp['discount_name'] = $request->input('name');
+            $temp['discount_code'] = $request->input('code');
+            $temp['discount_percentage'] = $request->input('percentage');
+            $temp['note'] = $request->input('note');
 
             if (Discount::where('id', '=', $id)->update($temp)) {
-                return redirect('/definitions/discounts')->with('message', 'İndirim Başarıyla Güncellendi!');
+                return redirect()->route('discount.index')->with('message', 'İndirim Başarıyla Güncellendi!');
             }
             else {
                 return back()->withInput($request->input());

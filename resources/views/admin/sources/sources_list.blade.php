@@ -70,14 +70,14 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="sourceName">Kaynak Adı</label>
-                                <input type="text" class="form-control" id="sourceName" name="sourceName" placeholder="Kaynak Adı" required>
+                                <label for="name">Kaynak Adı</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Kaynak Adı" required>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="sourceColor">Kaynak Rengi</label>
-                                <input type="text" class="form-control" id="colorpicker" value='#276cb8' name="sourceColor" placeholder="Kaynak Rengi">
+                                <label for="color">Kaynak Rengi</label>
+                                <input type="text" class="form-control" id="colorpicker" value='#276cb8' name="color" placeholder="Kaynak Rengi">
                             </div>
                         </div>
                     </div>

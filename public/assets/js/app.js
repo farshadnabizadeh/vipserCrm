@@ -7,19 +7,13 @@ var total;
 var sourceNames = [];
 var sourceColors = [];
 var sourceCounts = [];
-//therapist reports
-var therapistNames = [];
-var therapistColors = [];
-var therapistCounts = [];
-//service reports
-var serviceNames = [];
-var serviceColors = [];
-var serviceCounts = [];
+//vehicle reports
+var vehicleNames = [];
+var vehicleColors = [];
+var vehicleCounts = [];
 
 var HIDDEN_URL = {
     RESERVATION: '/definitions/reservations',
-    THERAPIST: '/definitions/therapists',
-    SERVICES: '/definitions/services',
     SOURCES: '/definitions/sources',
     USER: '/definitions/users',
     HOME: '/home'
@@ -46,32 +40,14 @@ function dashboard() {
                 }
             });
 
-            new Chart(document.getElementById("therapist-chart"), {
+            new Chart(document.getElementById("vehicles-chart"), {
                 type: 'bar',
                 data: {
-                    labels: therapistNames,
+                    labels: vehicleNames,
                     datasets: [{
-                        label: "Terapist Özetleri",
-                        backgroundColor: therapistColors,
-                        data: therapistCounts
-                    }]
-                },
-                options: {
-                    title: {
-                        display: true,
-                        text: ''
-                    }
-                }
-            });
-
-            new Chart(document.getElementById("services-chart"), {
-                type: 'bar',
-                data: {
-                    labels: serviceNames,
-                    datasets: [{
-                        label: "Hizmet Özetleri",
-                        backgroundColor: serviceColors,
-                        data: serviceCounts
+                        label: "Araç Özetleri",
+                        backgroundColor: vehicleColors,
+                        data: vehicleCounts
                     }]
                 },
                 options: {
@@ -183,11 +159,13 @@ function timeFormat(timeInput) {
 
 var dataTable;
 var select2Init = function() {
-    $('#filterMedicalDepartment').select2({
-        dropdownAutoWidth: true,
-        allowClear: true,
-        placeholder: "Select a Medical Department",
-    });
+    $("#general").select2({ placeholder: "", dropdownAutoWidth: true, allowClear: true });
+    $("#formStatusId").select2({ placeholder: "Form Durumunu Seçiniz", dropdownAutoWidth: true, allowClear: true });
+    $("#country").select2({ placeholder: "Ülke Seç", dropdownAutoWidth: true, allowClear: true });
+    $("#sobId").select2({ placeholder: "Rezervasyon Kaynağı", dropdownAutoWidth: true, allowClear: true });
+    $("#paymentType").select2({ placeholder: "Ödeme Türü Seç", dropdownAutoWidth: true, allowClear: true });
+    $("#vehicleId").select2({ placeholder: "Araç Seçiniz", dropdownAutoWidth: true, allowClear: true });
+    $("#brandId").select2({ placeholder: "Marka Seçiniz", dropdownAutoWidth: true, allowClear: true });
 };
 
 var dataTableInit = function() {
@@ -205,8 +183,7 @@ var dataTableInit = function() {
 };
 
 var dtSearchInit = function() {
-
-    $('#filterMedicalDepartment').change(function() {
+    $('#filterMedicalDepartment').on("change", function() {
         dtSearchAction($(this), 2)
     });
 };
@@ -251,32 +228,15 @@ var app = (function() {
     });
 
     $.ajax({
-        url: '/reports/therapistReport',
+        url: '/reports/vehicleReport',
         type: 'get',
         dataType: 'json',
         success: function (response) {
             if (response) {
                 $.each(response, function (key, value) {
-                    therapistNames.push(value.name);
-                    therapistColors.push('#'+Math.floor(Math.random()*16777215).toString(16));
-                    therapistCounts.push(value.aCount);
-                });
-            }
-        },
-
-        error: function () { },
-    });
-
-    $.ajax({
-        url: '/reports/serviceReport',
-        type: 'get',
-        dataType: 'json',
-        success: function (response) {
-            if (response) {
-                $.each(response, function (key, value) {
-                    serviceNames.push(value.name);
-                    serviceColors.push('#'+Math.floor(Math.random()*16777215).toString(16));
-                    serviceCounts.push(value.aCount);
+                    vehicleNames.push(value.model + ' / ' + value.number_plate);
+                    vehicleColors.push('#'+Math.floor(Math.random()*16777215).toString(16));
+                    vehicleCounts.push(value.aCount);
                 });
             }
         },
@@ -308,13 +268,6 @@ var app = (function() {
     addcustomerReservation();
 
     $("#colorpicker").spectrum();
-    $("#general").select2({ placeholder: "", dropdownAutoWidth: true, allowClear: true });
-    $("#formStatusId").select2({ placeholder: "Form Durumunu Seçiniz", dropdownAutoWidth: true, allowClear: true });
-    $("#country").select2({ placeholder: "Ülke Seç", dropdownAutoWidth: true, allowClear: true });
-    $("#sobId").select2({ placeholder: "Rezervasyon Kaynağı", dropdownAutoWidth: true, allowClear: true });
-    $("#paymentType").select2({ placeholder: "Ödeme Türü Seç", dropdownAutoWidth: true, allowClear: true });
-    $("#vehicleId").select2({ placeholder: "Araç Seçiniz", dropdownAutoWidth: true, allowClear: true });
-    $("#brandId").select2({ placeholder: "Marka Seçiniz", dropdownAutoWidth: true, allowClear: true });
 
     var pageurl = window.location.href;
         $(".nav-item_sub li a").each(function(){
@@ -616,12 +569,6 @@ function previousPage() {
 }
 
 function deleteTableRow(id) {
-    $('table#therapistTable tr#' + id).remove();
-    $('#therapistTable').trigger('rowAddOrRemove');
-
-    $('table#serviceTable tr#' + id).remove();
-    $('#serviceTable').trigger('rowAddOrRemove');
-
     $('table#paymentTypeTable tr#' + id).remove();
     $('#paymentTypeTable').trigger('rowAddOrRemove');
 }
@@ -714,7 +661,7 @@ function datePicker(){
     try {
         var userFormat = "YYYY-MM-DD";
 
-        $('#arrivalDate').daterangepicker({
+        $('#reservationDate').daterangepicker({
             "autoApply": true,
             "singleDatePicker": true,
             "showDropdowns": true,
@@ -725,17 +672,6 @@ function datePicker(){
             },
             minDate: moment().add(0, 'days'),
             maxDate: moment().add(359, 'days'),
-        });
-
-        $('#editArrivalDate').daterangepicker({
-            "autoApply": true,
-            "singleDatePicker": true,
-            "showDropdowns": true,
-            "autoUpdateInput": true,
-            locale: {
-                firstDay: 1,
-                format: userFormat
-            }
         });
 
         $('#startDate').daterangepicker({
@@ -759,6 +695,7 @@ function datePicker(){
                 format: userFormat
             },
         });
+
     }
     catch (error) {
         console.log(error);
@@ -766,7 +703,7 @@ function datePicker(){
 }
 
 function clockPicker(){
-    $('#arrivalTime').clockpicker({ autoclose: true, donetext: 'Done', placement: 'left', align: 'top' });
+    $('#reservationTime').clockpicker({ autoclose: true, donetext: 'Done', placement: 'left', align: 'top' });
 }
 
 function reservationStep() {
@@ -966,12 +903,12 @@ function addReservationOperation() {
                 $("#next-step").trigger("click");
                 // $(".payment-type").text(paymentType);
                 if (customerID == undefined) {
-                    var customerNameSurname = $("#addCustomerModal").find('#customerNameSurname').val();
-                    var customerPhone = $("#addCustomerModal").find('#phone_get').val();
-                    var customerCountry = $("#addCustomerModal").find('#country').children("option:selected").val();
-                    var customerEmail = $("#addCustomerModal").find('#customerEmail').val();
+                    var nameSurname = $("#addCustomerModal").find('#customerNameSurname').val();
+                    var phone = $("#addCustomerModal").find('#phone_get').val();
+                    var country = $("#addCustomerModal").find('#country').children("option:selected").val();
+                    var email = $("#addCustomerModal").find('#customerEmail').val();
                     setTimeout(() => {
-                        addCustomer(customerNameSurname, customerPhone, customerCountry, customerEmail);
+                        addCustomer(nameSurname, phone, country, email);
                     }, 500);
                 }
             }
@@ -988,46 +925,16 @@ function completeReservation() {
             if (customerID != undefined) {
                 setTimeout(() => {
                     //reservation
-                    var arrivalDate = $("#tab2").find('#arrivalDate').val();
-                    var arrivalTime = $("#tab2").find('#arrivalTime').val();
+                    var vehicleId = $("#tab2").find('#vehicleId').children("option:selected").val();
+                    var pickupLocation = $("#tab2").find('#pickupLocation').val();
+                    var returnLocation = $("#tab2").find('#returnLocation').val();
+                    var reservationDate = $("#tab2").find('#reservationDate').val();
+                    var reservationTime = $("#tab2").find('#reservationTime').val();
+
                     var totalCustomer = $("#tab2").find('#totalCustomer').val();
                     var sourceId = $('#tab2').find("#sobId").children("option:selected").val();
                     var reservationNote = $('#tab2').find("#note").val();
-
-                    var serviceCurrency = $("#tab3").find("#serviceCurrency").children("option:selected").val();
-                    var serviceCost = $("#tab3").find("#serviceCost").val();
-                    var serviceComission = $('#tab3').find("#serviceComission").val();
-                    var discountId = $('#tab3').find("#discountId").children("option:selected").val();
-                    addReservation(arrivalDate, arrivalTime, totalCustomer, customerID, serviceCurrency, serviceCost, serviceComission, discountId, sourceId, reservationNote);
-
-                    //Payment Types
-                    $("#paymentTypeTable").find("tbody tr").each(function (i) {
-                        var $tds = $(this).find('td');
-                        paymentTypeId = $tds.attr("id");
-                        paymentPrice = $tds.eq(1).text();
-                        addPaymentTypetoReservation(reservationID, paymentTypeId, paymentPrice);
-                    });
-
-                    //Services
-                    $("#serviceTable").find("tbody tr").each(function (i) {
-                        var $tds = $(this).find('td');
-                        serviceId = $tds.attr("id");
-                        piece = $tds.eq(1).text();
-                        addServicetoReservation(reservationID, serviceId, piece);
-                    });
-
-                    //Therapists
-                    $("#therapistTable").find("tbody tr").each(function (i) {
-                        var $tds = $(this).find('td');
-                        therapistId = $tds.attr("id");
-                        piece = $tds.eq(1).text();
-                        addTherapisttoReservation(reservationID, therapistId, piece);
-                    });
-
-                    var hotelId = $('[name="hotelId"]').children("option:selected").val();
-                    var guideId = $('[name="guideId"]').children("option:selected").val();
-
-                    addComission(hotelId, guideId);
+                    addReservation(vehicleId, pickupLocation, returnLocation, reservationDate, reservationTime, totalCustomer, customerID, sourceId, reservationNote);
                 }, 500);
             }
         });
@@ -1035,7 +942,7 @@ function completeReservation() {
     catch (error) { }
 }
 
-function addReservation(arrivalDate, arrivalTime, totalCustomer, customerID, serviceCurrency, serviceCost, serviceComission, discountId, sourceId, reservationNote){
+function addReservation(vehicleId, pickupLocation, returnLocation, reservationDate, reservationTime, totalCustomer, customerID, sourceId, reservationNote){
     try {
         $.ajaxSetup({
             headers: {
@@ -1043,17 +950,16 @@ function addReservation(arrivalDate, arrivalTime, totalCustomer, customerID, ser
             }
         });
         $.ajax({
-            url: '/definitions/reservations/store',
+            url: '/reservations/store',
             type: 'POST',
             data: {
-                'arrivalDate': arrivalDate,
-                'arrivalTime': arrivalTime,
+                'vehicleId': vehicleId,
+                'reservationDate': reservationDate,
+                'reservationTime': reservationTime,
+                'pickupLocation': pickupLocation,
+                'returnLocation': returnLocation,
                 'totalCustomer': totalCustomer,
                 'customerId': customerID,
-                'serviceCurrency': serviceCurrency,
-                'serviceCost': serviceCost,
-                'serviceComission': serviceComission,
-                'discountId': discountId,
                 'sourceId': sourceId,
                 'reservationNote': reservationNote
             },
@@ -1064,7 +970,7 @@ function addReservation(arrivalDate, arrivalTime, totalCustomer, customerID, ser
                     swal({ icon: 'success', title: 'Başarılı!', text: 'Rezervasyon Başarıyla Eklendi!', timer: 1000 });
                     reservationID = response;
                     setTimeout(() => {
-                        window.location.href = "/definitions/reservations/calendar";
+                        window.location.href = "/reservations/calendar";
                     }, 500);
                 }
             },
@@ -1137,7 +1043,7 @@ function addComission(hotelId, guideId) {
     }
 }
 
-function addCustomer(customerNameSurname, customerPhone, customerCountry, customerEmail) {
+function addCustomer(nameSurname, phone, country, email) {
     try {
         $.ajaxSetup({
             headers: {
@@ -1145,13 +1051,13 @@ function addCustomer(customerNameSurname, customerPhone, customerCountry, custom
             }
         });
         $.ajax({
-            url: '/definitions/customers/save',
+            url: '/customers/save',
             type: 'POST',
             data: {
-                'customerNameSurname': customerNameSurname,
-                'customerPhone': customerPhone,
-                'customerCountry': customerCountry,
-                'customerEmail': customerEmail
+                'nameSurname': nameSurname,
+                'phone': phone,
+                'country': country,
+                'email': email
             },
             async: false,
             dataType: 'json',

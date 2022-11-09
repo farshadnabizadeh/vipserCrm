@@ -32,9 +32,11 @@ class VehicleController extends Controller
     {
         try {
             $newData = new Vehicle();
+            $newData->number_plate = $request->input('plate');
             $newData->brand_id = $request->input('brandId');
             $newData->model = $request->input('model');
-
+            $newData->seat = $request->input('seat');
+            $newData->suitcase = $request->input('suitcase');
             $newData->user_id = auth()->user()->id;
             $result = $newData->save();
 
@@ -44,19 +46,6 @@ class VehicleController extends Controller
             else {
                 return response(false, 500);
             }
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-
-    public function getService($id)
-    {
-        try {
-            $services = Service::where('id', '=', $id)
-            ->first();
-
-            return response()->json([$services], 200);
         }
         catch (\Throwable $th) {
             throw $th;
@@ -76,6 +65,7 @@ class VehicleController extends Controller
         try {
             $user = auth()->user();
 
+            $temp['number_plate'] = $request->input('plate');
             $temp['brand_id'] = $request->input('brandId');
             $temp['model'] = $request->input('model');
             $temp['seat'] = $request->input('seat');

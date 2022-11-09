@@ -26,7 +26,7 @@
                             <input type="text" class="form-control datepicker" id="endDate" name="endDate" placeholder="Bitiş Tarihi" autocomplete="off" value="{{ $end }}" required>
                          </div>
                          <div class="col-lg-12">
-                            <button class="btn btn-success mt-3 float-right" type="submit">Rezervasyonları Listele <i class="fa fa-check"></i></button>
+                            <button class="btn btn-success mt-3 float-right" type="submit"><i class="fa fa-check"></i> Rezervasyonları Listele</button>
                          </div>
                       </div>
                    </form>

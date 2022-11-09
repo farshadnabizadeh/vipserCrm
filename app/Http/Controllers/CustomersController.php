@@ -62,11 +62,10 @@ class CustomersController extends Controller
     {
         try {
             $newData = new Customer();
-            $newData->name_surname = $request->input('customerNameSurname');
-            $newData->phone = $request->input('customerPhone');
-            $newData->country = $request->input('customerCountry');
-            $newData->email = $request->input('customerEmail');
-
+            $newData->name_surname = $request->input('nameSurname');
+            $newData->phone = $request->input('phone');
+            $newData->country = $request->input('country');
+            $newData->email = $request->input('email');
             $newData->user_id = auth()->user()->id;
             $result = $newData->save();
 
@@ -86,11 +85,10 @@ class CustomersController extends Controller
     {
         try {
             $newData = new Customer();
-            $newData->name_surname = $request->input('name_surname');
+            $newData->name_surname = $request->input('nameSurname');
             $newData->phone = $request->input('phone');
             $newData->country = $request->input('country');
             $newData->email = $request->input('email');
-
             $newData->user_id = auth()->user()->id;
             $result = $newData->save();
 
@@ -108,14 +106,9 @@ class CustomersController extends Controller
 
     public function edit($id)
     {
-        try {
-            $customer = Customer::where('id','=',$id)->first();
+        $customer = Customer::where('id','=',$id)->first();
 
-            return view('admin.customers.edit_customer', ['customer' => $customer]);
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        return view('admin.customers.edit_customer', ['customer' => $customer]);
     }
 
     public function update(Request $request, $id)
@@ -123,7 +116,7 @@ class CustomersController extends Controller
         try {
             $user = auth()->user();
 
-            $temp['name_surname'] = $request->input('name_surname');
+            $temp['name_surname'] = $request->input('nameSurname');
             $temp['phone'] = $request->input('phone');
             $temp['country'] = $request->input('country');
             $temp['email'] = $request->input('email');
