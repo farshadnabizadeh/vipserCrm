@@ -40,7 +40,7 @@
                         <div class="col">
                             <h5 class="card-title text-dashboard-card">Rezervasyonlar</h5>
                             <hr>
-                            <a href="{{ route('contactform.index') }}">
+                            <a href="{{ route('reservation.index') }}">
                                 <span class="h2 mb-0 count-card">{{ $reservationCount }}</span>
                             </a>
                         </div>

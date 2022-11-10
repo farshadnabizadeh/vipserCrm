@@ -40,7 +40,7 @@ class ReservationController extends Controller
             $storages = array('start' => $start, 'end' => $end);
 
             if (request()->ajax()) {
-                $data = Reservation::with('customer', 'source')
+                $data = Reservation::with('customer', 'vehicle', 'source')
                 ->orderBy('reservation_date', 'desc')
                 ->orderBy('reservation_time', 'asc')
                 ->whereBetween('reservations.reservation_date', [$start, $end]);
@@ -65,6 +65,12 @@ class ReservationController extends Controller
                         $action = date('ymd', strtotime($item->created_at)) . $item->id;
                         return $action;
                     })
+                    ->editColumn('vehicle.brand_id', function ($item) {
+                        return $item->vehicle->brand->name ?? 'araç tanımlanmamış';
+                    })
+                    ->editColumn('vehicle.model', function ($item) {
+                        return $item->vehicle->model . ' ' . $item->vehicle->number_plate;
+                    })
                     ->editColumn('source.name', function ($item) {
                         return '<span class="badge text-white" style="background-color: '. $item->source->color .'">'. $item->source->name .'</span>';
                     })
@@ -79,6 +85,8 @@ class ReservationController extends Controller
                 $columns = [
                     ['data' => 'action', 'name' => 'action', 'title' => 'İşlem', 'orderable' => false, 'searchable' => false],
                     ['data' => 'id', 'name' => 'id', 'title' => 'id'],
+                    ['data' => 'vehicle.brand_id', 'name' => 'vehicle.brand_id', 'title' => 'Marka'],
+                    ['data' => 'vehicle.model', 'name' => 'vehicle.model', 'title' => 'Model'],
                     ['data' => 'source.name', 'name' => 'source.name', 'title' => 'Kaynak'],
                     ['data' => 'reservation_date', 'name' => 'reservation_date', 'title' => 'Rezervasyon Tarihi'],
                     ['data' => 'reservation_time', 'name' => 'reservation_time', 'title' => 'Rezervasyon Saati'],

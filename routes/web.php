@@ -133,12 +133,12 @@ Route::group(['middleware' => ['auth']], function(){
 
     //Discounts
     Route::GET('definitions/discounts', 'DiscountController@index')->name('discount.index');
-    Route::POST('definitions/discounts/store', 'DiscountController@store');
-    Route::GET('definitions/discounts/edit/{id}', 'DiscountController@edit');
-    Route::POST('definitions/discounts/update/{id}', 'DiscountController@update');
-    Route::GET('definitions/discounts/destroy/{id}', 'DiscountController@destroy');
+    Route::POST('definitions/discounts/store', 'DiscountController@store')->name('discount.store');
+    Route::GET('definitions/discounts/edit/{id}', 'DiscountController@edit')->name('discount.edit');
+    Route::POST('definitions/discounts/update/{id}', 'DiscountController@update')->name('discount.update');
+    Route::GET('definitions/discounts/destroy/{id}', 'DiscountController@destroy')->name('discount.destroy');
     //api
-    Route::GET('getDiscount/{id}', 'DiscountController@getDiscount')->middleware(['middleware' => 'permission:show discount']);
+    Route::GET('getDiscount/{id}', 'DiscountController@getDiscount');
     //Discounts end
 
     //Report

@@ -18,6 +18,12 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
+                                <label for="plate">Plaka</label>
+                                <input type="text" class="form-control" name="plate" placeholder="Plaka" id="plate" value="{{ $vehicle->number_plate }}" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
                                 <label for="brandId">Marka</label>
                                 <select class="form-control" name="brandId" id="brandId">
                                     <option value="{{ $vehicle->brand->id }}" selected>{{ $vehicle->brand->name }}</option>
@@ -27,20 +33,22 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="model">Model</label>
                                 <input type="text" class="form-control" name="model" id="model" value="{{ $vehicle->model }}" required>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="seat">Koltuk Sayısı</label>
                                 <input type="text" class="form-control" name="seat" id="seat" placeholder="Koltuk Sayısı" value="{{ $vehicle->seat }}">
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="suitcase">Bavul Sayısı</label>
