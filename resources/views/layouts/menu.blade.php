@@ -101,17 +101,17 @@
                         </a>
                         <ul class="nav-item_sub">
                             <li>
-                                <a href="{{ url('reports/reservations?startDate='.date("Y-m-d").'&endDate='.date("Y-m-d").'') }}">
+                                <a href="{{ route('report.reservation', ['startDate' => date("Y-m-d"), 'endDate' => date("Y-m-d")]) }}">
                                     <span>Rezervasyon Raporu</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url('reports/payments?startDate='.date("Y-m-d").'&endDate='.date("Y-m-d").''); }}">
+                                <a href="{{ route('report.payment', ['startDate' => date("Y-m-d"), 'endDate' => date("Y-m-d")]) }}">
                                     <span>Ciro Raporu</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url('reports/comissions?startDate='.date("Y-m-d").'&endDate='.date("Y-m-d").''); }}">
+                                <a href="{{ route('report.comission', ['startDate' => date("Y-m-d"), 'endDate' => date("Y-m-d")]) }}">
                                     <span>Komisyon Raporu</span>
                                 </a>
                             </li>

@@ -20,7 +20,7 @@ Route::GET('/clear-cache', function() {
 
 Route::group(['middleware' => ['auth']], function(){
 
-    Route::GET('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::GET('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::GET('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
     Route::GET('getCurrencies', 'CurrencyController@getCurrencies');
@@ -142,12 +142,11 @@ Route::group(['middleware' => ['auth']], function(){
     //Discounts end
 
     //Report
-    Route::GET('reports/reservations', 'ReportController@reservationReport');
-    Route::GET('reports/payments', 'ReportController@paymentReport');
-    Route::GET('reports/comissions', 'ReportController@comissionReport');
-    Route::GET('reports/vehicleReport', 'ReportController@vehicleReport');
-    Route::GET('reports/therapistReport', 'ReportController@therapistReport');
-    Route::GET('reports/sourceReport', 'ReportController@sourceReport');
+    Route::GET('reports/reservations', 'ReportController@reservationReport')->name('report.reservation');
+    Route::GET('reports/payments', 'ReportController@paymentReport')->name('report.payment');
+    Route::GET('reports/comissions', 'ReportController@comissionReport')->name('report.comission');
+    Route::GET('reports/vehicleReport', 'ReportController@vehicleReport')->name('report.vehicle');
+    Route::GET('reports/sourceReport', 'ReportController@sourceReport')->name('report.source');
     //Report end
 
 });

@@ -45,12 +45,6 @@ class BrandController extends Controller
         }
     }
 
-    public function getDiscount($id)
-    {
-        $discounts = Discount::where('id', '=', $id)->first();
-        return response()->json([$discounts], 200);
-    }
-
     public function edit($id)
     {
         $brand = Brand::where('id','=', $id)->first();

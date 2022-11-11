@@ -41,8 +41,12 @@
                                 <div class="dropdown">
                                     <button class="btn btn-danger dropdown-toggle action-btn" type="button" data-toggle="dropdown">İşlem <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="{{ url('/definitions/discounts/edit/'.$discount->id) }}" class="btn btn-info edit-btn inline-popups"><i class="fa fa-pencil-square-o"></i> Güncelle</a></li>
-                                        <li><a href="{{ url('/definitions/discounts/destroy/'.$discount->id) }}" onclick="return confirm('Are you sure?');" class="btn btn-danger edit-btn"><i class="fa fa-trash"></i> Sil</a></li>
+                                        <li>
+                                            <a href="{{ route('discount.edit', ['id' => $discount->id]) }}" class="btn btn-info edit-btn inline-popups"><i class="fa fa-pencil-square-o"></i> Güncelle</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('discount.destroy', ['id' => $discount->id]) }}" onclick="return confirm('Silmek istediğinize emin misiniz?');" class="btn btn-danger edit-btn"><i class="fa fa-trash"></i> Sil</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </td>

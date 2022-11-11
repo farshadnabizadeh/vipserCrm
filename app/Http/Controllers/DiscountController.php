@@ -29,10 +29,10 @@ class DiscountController extends Controller
     {
         try {
             $newData = new Discount();
-            $newData->name = $request->input('discountName');
-            $newData->code = $request->input('discountCode');
-            $newData->percentage = $request->input('discountPercentage');
-            $newData->note = $request->input('discountNote');
+            $newData->name = $request->input('name');
+            $newData->code = $request->input('code');
+            $newData->percentage = $request->input('percentage');
+            $newData->note = $request->input('note');
 
             $newData->user_id = auth()->user()->id;
             $result = $newData->save();
@@ -78,9 +78,9 @@ class DiscountController extends Controller
         try {
             $user = auth()->user();
 
-            $temp['discount_name'] = $request->input('name');
-            $temp['discount_code'] = $request->input('code');
-            $temp['discount_percentage'] = $request->input('percentage');
+            $temp['name'] = $request->input('name');
+            $temp['code'] = $request->input('code');
+            $temp['percentage'] = $request->input('percentage');
             $temp['note'] = $request->input('note');
 
             if (Discount::where('id', '=', $id)->update($temp)) {

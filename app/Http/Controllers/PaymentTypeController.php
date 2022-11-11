@@ -30,7 +30,7 @@ class PaymentTypeController extends Controller
     {
         try {
             $newData = new PaymentType();
-            $newData->type_name = $request->input('paymentTypeName');
+            $newData->type_name = $request->input('typeName');
             $newData->note = $request->input('note');
             $newData->user_id = auth()->user()->id;
             $result = $newData->save();

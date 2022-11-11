@@ -44,7 +44,7 @@
 }
 
 .step-app>.step-steps>li.active a {
-    background: linear-gradient(180deg, #511124 63%, #000 100%);
+    background: linear-gradient(89deg, #b98c6d 0, #000 100%) !important;
     color: #fff;
     font-family: var(--font-montserrat)
 }
