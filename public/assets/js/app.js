@@ -298,57 +298,6 @@ var app = (function() {
 
     $(document).ready(function(){
 
-        $("#sobId").on("change", function(){
-            var selectedSobId = $(this).children("option:selected").val();
-            //hotel
-            if(selectedSobId == 3){
-                $(".changeName").text("Otel");
-                $("#general").empty();
-                $("#general").attr('name', 'hotelId');
-                $(".hide-section").show(300);
-                $.ajax({
-                    url: '/getHotels',
-                    type: 'get',
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response) {
-                            $.each(response, function (key, value) {
-                                $("#general").append('<option value="' + key + '">' + value + '</option>');
-                            });
-                        }
-                    },
-            
-                    error: function () {
-                    },
-                });
-            }
-            //guide
-            else if(selectedSobId == 10){
-                $(".changeName").text("Rehber");
-                $("#general").empty();
-                $("#general").attr('name', 'guideId');
-                $(".hide-section").show(300);
-                $.ajax({
-                    url: '/getGuides',
-                    type: 'get',
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response) {
-                            $.each(response, function (key, value) {
-                                $("#general").append('<option value="' + key + '">' + value + '</option>');
-                            });
-                        }
-                    },
-            
-                    error: function () {
-                    },
-                });
-            }
-            else {
-                $(".hide-section").hide(300);
-            }
-        });
-
         $(".booking-status-btn").on("click", function(){
             var dataId = this.id;
             console.log(dataId);
@@ -873,35 +822,27 @@ function createPaymentTypeOperation() {
 function addReservationOperation() {
     try {
         $('#reservationSave').on('click', function(){
-            var arrivalDate = $("#tab2").find('#arrivalDate').val();
-            var arrivalTime = $("#tab2").find('#arrivalTime').val();
+            var vehicleName = $("#tab2").find('#vehicleId').children("option:selected").text();
+            var pickupLocation = $("#tab2").find('#pickupLocation').val();
+            var returnLocation = $("#tab2").find('#returnLocation').val();
+            var reservationDate = $("#tab2").find('#reservationDate').val();
+            var reservationTime = $("#tab2").find('#reservationTime').val();
             var totalCustomer = $("#tab2").find('#totalCustomer').val();
             var sourceName = $("#tab2").find("#sobId").children("option:selected").text();
             var therapistId = $("#tab2").find('#therapistId').children("option:selected").val();
-            if (arrivalDate == "" || arrivalTime == "" || totalCustomer == "" || therapistId == "" || sourceName == ""){
+            if (reservationDate == "" || reservationTime == "" || totalCustomer == "" || therapistId == "" || sourceName == ""){
                 swal({ icon: 'error', title: 'Lütfen Boşlukları Doldurunuz!', text: '' });
             }
             else {
-                $(".reservation-date").text(arrivalDate);
-                $(".reservation-time").text(arrivalTime);
+                $(".vehicle-name").text(vehicleName);
+                $(".pickup_location").text(pickupLocation);
+                $(".dropoff_location").text(returnLocation);
+                $(".reservation-date").text(reservationDate);
+                $(".reservation-time").text(reservationTime);
                 $(".total-customer").text(totalCustomer);
-                //Services
-                $("#serviceTable").find("tbody tr").each(function (i) {
-                    var $tds = $(this).find('td');
-                    serviceName = $tds.eq(0).text();
-                    $(".service-name").text(serviceName);
-                });
-
-                //Therapists
-                $("#therapistTable").find("tbody tr").each(function (i) {
-                    var $tds = $(this).find('td');
-                    therapistName = $tds.eq(0).text();
-                    $(".therapist-name").text(therapistName);
-                });
-
-                $(".sob-name").text(sourceName);
+                $(".source-name").text(sourceName);
+                $(".reservation-note").text(sourceName);
                 $("#next-step").trigger("click");
-                // $(".payment-type").text(paymentType);
                 if (customerID == undefined) {
                     var nameSurname = $("#addCustomerModal").find('#customerNameSurname').val();
                     var phone = $("#addCustomerModal").find('#phone_get').val();
@@ -990,7 +931,7 @@ function addPaymentTypetoReservation(reservationID, paymentTypeId, paymentPrice)
             }
         });
         $.ajax({
-            url: '/definitions/reservations/addPaymentTypetoReservation',
+            url: '/reservations/addPaymentTypetoReservation',
             type: 'POST',
             data: {
                 'reservationId': reservationID,

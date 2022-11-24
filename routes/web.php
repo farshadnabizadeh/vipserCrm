@@ -34,13 +34,13 @@ Route::group(['middleware' => ['auth']], function(){
     Route::GET('users/delete/{id}', 'UserController@destroy')->name('user.destroy');
 
     //Roles and Permissions
-    Route::GET('roles', 'RolePermissionController@index')->middleware(['middleware' => 'permission:show roles'])->name('role.index');
-    Route::GET('roles/create', 'RolePermissionController@create')->middleware(['middleware' => 'permission:create roles'])->name('role.create');
-    Route::POST('roles/store', 'RolePermissionController@store')->middleware(['middleware' => 'permission:create roles'])->name('role.store');
-    Route::GET('roles/edit/{id}', 'RolePermissionController@edit')->middleware(['middleware' => 'permission:edit roles'])->name('role.edit');
-    Route::POST('roles/update/{id}', 'RolePermissionController@update')->middleware(['middleware' => 'permission:edit roles'])->name('role.update');
-    Route::GET('roles/delete/{id}', 'RolePermissionController@destroy')->middleware(['middleware' => 'permission:delete roles'])->name('role.destroy');
-    Route::GET('roles/clone/{id}', 'RolePermissionController@cloneRole')->middleware(['middleware' => 'permission:edit roles'])->name('role.clone');
+    Route::GET('roles', 'RolePermissionController@index')->name('role.index');
+    Route::GET('roles/create', 'RolePermissionController@create')->name('role.create');
+    Route::POST('roles/store', 'RolePermissionController@store')->name('role.store');
+    Route::GET('roles/edit/{id}', 'RolePermissionController@edit')->name('role.edit');
+    Route::POST('roles/update/{id}', 'RolePermissionController@update')->name('role.update');
+    Route::GET('roles/delete/{id}', 'RolePermissionController@destroy')->name('role.destroy');
+    Route::GET('roles/clone/{id}', 'RolePermissionController@cloneRole')->name('role.clone');
     //Roles and Permissions end
 
     //Customers
@@ -107,9 +107,9 @@ Route::group(['middleware' => ['auth']], function(){
 
     //payment type
     Route::POST('reservations/addPaymentTypetoReservation', 'ReservationController@addPaymentTypetoReservation');
-    Route::GET('reservations/paymenttype/edit/{id}', 'ReservationController@editPaymentType');
-    Route::POST('reservations/paymenttype/update/{id}', 'ReservationController@updatePaymentType');
-    Route::GET('reservations/paymenttype/destroy/{id}', 'ReservationController@destroyPaymentType');
+    Route::GET('reservations/paymenttype/edit/{id}', 'ReservationController@editPaymentType')->name('reservation.paymenttype.edit');
+    Route::POST('reservations/paymenttype/update/{id}', 'ReservationController@updatePaymentType')->name('reservation.paymenttype.update');
+    Route::GET('reservations/paymenttype/destroy/{id}', 'ReservationController@destroyPaymentType')->name('reservation.paymenttype.destroy');
 
     Route::GET('reservationbydate', 'ReservationController@allReservationByDate');
     Route::GET('reservations/destroy/{id}', 'ReservationController@destroy')->name('reservation.destroy');

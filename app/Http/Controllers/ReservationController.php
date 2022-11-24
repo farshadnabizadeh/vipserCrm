@@ -296,14 +296,9 @@ class ReservationController extends Controller
 
     public function editPaymentType($id)
     {
-        try {
-            $reservation_payment_type = ReservationPaymentType::where('id','=', $id)->first();
-            $payment_types = PaymentType::all();
-            return view('admin.reservations.edit_payment_type', ['reservation_payment_type' => $reservation_payment_type, 'payment_types' => $payment_types]);
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        $reservation_payment_type = ReservationPaymentType::where('id','=', $id)->first();
+        $payment_types = PaymentType::all();
+        return view('admin.reservations.edit_payment_type', ['reservation_payment_type' => $reservation_payment_type, 'payment_types' => $payment_types]);
     }
 
     public function editService($id)
@@ -417,5 +412,10 @@ class ReservationController extends Controller
     public function destroy($id){
         Reservation::find($id)->delete();
         return back()->with('message', 'Rezervasyon Başarıyla Silindi!');
+    }
+
+    public function destroyPaymentType($id){
+        ReservationPaymentType::find($id)->delete();
+        return back()->with('message', 'Ödeme Türü Başarıyla Silindi!');
     }
 }
