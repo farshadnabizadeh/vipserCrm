@@ -15,11 +15,17 @@ class CreateBookingForms extends Migration
     {
         Schema::create('booking_forms', function (Blueprint $table) {
            $table->increments('id');
-            $table->date('pickup_date');
-            $table->string('person_count')->nullable();
-            $table->string('name_surname')->nullable();
+            $table->string('name')->nullable();
+            $table->string('surname')->nullable();
             $table->string('phone')->nullable();
             $table->string('country')->nullable();
+            $table->string('email')->nullable();
+            $table->date('pickup_date')->nullable();
+            $table->string('pickup_location')->nullable();
+            $table->string('dropoff_location')->nullable();
+            $table->string('person')->nullable();
+            $table->string('distance')->nullable();
+            $table->string('duration')->nullable();
             $table->integer('form_status_id')->unsigned()->nullable();
             $table->foreign('form_status_id')->references('id')
                 ->on('form_statuses')

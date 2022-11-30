@@ -70,16 +70,17 @@ class BookingFormController extends Controller
                     ['data' => 'action', 'name' => 'action', 'title' => 'İşlem', 'orderable' => false, 'searchable' => false],
                     ['data' => 'id', 'name' => 'id', 'title' => 'id'],
                     ['data' => 'status.name', 'name' => 'status.name', 'title' => 'Durum'],
-                    ['data' => 'reservation_date', 'name' => 'reservation_date', 'title' => 'Rezervasyon Tarihi'],
-                    ['data' => 'reservation_time', 'name' => 'reservation_time', 'title' => 'Rezervasyon Saati'],
-                    ['data' => 'name_surname', 'name' => 'name_surname', 'title' => 'Adı Soyadı'],
+                    ['data' => 'name', 'name' => 'name', 'title' => 'Adı'],
+                    ['data' => 'surname', 'name' => 'surname', 'title' => 'Soyadı'],
                     ['data' => 'phone', 'name' => 'phone', 'title' => 'Telefon Numarası'],
                     ['data' => 'country', 'name' => 'country', 'title' => 'Ülkesi'],
-                    ['data' => 'massage_package', 'name' => 'massage_package', 'title' => 'Masaj Paketi'],
-                    ['data' => 'hammam_package', 'name' => 'hammam_package', 'title' => 'Hamam Paketi'],
-                    ['data' => 'male_pax', 'name' => 'male_pax', 'title' => 'Erkek Kişi Sayısı'],
-                    ['data' => 'female_pax', 'name' => 'female_pax', 'title' => 'Kadın Kişi Sayısı'],
-                    ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Dakika'],
+                    ['data' => 'email', 'name' => 'email', 'title' => 'Email'],
+                    ['data' => 'pickup_date', 'name' => 'pickup_date', 'title' => 'Alınış Tarihi'],
+                    ['data' => 'pickup_location', 'name' => 'pickup_location', 'title' => 'Alınış Yeri'],
+                    ['data' => 'dropoff_location', 'name' => 'dropoff_location', 'title' => 'Bırakılış Yeri'],
+                    ['data' => 'person', 'name' => 'person', 'title' => 'Kişi Sayısı'],
+                    ['data' => 'distance', 'name' => 'distance', 'title' => 'Mesafe'],
+                    ['data' => 'duration', 'name' => 'duration', 'title' => 'Süre'],
                 ];
                 $html = $builder->columns($columns)->parameters([
                     "pageLength" => 50
@@ -94,14 +95,9 @@ class BookingFormController extends Controller
 
     public function edit($id)
     {
-        try {
-            $booking_form = BookingForm::where('id','=',$id)->first();
-            $form_statuses = FormStatuses::all();
-            return view('admin.bookingforms.edit_booking', ['booking_form' => $booking_form, 'form_statuses' => $form_statuses]);
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        $booking_form = BookingForm::where('id','=',$id)->first();
+        $form_statuses = FormStatuses::all();
+        return view('admin.bookingforms.edit_booking', ['booking_form' => $booking_form, 'form_statuses' => $form_statuses]);
     }
 
     public function update(Request $request, $id)
@@ -142,7 +138,8 @@ class BookingFormController extends Controller
         }
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         BookingForm::find($id)->delete();
         return redirect()->route('bookingform.index')->with('message', 'Rezervasyon Formu Başarıyla Silindi!');
     }

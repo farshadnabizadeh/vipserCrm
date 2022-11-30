@@ -127,7 +127,8 @@ class ContactFormController extends Controller
         }
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         ContactForm::find($id)->delete();
         return redirect()->route('contactform.index')->with('message', 'İletişim Formu Başarıyla Silindi!');
     }
