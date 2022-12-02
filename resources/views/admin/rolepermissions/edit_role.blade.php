@@ -12,8 +12,8 @@
                 <div class="card-title">
                     <h2>Rolü Güncelle</h2>
                 </div>
-                <form action="{{ url('/roles/update/'.$role->id) }}" method="POST">
-                    {{ csrf_field() }}
+                <form action="{{ route('role.update', ['id' => $role->id]) }}" method="POST">
+                    @csrf
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">

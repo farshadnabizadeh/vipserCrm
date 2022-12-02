@@ -9,7 +9,7 @@
         <div class="col-md-12">
             <nav aria-label="breadcrumb" class="mt-3">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item home-page"><a href="{{ url('/home') }}">Arayüz</a></li>
+                    <li class="breadcrumb-item home-page"><a href="{{ route('home') }}">Arayüz</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Roller</li>
                 </ol>
             </nav>
@@ -38,9 +38,9 @@
                                 <div class="dropdown">
                                     <button class="btn btn-primary dropdown-toggle action-btn" type="button" data-toggle="dropdown">İşlem <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="{{ url('/roles/edit/'.$role->id) }}" class="btn btn-info edit-btn"><i class="fa fa-pencil-square-o"></i> Güncelle</a></li>
-                                        <li><a href="{{ url('/roles/clone/'.$role->id) }}" class="btn btn-warning edit-btn"><i class="fa fa-clone"></i> Clone Role</a></li>
-                                        <li><a href="{{ url('/roles/delete/'.$role->id) }}" onclick="return confirm('Are you sure?');" class="btn btn-danger edit-btn"><i class="fa fa-trash"></i> Sil</a></li>
+                                        <li><a href="{{ route('role.edit', ['id' => $role->id]) }}" class="btn btn-info edit-btn"><i class="fa fa-pencil-square-o"></i> Güncelle</a></li>
+                                        <li><a href="{{ route('role.clone', ['id' => $role->id]) }}" class="btn btn-warning edit-btn"><i class="fa fa-clone"></i> Clone Role</a></li>
+                                        <li><a href="{{ route('role.destroy', ['id' => $role->id]) }}" onclick="return confirm('Silmek istediğinize emin misiniz?');" class="btn btn-danger edit-btn"><i class="fa fa-trash"></i> Sil</a></li>
                                     </ul>
                                 </div>
                             </td>

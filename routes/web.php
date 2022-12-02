@@ -71,7 +71,7 @@ Route::group(['middleware' => ['auth']], function(){
 
     //Booking Forms
     Route::GET('definitions/bookings', 'BookingFormController@index')->name('bookingform.index');
-    Route::POST('definitions/bookings/change/{id}', 'BookingFormController@changeStatus');
+    Route::POST('definitions/bookings/change/{id}', 'BookingFormController@changeStatus')->name('bookingform.change');
     Route::GET('definitions/bookings/edit/{id}', 'BookingFormController@edit')->name('bookingform.edit');
     Route::POST('definitions/bookings/update/{id}', 'BookingFormController@update')->name('bookingform.update');
     Route::GET('definitions/bookings/destroy/{id}', 'BookingFormController@destroy')->name('bookingform.destroy');

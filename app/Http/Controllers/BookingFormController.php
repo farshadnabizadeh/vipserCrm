@@ -54,8 +54,8 @@ class BookingFormController extends Controller
                             return '<span class="badge text-white" style="background-color: '.$item->status->color.'">'.$item->status->name.'</span>';
                         }
                     })
-                    ->editColumn('reservation_date', function ($item) {
-                        $action = date('d-m-Y', strtotime($item->reservation_date));
+                    ->editColumn('pickup_date', function ($item) {
+                        $action = date('d-m-Y', strtotime($item->pickup_date));
                         return $action;
                     })
                     ->editColumn('created_at', function ($item) {
@@ -98,6 +98,12 @@ class BookingFormController extends Controller
         $booking_form = BookingForm::where('id','=',$id)->first();
         $form_statuses = FormStatuses::all();
         return view('admin.bookingforms.edit_booking', ['booking_form' => $booking_form, 'form_statuses' => $form_statuses]);
+    }
+
+    public function view($id)
+    {
+        $booking_form = BookingForm::where('id','=',$id)->first();
+        return view('admin.bookingforms.view_booking', ['booking_form' => $booking_form, 'form_statuses' => $form_statuses]);
     }
 
     public function update(Request $request, $id)
