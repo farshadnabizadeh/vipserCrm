@@ -409,12 +409,14 @@ class ReservationController extends Controller
         }
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         Reservation::find($id)->delete();
         return back()->with('message', 'Rezervasyon Başarıyla Silindi!');
     }
 
-    public function destroyPaymentType($id){
+    public function destroyPaymentType($id)
+    {
         ReservationPaymentType::find($id)->delete();
         return back()->with('message', 'Ödeme Türü Başarıyla Silindi!');
     }

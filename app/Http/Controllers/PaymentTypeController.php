@@ -93,7 +93,8 @@ class PaymentTypeController extends Controller
         }
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         PaymentType::find($id)->delete();
         return redirect()->route('paymenttype.index')->with('message', 'Ödeme Türü Başarıyla Silindi!');
     }

@@ -121,12 +121,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        try {
-            DB::table("users")->where('id', $id)->delete();
-            return redirect('definitions/users')->with('message', 'User Deleted Successfully!');
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        DB::table("users")->where('id', $id)->delete();
+        return redirect('definitions/users')->with('message', 'User Deleted Successfully!');
     }
 }

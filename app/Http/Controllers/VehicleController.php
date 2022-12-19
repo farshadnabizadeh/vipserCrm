@@ -83,7 +83,8 @@ class VehicleController extends Controller
         }
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         Vehicle::where('id', '=', $id)->delete();
         return redirect()->route('vehicle.index')->with('message', 'Araç Başarıyla Silindi!');
     }

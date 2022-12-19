@@ -23,7 +23,7 @@ class HomeController extends Controller
     public function index()
     {
         $bookingFormCount = BookingForm::count();
-        $reservationCount = ContactForm::count();
+        $reservationCount = Reservation::count();
         $vehicleCount = Vehicle::count();
 
         $dashboard = array('bookingFormCount' => $bookingFormCount, 'reservationCount' => $reservationCount, 'vehicleCount' => $vehicleCount);

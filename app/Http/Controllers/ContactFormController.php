@@ -91,21 +91,16 @@ class ContactFormController extends Controller
 
     public function update(Request $request, $id)
     {
-        try {
-            $temp['name_surname'] = $request->input('name_surname');
-            $temp['phone_number'] = $request->input('phone');
-            $temp['country'] = $request->input('country');
-            $temp['email'] = $request->input('email');
+        $temp['name_surname'] = $request->input('name_surname');
+        $temp['phone_number'] = $request->input('phone');
+        $temp['country'] = $request->input('country');
+        $temp['email'] = $request->input('email');
 
-            if (ContactForm::where('id', '=', $id)->update($temp)) {
-                return redirect()->route('contactform.index')->with('message', 'İletişim Formu Başarıyla Güncellendi!');
-            }
-            else {
-                return back()->withInput($request->input());
-            }
+        if (ContactForm::where('id', '=', $id)->update($temp)) {
+            return redirect()->route('contactform.index')->with('message', 'İletişim Formu Başarıyla Güncellendi!');
         }
-        catch (\Throwable $th) {
-            throw $th;
+        else {
+            return back()->withInput($request->input());
         }
     }
 

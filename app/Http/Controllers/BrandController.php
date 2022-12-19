@@ -70,7 +70,8 @@ class BrandController extends Controller
         }
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         Brand::where('id', '=', $id)->delete();
         return redirect()->route('brand.index')->with('message', 'İndirim Başarıyla Silindi!');
     }

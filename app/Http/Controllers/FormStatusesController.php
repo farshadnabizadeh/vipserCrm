@@ -72,7 +72,8 @@ class FormStatusesController extends Controller
         }
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         FormStatuses::where('id', '=', $id)->delete();
         return redirect()->route('formstatus.index')->with('message', 'Form Durumu Başarıyla Silindi!');
     }

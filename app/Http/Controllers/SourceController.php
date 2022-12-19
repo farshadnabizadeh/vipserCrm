@@ -72,7 +72,8 @@ class SourceController extends Controller
         }
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         Source::where('id', '=', $id)->delete();
         return redirect()->route('source.index')->with('message', 'Rezervasyon Kaynağı Başarıyla Silindi!');
     }
