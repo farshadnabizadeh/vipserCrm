@@ -6958,8 +6958,8 @@ input[type='button'].btn-block
 .nav-tabs .nav-item.show .nav-link
 {
     color: #fff;
-    border-color: #511124;
-    background-color: #511124
+    border-color: #000;
+    background-color: #000
 }
 .nav-tabs .dropdown-menu
 {

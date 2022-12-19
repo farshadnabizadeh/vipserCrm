@@ -32,6 +32,11 @@ class Reservation extends Model
         return $this->belongsTo(Source::class, 'source_id');
     }
 
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
+    }
+
     public function subCustomers()
     {
         return $this->belongsToMany(Customer::class, 'reservations_customers', 'reservation_id', 'customer_id')
