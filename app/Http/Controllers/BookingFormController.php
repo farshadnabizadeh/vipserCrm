@@ -31,7 +31,10 @@ class BookingFormController extends Controller
 
             $data = array('start' => $start, 'end' => $end, 'noContactCount' => $noContactCount, 'noCallBackCount' => $noCallBackCount, 'contactedCount' => $contactedCount, 'unknownCount' => $unknownCount);
             if (request()->ajax()) {
-                $data = BookingForm::with('status')->orderBy('created_at', 'desc')->whereBetween('booking_forms.created_at', [date('Y-m-d', strtotime($start))." 00:00:00", date('Y-m-d', strtotime($end))." 23:59:59"])->get();
+                $data = BookingForm::with('status')
+                ->orderBy('created_at', 'desc')
+                ->whereBetween('booking_forms.created_at', [date('Y-m-d', strtotime($start))." 00:00:00", date('Y-m-d', strtotime($end))." 23:59:59"])
+                ->get();
                 return DataTables::of($data)
                     ->editColumn('action', function ($item) {
                         return '
@@ -133,7 +136,7 @@ class BookingFormController extends Controller
             $temp['answered_time'] = Carbon::now()->toDateTimeString();
 
             if (BookingForm::where('id', '=', $id)->update($temp)) {
-                return redirect()->route('bookingform.index')->with('message', 'Form Durumu Başarıyla Güncellendi!');
+                return redirect()->route('bookingform.index', ['startDate' => date('Y-m-d'), 'endDate' => date('Y-m-d')])->with('message', 'Form Durumu Başarıyla Güncellendi!');
             }
             else {
                 return back()->withInput($request->input());

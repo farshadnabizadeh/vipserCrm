@@ -85,6 +85,7 @@ class ReservationController extends Controller
                 $columns = [
                     ['data' => 'action', 'name' => 'action', 'title' => 'İşlem', 'orderable' => false, 'searchable' => false],
                     ['data' => 'id', 'name' => 'id', 'title' => 'id'],
+                    ['data' => 'customer.name_surname', 'name' => 'customer.name_surname', 'title' => 'Müşteri Adı'],
                     ['data' => 'vehicle.brand_id', 'name' => 'vehicle.brand_id', 'title' => 'Marka'],
                     ['data' => 'vehicle.model', 'name' => 'vehicle.model', 'title' => 'Model'],
                     ['data' => 'source.name', 'name' => 'source.name', 'title' => 'Kaynak'],
@@ -92,7 +93,6 @@ class ReservationController extends Controller
                     ['data' => 'reservation_time', 'name' => 'reservation_time', 'title' => 'Rezervasyon Saati'],
                     ['data' => 'pickup_location', 'name' => 'pickup_location', 'title' => 'Alınış Yeri'],
                     ['data' => 'return_location', 'name' => 'return_location', 'title' => 'Bırakılış Yeri'],
-                    ['data' => 'customer.name_surname', 'name' => 'customer.name_surname', 'title' => 'Müşteri Adı'],
                     ['data' => 'total_customer', 'name' => 'total_customer', 'title' => 'Kişi Sayısı'],
                 ];
                 $html = $builder->columns($columns)->parameters([

@@ -20,7 +20,7 @@
                         <div class="col">
                             <h5 class="card-title text-dashboard-card">Rezervasyon Formları</h5>
                             <hr>
-                            <a href="{{ route('bookingform.index') }}">
+                            <a href="{{ route('bookingform.index', ['startDate' => date("Y-m-d"), 'endDate' => date("Y-m-d")]) }}">
                                 <span class="h2 mb-0 count-card">{{ $bookingFormCount }}</span>
                             </a>
                         </div>

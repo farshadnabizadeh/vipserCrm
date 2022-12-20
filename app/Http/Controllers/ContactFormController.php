@@ -31,7 +31,10 @@ class ContactFormController extends Controller
 
             $data = array('start' => $start, 'end' => $end, 'noContactCount' => $noContactCount, 'noCallBackCount' => $noCallBackCount, 'contactedCount' => $contactedCount, 'unknownCount' => $unknownCount);
             if (request()->ajax()) {
-                $data = ContactForm::with('status')->orderBy('created_at', 'desc')->whereBetween('contact_forms.created_at', [date('Y-m-d', strtotime($start))." 00:00:00", date('Y-m-d', strtotime($end))." 23:59:59"])->get();
+                $data = ContactForm::with('status')
+                ->orderBy('created_at', 'desc')
+                ->whereBetween('contact_forms.created_at', [date('Y-m-d', strtotime($start))." 00:00:00", date('Y-m-d', strtotime($end))." 23:59:59"])
+                ->get();
                 return DataTables::of($data)
                     ->editColumn('action', function ($item) {
                             return '<div class="dropdown">

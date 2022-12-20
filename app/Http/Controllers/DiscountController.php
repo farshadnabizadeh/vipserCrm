@@ -59,18 +59,12 @@ class DiscountController extends Controller
         catch (\Throwable $th) {
             throw $th;
         }
-       
     }
 
     public function edit($id)
     {
-        try {
-            $discount = Discount::where('id','=', $id)->first();
-            return view('admin.discounts.edit_discount', ['discount' => $discount]);
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        $discount = Discount::where('id','=', $id)->first();
+        return view('admin.discounts.edit_discount', ['discount' => $discount]);
     }
 
     public function update(Request $request, $id)
