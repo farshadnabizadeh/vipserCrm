@@ -44,15 +44,15 @@
                         </div>
                     </div>
                     <ul class="nav nav-tabs mt-3 d-flex" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="active-tp-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Active Treatment Plans</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="cancel-tp-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Archived Treatment Plans</a>
-                            </li>
-                        </ul>
+                        <li class="nav-item">
+                            <a class="nav-link active" id="active-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Aktif Rezervasyonlar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="cancel-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Arşivlenen Rezervasyonlar</a>
+                        </li>
+                    </ul>
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="active-tp-tab">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="active-tab">
                                 <div class="col-lg-12">
                                     <div class="card h-100 mt-3">
                                         <div class="card-body">
@@ -92,7 +92,7 @@
                                                             <td>{{ date('ymd', strtotime($reservation->created_at)) . $reservation->customer->id . $reservation->id  }}</td>
                                                             <td>{{ $reservation->vehicle->brand->name }}</td>
                                                             <td>{{ $reservation->vehicle->model }}</td>
-                                                            <td>{{ $reservation->vehicle->model }}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($reservation->reservation_date)) }}</td>
                                                             <td>
                                                                 <a href="{{ route('customer.edit', ['id' => $reservation->customer->id]) }}">{{ $reservation->customer->name_surname }}</a>
                                                             </td>
@@ -110,10 +110,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="cancel-tp-tab"> 
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="cancel-tab"> 
                             </div>
                         </div>
-                    <button type="submit" class="btn btn-success mt-5 float-right">Güncelle <i class="fa fa-check" aria-hidden="true"></i></button>
+                    <button type="submit" class="btn btn-success mt-5 float-right action-btn">Güncelle <i class="fa fa-check" aria-hidden="true"></i></button>
                 </form>
             </div>
         </div>
