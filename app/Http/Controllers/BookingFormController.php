@@ -52,6 +52,10 @@ class BookingFormController extends Controller
                         $action = date('ymd', strtotime($item->created_at)) . $item->id;
                         return $action;
                     })
+                    ->editColumn('created_at', function ($item) {
+                        $action = date('d-m-Y h:i A', strtotime($item->created_at));
+                        return $action;
+                    })
                     ->editColumn('status.name', function ($item) {
                         if($item->form_status_id != NULL){
                             return '<span class="badge text-white" style="background-color: '.$item->status->color.'">'.$item->status->name.'</span>';
@@ -61,17 +65,14 @@ class BookingFormController extends Controller
                         $action = date('d-m-Y', strtotime($item->pickup_date));
                         return $action;
                     })
-                    ->editColumn('created_at', function ($item) {
-                        $action = now()->diffInMinutes($item->created_at);
-                        return $action;
-                    })
-                    ->rawColumns(['action', 'id', 'status.name', 'date', 'created_at'])
+                    ->rawColumns(['action', 'id', 'created_at', 'status.name', 'date'])
 
                     ->toJson();
                 };
                 $columns = [
                     ['data' => 'action', 'name' => 'action', 'title' => 'İşlem', 'orderable' => false, 'searchable' => false],
                     ['data' => 'id', 'name' => 'id', 'title' => 'id'],
+                    ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Sisteme Kayıt'],
                     ['data' => 'status.name', 'name' => 'status.name', 'title' => 'Durum'],
                     ['data' => 'name', 'name' => 'name', 'title' => 'Adı'],
                     ['data' => 'surname', 'name' => 'surname', 'title' => 'Soyadı'],
