@@ -303,14 +303,9 @@ class ReservationController extends Controller
 
     public function editService($id)
     {
-        try {
-            $reservation_service = ReservationService::where('id','=', $id)->first();
-            $services = Service::orderBy('name', 'asc')->get();
-            return view('admin.reservations.edit_service', ['reservation_service' => $reservation_service, 'services' => $services]);
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        $reservation_service = ReservationService::where('id','=', $id)->first();
+        $services = Service::orderBy('name', 'asc')->get();
+        return view('admin.reservations.edit_service', ['reservation_service' => $reservation_service, 'services' => $services]);
     }
 
     public function update(Request $request, $id)

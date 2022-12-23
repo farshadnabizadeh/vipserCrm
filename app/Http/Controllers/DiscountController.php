@@ -51,14 +51,9 @@ class DiscountController extends Controller
 
     public function getDiscount($id)
     {
-        try {
-            $discounts = Discount::where('id', '=', $id)->first();
+        $discounts = Discount::where('id', '=', $id)->first();
 
-            return response()->json([$discounts], 200);
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        return response()->json([$discounts], 200);
     }
 
     public function edit($id)
