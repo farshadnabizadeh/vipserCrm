@@ -41,7 +41,7 @@ class ContactFormController extends Controller
                                 <button class="btn btn-primary dropdown-toggle action-btn" type="button" data-toggle="dropdown">İşlem <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                    <a href="'.route('contactform.edit', ['id' => $item->id]).'" class="btn btn-success text-white edit-btn"><i class="fa fa-check"></i> Durum</a>
+                                        <a href="'.route('contactform.edit', ['id' => $item->id]).'" class="btn btn-success text-white edit-btn"><i class="fa fa-check"></i> Durum</a>
                                     </li>
                                 </ul>
                             </div>';
