@@ -38,7 +38,7 @@ class BookingFormController extends Controller
                 return DataTables::of($data)
                     ->editColumn('action', function ($item) {
                         return '
-                        <div class="dropdown">
+                            <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle action-btn" type="button" data-toggle="dropdown">İşlem <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <li>
@@ -50,6 +50,10 @@ class BookingFormController extends Controller
                     })
                     ->editColumn('id', function ($item) {
                         $action = date('ymd', strtotime($item->created_at)) . $item->id;
+                        return $action;
+                    })
+                    ->editColumn('phone', function ($item) {
+                        $action = '<a href="https://api.whatsapp.com/send?phone='.$item->phone.'&text=Hello" class="text-green" target="_blank"><i class="fa fa-whatsapp"></i> '.$item->phone.'</a>';
                         return $action;
                     })
                     ->editColumn('created_at', function ($item) {
@@ -65,7 +69,7 @@ class BookingFormController extends Controller
                         $action = date('d-m-Y', strtotime($item->pickup_date));
                         return $action;
                     })
-                    ->rawColumns(['action', 'id', 'created_at', 'status.name', 'date'])
+                    ->rawColumns(['action', 'id', 'phone', 'created_at', 'status.name', 'date'])
 
                     ->toJson();
                 };

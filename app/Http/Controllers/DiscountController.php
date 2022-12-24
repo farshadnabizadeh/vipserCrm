@@ -15,14 +15,9 @@ class DiscountController extends Controller
 
     public function index()
     {
-        try {
-            $discounts = Discount::orderBy('name', 'asc')->get();
-            $data = array('discounts' => $discounts);
-            return view('admin.discounts.discounts_list')->with($data);
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        $discounts = Discount::orderBy('name', 'asc')->get();
+        $data = array('discounts' => $discounts);
+        return view('admin.discounts.discounts_list')->with($data);
     }
 
     public function store(Request $request)

@@ -16,14 +16,9 @@ class PaymentTypeController extends Controller
 
     public function index()
     {
-        try {
-            $payment_types = PaymentType::all();
-            $data = array('payment_types' => $payment_types);
-            return view('admin.payment_types.payment_type_list')->with($data);
-        }
-        catch (\Throwable $th) {
-            throw $th;
-        }
+        $payment_types = PaymentType::all();
+        $data = array('payment_types' => $payment_types);
+        return view('admin.payment_types.payment_type_list')->with($data);
     }
 
     public function store(Request $request)

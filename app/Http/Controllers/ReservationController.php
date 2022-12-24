@@ -358,13 +358,7 @@ class ReservationController extends Controller
         try {
             $reservation = Reservation::find($id);
             $lang = $request->input('lang');
-            $totalPrice = [];
-            foreach ($reservation->subServices as $subService) {
-                array_push($totalPrice, $subService->cost * $subService->piece);
-            }
-            $total = array_sum($totalPrice);
-
-            $data = array('reservation' => $reservation, 'total' => $total);
+            $data = array('reservation' => $reservation);
 
             switch ($lang) {
             case "en":
