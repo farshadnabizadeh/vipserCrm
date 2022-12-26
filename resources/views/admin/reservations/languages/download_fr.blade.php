@@ -46,7 +46,7 @@
                                                         <div class="newBorder2">
                                                             <div class="row">
                                                                 <div class="col-lg-12">
-                                                                    <img class="logo_page2" src="{{ asset('assets/img/catmamescitlogosiyah.png') }}">
+                                                                    <img class="logo_page2" src="{{ asset('assets/img/logo.png') }}">
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -61,42 +61,38 @@
                                                                     <br>
                                                                     <h2 class="contact-title">CONTACT</h2>
                                                                     <br>
-                                                                    <p><span>Contact Name:</span><br> <b>Enes</b></p>
-                                                                    <p><span>Phone: </span><br> <b>+90 542 619 05 86</b></p>
+                                                                    <p><span>Contact Name:</span><br> <b>Vipser Support</b></p>
+                                                                    <p><span>Phone: </span><br> <b>+90 546 842 39 19</b></p>
                                                                     <br>
                                                                 </div>
                                                                 <div class="col-9 bg-white">
                                                                     <h1 class="treatment-plan-title">RESERVATION SUMMARY</h1>
-                                                                    <p class="treatment-name">
-                                                                    </p>
+                                                                    <p class="treatment-name"></p>
                                                                     <table class="table table-bordered treatmentplan-table">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th>Care:</th>
-                                                                                <th>Piece</th>
-                                                                                <th>Price</th>
+                                                                                <th>Vehicle:</th>
+                                                                                <th>Date:</th>
+                                                                                <th>Price:</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                            @foreach($reservation->subServices as $subService)
+                                                                            
                                                                             <tr>
                                                                                 <td class="text-center">
-                                                                                    {{ $subService->service_name }}
+                                                                                    <span>VIP {{ $reservation->vehicle->model }}</span>
                                                                                 </td>
                                                                                 <td class="text-center">
-                                                                                    <span class="nights-text">{{ $subService->piece }}</span>
+                                                                                    <span>{{ date('d.m.Y', strtotime($reservation->reservation_date)) }}</span>
                                                                                 </td>
                                                                                 <td class="text-center">
-                                                                                    {{ $subService->service_cost * $subService->piece }} {{ $subService->service_currency }}
+                                                                                    @foreach($reservation->subPaymentTypes as $subPaymentType)
+                                                                                        <span>{{ $subPaymentType->payment_price }}</span>
+                                                                                    @endforeach
                                                                                 </td>
                                                                             </tr>
-                                                                            @endforeach
                                                                         </tbody>
                                                                     </table>
-                                                                    <div class="d-flex flex-row justify-content-end divTotalStatus">
-                                                                        <div class="totalStatus">Total Status:</div>
-                                                                        <div class="box"><p class="total-cost">{{ $reservation->service_cost }} {{ $reservation->service_currency }}</p></div>
-                                                                    </div>
                                                                     <div class="row">
                                                                         <div class="col text-center changes text-white">
                                                                             <p class="thicker"></p>
@@ -105,26 +101,26 @@
                                                                     <div class="row section-service-photos">
                                                                         <div class="col-12" style="margin-bottom: 20px;">
                                                                             <h2 class="titlePhotos">PHOTOS</h2>
-                                                                            <div class="subTitle">Your Hammam</div>
+                                                                            <div class="subTitle">Your Car</div>
                                                                         </div>
                                                                         <div class="col-6">
                                                                             <div class="img-cover">
-                                                                                <img src="{{ asset('assets/img/gallery/1.jpg') }}">
+                                                                                <img src="{{ asset('assets/img/gallery/1.png') }}">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-6" style="padding-left: 0; padding-right: 0">
                                                                             <div class="img-cover">
-                                                                                <img src="{{ asset('assets/img/gallery/2.jpg') }}">
+                                                                                <img src="{{ asset('assets/img/gallery/2.png') }}">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-6 mt-2">
                                                                             <div class="img-cover">
-                                                                                <img src="{{ asset('assets/img/gallery/3.jpg') }}">
+                                                                                <img src="{{ asset('assets/img/gallery/3.png') }}">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-6 mt-2" style="padding-left: 0; padding-right: 0">
                                                                             <div class="img-cover">
-                                                                                <img src="{{ asset('assets/img/gallery/4.jpg') }}">
+                                                                                <img src="{{ asset('assets/img/gallery/4.png') }}">
                                                                             </div>
                                                                         </div>
                                                                         {{-- <div class="col-6 mt-2">

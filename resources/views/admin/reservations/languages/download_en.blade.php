@@ -34,7 +34,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-6">
-                                                <button class="btn btn-primary float-right" onclick="voucherPdf();"><i class="fa fa-download"></i> PDF İndir</button>
+                                                <button class="btn btn-success float-right" onclick="voucherPdf();"><i class="fa fa-download"></i> PDF İndir</button>
                                             </div>
                                         </div>
                                     </div>
@@ -62,8 +62,8 @@
                                                                     <br>
                                                                     <h2 class="contact-title">CONTACT</h2>
                                                                     <br>
-                                                                    <p><span>Contact Name:</span><br> <b>Vipser</b></p>
-                                                                    <p><span>Phone: </span><br> <b>+90 537 917 74 58</b></p>
+                                                                    <p><span>Contact Name:</span><br> <b>Vipser Support</b></p>
+                                                                    <p><span>Phone: </span><br> <b>+90 546 842 39 19</b></p>
                                                                     <br>
                                                                 </div>
                                                                 <div class="col-9 bg-white">
@@ -78,23 +78,22 @@
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
+                                                                            
                                                                             <tr>
                                                                                 <td class="text-center">
-                                                                                    Mercedes S400   
+                                                                                    <span>VIP {{ $reservation->vehicle->model }}</span>
                                                                                 </td>
                                                                                 <td class="text-center">
-                                                                                    13.09.2022
+                                                                                    <span>{{ date('d.m.Y', strtotime($reservation->reservation_date)) }}</span>
                                                                                 </td>
                                                                                 <td class="text-center">
-                                                                                    800 EUR
+                                                                                    @foreach($reservation->subPaymentTypes as $subPaymentType)
+                                                                                        <span>{{ $subPaymentType->payment_price }}</span>
+                                                                                    @endforeach
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
-                                                                    <div class="d-flex flex-row justify-content-end divTotalStatus">
-                                                                        <div class="totalStatus">Total Status:</div>
-                                                                        <div class="box"><p class="total-cost">{{ $reservation->currency }}</p></div>
-                                                                    </div>
                                                                     <div class="row">
                                                                         <div class="col text-center changes text-white">
                                                                             <p class="thicker"></p>

@@ -517,7 +517,8 @@ function previousPage() {
     history.go(-1);
 }
 
-function deleteTableRow(id) {
+function deleteTableRow(id)
+{
     $('table#paymentTypeTable tr#' + id).remove();
     $('#paymentTypeTable').trigger('rowAddOrRemove');
 }
