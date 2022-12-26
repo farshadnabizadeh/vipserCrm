@@ -488,7 +488,7 @@ caption
 }
 
 .subTitle {
-    background-color: var(--third);
+    background-color: #424242;
         display: inline-block;
         padding: 5px 10px;
         font-size: 13px;
@@ -744,7 +744,7 @@ summary
 
 .page2 .logo_page2 {
     position: absolute;
-    width: 100px;
+    width: 170px;
     right: 18px;
     top: 6px;
     z-index: 2
@@ -779,7 +779,7 @@ summary
 
 .img-cover img {
     width: 100%;
-    height: 202px;
+    height: 225px;
     object-fit: cover;
     border-radius: 3px;
 }
@@ -789,7 +789,7 @@ summary
 }
 
 .treatmentPlanCard .treatmentplan-table th {
-    background-color: var(--third);
+    background-color: #424242;
     color: #fff;
     font-size: 13px;
     padding-left: 11px !important;
@@ -877,7 +877,7 @@ summary
 
 .newBorder2 {
     position: relative;
-    border: 10px solid var(--third);
+    border: 10px solid #424242;
     width: 1200px;
     margin-top: 30px
 }
@@ -901,7 +901,8 @@ summary
     font-weight: bold;
     padding-top: 41px;
     color: #000;
-    font-size: 18px
+    font-size: 18px;
+    margin-top: 1em;
 }
 
 .treatmentPlanCard .treatment-plan-title::after {
@@ -910,9 +911,9 @@ summary
     display: block;
     width: 107px;
     height: 5px;
-    background-color: var(--third);
+    background-color: #424242;
     left: 17px;
-    border-radius: 25px;
+    border-radius: 0px;
     margin-top: 6px
 }
 
@@ -1037,7 +1038,7 @@ summary
 }
 
 .changes {
-    background-color:var(--third);
+    background-color:#424242;
     height: 24px;
     margin-top: 15px
 }

@@ -47,7 +47,7 @@
                                                         <div class="newBorder2">
                                                             <div class="row">
                                                                 <div class="col-lg-12">
-                                                                    <img class="logo_page2" src="{{ asset('assets/img/catmamescitlogosiyah.png') }}">
+                                                                    <img class="logo_page2" src="{{ asset('assets/img/logo.png') }}">
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -62,8 +62,8 @@
                                                                     <br>
                                                                     <h2 class="contact-title">CONTACT</h2>
                                                                     <br>
-                                                                    <p><span>Contact Name:</span><br> <b>Catma Mescit Hammam</b></p>
-                                                                    <p><span>Phone: </span><br> <b>+90 542 619 05 86</b></p>
+                                                                    <p><span>Contact Name:</span><br> <b>Vipser</b></p>
+                                                                    <p><span>Phone: </span><br> <b>+90 537 917 74 58</b></p>
                                                                     <br>
                                                                 </div>
                                                                 <div class="col-9 bg-white">
@@ -72,18 +72,21 @@
                                                                     <table class="table table-bordered treatmentplan-table">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th>Care:</th>
-                                                                                <th>Piece</th>
-                                                                                <th>Price</th>
+                                                                                <th>Vehicle:</th>
+                                                                                <th>Date:</th>
+                                                                                <th>Price:</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
                                                                                 <td class="text-center">
+                                                                                    Mercedes S400   
                                                                                 </td>
                                                                                 <td class="text-center">
+                                                                                    13.09.2022
                                                                                 </td>
                                                                                 <td class="text-center">
+                                                                                    800 EUR
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
@@ -100,26 +103,26 @@
                                                                     <div class="row section-service-photos">
                                                                         <div class="col-12" style="margin-bottom: 20px;">
                                                                             <h2 class="titlePhotos">PHOTOS</h2>
-                                                                            <div class="subTitle">Your Hammam</div>
+                                                                            <div class="subTitle">Your Car</div>
                                                                         </div>
                                                                         <div class="col-6">
                                                                             <div class="img-cover">
-                                                                                <img src="{{ asset('assets/img/gallery/1.jpg') }}">
+                                                                                <img src="{{ asset('assets/img/gallery/1.png') }}">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-6" style="padding-left: 0; padding-right: 0">
                                                                             <div class="img-cover">
-                                                                                <img src="{{ asset('assets/img/gallery/2.jpg') }}">
+                                                                                <img src="{{ asset('assets/img/gallery/2.png') }}">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-6 mt-2">
                                                                             <div class="img-cover">
-                                                                                <img src="{{ asset('assets/img/gallery/3.jpg') }}">
+                                                                                <img src="{{ asset('assets/img/gallery/3.png') }}">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-6 mt-2" style="padding-left: 0; padding-right: 0">
                                                                             <div class="img-cover">
-                                                                                <img src="{{ asset('assets/img/gallery/4.jpg') }}">
+                                                                                <img src="{{ asset('assets/img/gallery/4.png') }}">
                                                                             </div>
                                                                         </div>
                                                                         {{-- <div class="col-6 mt-2">
