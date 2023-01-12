@@ -127,44 +127,47 @@ class ReportController extends Controller
             $start = $request->input('startDate');
             $end = $request->input('endDate');
 
-            //
-            $cashTl = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '5')
+            //cash tl
+            $cashTl = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '1')
                 ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start))." 00:00:00", date('Y-m-d', strtotime($end))." 23:59:59"])
                 ->sum("payment_price");
 
-            $cashEur = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '6')
+            //cash euro
+            $cashEur = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '2')
                 ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start))." 00:00:00", date('Y-m-d', strtotime($end))." 23:59:59"])
                 ->sum("payment_price");
 
-            $cashUsd = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '7')
+            //cash usd
+            $cashUsd = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '3')
                 ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start))." 00:00:00", date('Y-m-d', strtotime($end))." 23:59:59"])
                 ->sum("payment_price");
 
-            $cashPound = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '8')
+            //cash pound
+            $cashPound = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '4')
                 ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start))." 00:00:00", date('Y-m-d', strtotime($end))." 23:59:59"])
                 ->sum("payment_price");
 
-            $ykbTl = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '9')
+            //free
+            $free = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '5')
                 ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start))." 00:00:00", date('Y-m-d', strtotime($end))." 23:59:59"])
                 ->sum("payment_price");
 
-            $ziraatTl = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '10')
+            //ziraat kk euro
+            $ziraatKkEuro = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '8')
                 ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start))." 00:00:00", date('Y-m-d', strtotime($end))." 23:59:59"])
                 ->sum("payment_price");
 
-            $ziraatEuro = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '11')
+            //ziraat kk tl
+            $ziraatKkTl = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '9')
+                ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start))." 00:00:00", date('Y-m-d', strtotime($end))." 23:59:59"])
+                ->sum("payment_price");
+                
+            //ziraat kk usd
+            $ziraatKkUsd = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '10')
                 ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start))." 00:00:00", date('Y-m-d', strtotime($end))." 23:59:59"])
                 ->sum("payment_price");
 
-            $ziraatDolar = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '12')
-                ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start))." 00:00:00", date('Y-m-d', strtotime($end))." 23:59:59"])
-                ->sum("payment_price");
-
-            $viatorEuro = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '13')
-                ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start))." 00:00:00", date('Y-m-d', strtotime($end))." 23:59:59"])
-                ->sum("payment_price");
-
-            $totalData = array('cashTl' => $cashTl, 'cashEur' => $cashEur, 'cashUsd' => $cashUsd, 'cashPound' => $cashPound, 'ykbTl' => $ykbTl, 'ziraatTl' => $ziraatTl, 'ziraatEuro' => $ziraatEuro, 'ziraatDolar' => $ziraatDolar, 'viatorEuro' => $viatorEuro, 'start' => $start, 'end' => $end);
+            $totalData = array('cashTl' => $cashTl, 'cashEur' => $cashEur, 'cashUsd' => $cashUsd, 'cashPound' => $cashPound, 'free' => $free, 'ziraatKkEuro' => $ziraatKkEuro, 'ziraatKkTl' => $ziraatKkTl, 'ziraatKkUsd' => $ziraatKkUsd, 'start' => $start, 'end' => $end);
 
             return view('admin.reports.payment_report')->with($totalData);
         }

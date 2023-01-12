@@ -620,8 +620,6 @@ function datePicker(){
                 firstDay: 1,
                 format: userFormat
             },
-            minDate: moment().add(0, 'days'),
-            maxDate: moment().add(359, 'days'),
         });
 
         $('#startDate').daterangepicker({
