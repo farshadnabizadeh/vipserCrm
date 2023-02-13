@@ -43,6 +43,11 @@
                                     <span>Rezervasyon Formları</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('whatsapp.index'); }}">
+                                    <span>Whatsapp Formları</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item">

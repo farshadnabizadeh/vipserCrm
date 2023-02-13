@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BookingForm;
 use App\Models\FormStatuses;
+use App\Models\Country;
 use App\Models\User;
 use Auth;
 use Carbon\Carbon;
@@ -42,7 +43,10 @@ class BookingFormController extends Controller
                                 <button class="btn btn-primary dropdown-toggle action-btn" type="button" data-toggle="dropdown">İşlem <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="'.route('bookingform.edit', ['id' => $item->id]).'" class="btn btn-success text-white edit-btn"><i class="fa fa-check"></i> Durum</a>
+                                        <a href="'.route('bookingform.edit', ['id' => $item->id]).'" class="btn btn-info edit-btn"><i class="fa fa-pencil-square-o"></i> Güncelle</a>
+                                    </li>
+                                    <li>
+                                        <a href="'.route('bookingform.status', ['id' => $item->id]).'" class="btn btn-success text-white edit-btn"><i class="fa fa-check"></i> Durum</a>
                                     </li>
                                 </ul>
                             </div>
@@ -103,9 +107,26 @@ class BookingFormController extends Controller
 
     public function edit($id)
     {
-        $booking_form = BookingForm::where('id','=',$id)->first();
-        $form_statuses = FormStatuses::all();
-        return view('admin.bookingforms.edit_booking', ['booking_form' => $booking_form, 'form_statuses' => $form_statuses]);
+        try {
+            $booking_form = BookingForm::where('id','=',$id)->first();
+            $countries = Country::where('name','!=', $booking_form->country)->get();
+            return view('admin.bookingforms.edit_booking', ['booking_form' => $booking_form, 'countries' => $countries]);
+        }
+        catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function status($id)
+    {
+        try {
+            $booking_form = BookingForm::where('id','=',$id)->first();
+            $form_statuses = FormStatuses::all();
+            return view('admin.bookingforms.edit_bookingstatus', ['booking_form' => $booking_form, 'form_statuses' => $form_statuses]);
+        }
+        catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     public function view($id)
@@ -117,10 +138,13 @@ class BookingFormController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $temp['name_surname'] = $request->input('name_surname');
-            $temp['phone_number'] = $request->input('phone');
-            $temp['country'] = $request->input('country');
+            $temp['name'] = $request->input('name');
+            $temp['surname'] = $request->input('surname');
+            $temp['phone'] = $request->input('phone');
             $temp['email'] = $request->input('email');
+            $temp['country'] = $request->input('country');
+            $temp['pickup_date'] = $request->input('pickup_date');
+            $temp['person'] = $request->input('person');
 
             if (BookingForm::where('id', '=', $id)->update($temp)) {
                 return redirect()->route('bookingform.index')->with('message', 'Rezervasyon Formu Başarıyla Güncellendi!');

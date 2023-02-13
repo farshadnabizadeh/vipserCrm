@@ -73,6 +73,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::GET('definitions/bookings', 'BookingFormController@index')->name('bookingform.index');
     Route::POST('definitions/bookings/change/{id}', 'BookingFormController@changeStatus')->name('bookingform.change');
     Route::GET('definitions/bookings/edit/{id}', 'BookingFormController@edit')->name('bookingform.edit');
+    Route::GET('definitions/bookings/status/{id}', 'BookingFormController@status')->name('bookingform.status');
     Route::POST('definitions/bookings/update/{id}', 'BookingFormController@update')->name('bookingform.update');
     Route::GET('definitions/bookings/destroy/{id}', 'BookingFormController@destroy')->name('bookingform.destroy');
     //Booking Forms end
@@ -81,6 +82,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::GET('contactforms', 'ContactFormController@index')->name('contactform.index');
     Route::POST('contactforms/change/{id}', 'ContactFormController@changeStatus');
     Route::GET('contactforms/edit/{id}', 'ContactFormController@edit')->name('contactform.edit');
+    Route::GET('contactforms/status/{id}', 'ContactFormController@status')->name('contactform.status');
     Route::POST('contactforms/update/{id}', 'ContactFormController@update')->name('contactform.update');
     Route::GET('contactforms/destroy/{id}', 'ContactFormController@destroy')->name('contactform.destroy');
     //Contact Forms end
@@ -130,6 +132,14 @@ Route::group(['middleware' => ['auth']], function(){
     Route::POST('definitions/formstatuses/update/{id}', 'FormStatusesController@update')->name('formstatus.update');
     Route::GET('definitions/formstatuses/destroy/{id}', 'FormStatusesController@destroy')->name('formstatus.destroy');
     //Form Statuses end
+
+    //Whatsapp
+    Route::GET('whatsappforms', 'WhatsappController@index')->name('whatsapp.index');
+    Route::POST('whatsappforms/store', 'WhatsappController@store')->name('whatsapp.store');
+    Route::GET('whatsappforms/edit/{id}', 'WhatsappController@edit')->name('whatsapp.edit');
+    Route::POST('whatsappforms/update/{id}', 'WhatsappController@update')->name('whatsapp.update');
+    Route::GET('whatsappforms/destroy/{id}', 'WhatsappController@destroy')->name('whatsapp.destroy');
+    //Whatsapp end
 
     //Discounts
     Route::GET('definitions/discounts', 'DiscountController@index')->name('discount.index');
