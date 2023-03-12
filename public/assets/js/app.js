@@ -1144,5 +1144,5 @@ function vehicleExcel() {
         for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
         return buf;
     }
-    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'Tarihe_Göre_Rezervasyon_Adetleri_Raporu_'+now_date+'.xlsx');
+    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'Araç_Raporu_'+now_date+'.xlsx');
 }
