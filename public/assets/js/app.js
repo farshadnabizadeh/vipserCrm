@@ -1098,7 +1098,11 @@ function addCustomertoReservation(reservationID, customersId){
         console.log(error);
     }
 }
-
+let date_ob = new Date();
+let date = ("0" + date_ob.getDate()).slice(-2);
+let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+let year = date_ob.getFullYear();
+var now_date = (date + "_" + month + "_" + year);
 function tableSourceExcel() {
     /* Get table data */
     var wb = XLSX.utils.table_to_book(document.getElementById('tableSource'), {sheet:"Sheet JS"});
@@ -1117,6 +1121,20 @@ function tableSourceExcel() {
 function tableDataExcel() {
     /* Get table data */
     var wb = XLSX.utils.table_to_book(document.getElementById('tableData'), {sheet:"Sheet JS"});
+
+    /* Save to file */
+    var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+    function s2ab(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+        return buf;
+    }
+    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'Tarihe_Göre_Rezervasyon_Adetleri_Raporu_'+now_date+'.xlsx');
+}
+function vehicleExcel() {
+    /* Get table data */
+    var wb = XLSX.utils.table_to_book(document.getElementById('basic-btn'), {sheet:"Sheet JS"});
 
     /* Save to file */
     var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
