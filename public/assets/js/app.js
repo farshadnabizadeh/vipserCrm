@@ -166,10 +166,23 @@ var select2Init = function() {
     $("#paymentType").select2({ placeholder: "Ödeme Türü Seç", dropdownAutoWidth: true, allowClear: true });
     $("#vehicleId").select2({ placeholder: "Araç Seçiniz", dropdownAutoWidth: true, allowClear: true });
     $("#brandId").select2({ placeholder: "Marka Seçiniz", dropdownAutoWidth: true, allowClear: true });
+    $("#selectedSource").select2({ placeholder: "Rezervasyon Kaynak Seç", dropdownAutoWidth: true, allowClear: true });
+
 };
 
 var dataTableInit = function() {
     dataTable = $('#dataTable').dataTable({
+        "columnDefs": [{
+                "targets": 1,
+                "type": 'num',
+            },
+            {
+                "targets": 2,
+                "type": 'num',
+            }
+        ],
+    });
+    tableSource = $('#tableSource').dataTable({
         "columnDefs": [{
                 "targets": 1,
                 "type": 'num',
@@ -1036,6 +1049,14 @@ function addPaymentTypeOperation() {
         console.log(error);
     }
 }
+function scrollToReservation() {
+    var div = document.getElementById("reservation");
+    div.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+function scrollToCiro() {
+    var div = document.getElementById("ciro");
+    div.scrollIntoView({ behavior: "smooth", block: "center" });
+}
 
 function addcustomerReservation() {
     try {
@@ -1076,4 +1097,34 @@ function addCustomertoReservation(reservationID, customersId){
     } catch (error) {
         console.log(error);
     }
+}
+
+function tableSourceExcel() {
+    /* Get table data */
+    var wb = XLSX.utils.table_to_book(document.getElementById('tableSource'), {sheet:"Sheet JS"});
+
+    /* Save to file */
+    var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+    function s2ab(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+        return buf;
+    }
+    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'Rezervasyon_Kaynak_Özetleri_Raporu_'+now_date+'.xlsx');
+}
+
+function tableDataExcel() {
+    /* Get table data */
+    var wb = XLSX.utils.table_to_book(document.getElementById('tableData'), {sheet:"Sheet JS"});
+
+    /* Save to file */
+    var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+    function s2ab(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+        return buf;
+    }
+    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'Tarihe_Göre_Rezervasyon_Adetleri_Raporu_'+now_date+'.xlsx');
 }

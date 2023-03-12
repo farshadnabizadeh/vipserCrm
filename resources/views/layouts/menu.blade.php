@@ -106,11 +106,16 @@
                         </a>
                         <ul class="nav-item_sub">
                             <li>
+                                <a href="{{ route('report.index', ['startDate' => date("Y-m-d"), 'endDate' => date("Y-m-d")]) }}">
+                                    <span>Muhasebe Raporu</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('report.reservation', ['startDate' => date("Y-m-d"), 'endDate' => date("Y-m-d")]) }}">
                                     <span>Rezervasyon Raporu</span>
                                 </a>
                             </li>
-                            <li>
+                            {{--<li>
                                 <a href="{{ route('report.payment', ['startDate' => date("Y-m-d"), 'endDate' => date("Y-m-d")]) }}">
                                     <span>Ciro Raporu</span>
                                 </a>
@@ -119,7 +124,7 @@
                                 <a href="{{ route('report.comission', ['startDate' => date("Y-m-d"), 'endDate' => date("Y-m-d")]) }}">
                                     <span>Komisyon Raporu</span>
                                 </a>
-                            </li>
+                            </li>--}}
                         </ul>
                     </li>
                     <li class="nav-item">

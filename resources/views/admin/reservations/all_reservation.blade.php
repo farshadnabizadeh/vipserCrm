@@ -31,6 +31,7 @@
                                 <th scope="col">Alınış Yeri</th>
                                 <th scope="col">Bırakılış Yeri</th>
                                 <th scope="col">Müşteri Adı</th>
+                                <th scope="col">Ödeme</th>
                                 <th scope="col">Kişi Sayısı</th>
                             </tr>
                         </thead>
@@ -53,6 +54,13 @@
                                 <td>{{ $listAllByDate->return_location }}</td>
                                 <td>
                                     <a href="{{ route('customer.edit', ['id' => $listAllByDate->customer_id]) }}">{{ $listAllByDate->Cname }}</a>
+                                </td>
+                                <td>
+                                    @if($listAllByDate->payment_price == NULL)
+                                    <p class="text-center"><i class="fa fa-times non-icon"></i></p>
+                                    @else
+                                    <p class="text-center"><i class="fa fa-check check-icon"></i></p>
+                                    @endif
                                 </td>
                                 <td>{{ $listAllByDate->total_customer }}</td>
                             </tr>

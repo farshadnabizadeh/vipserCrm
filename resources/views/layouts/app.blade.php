@@ -62,6 +62,8 @@
     <script type="text/javascript" src="{{ asset('assets/js/jscolor.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/extension-btns-custom.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/rest_api.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/xlsx.full.min.js') }}" defer></script>
+    <script type="text/javascript" src="{{ asset('assets/js/FileSaver.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('assets/js/app.js') }}" defer></script>
     <script>
         $('.inline-popups').magnificPopup({
