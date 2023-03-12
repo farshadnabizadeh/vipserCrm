@@ -498,7 +498,7 @@ class ReportController extends Controller
             $vehiclesData = [];
             $vehiclesColors = [];
             foreach ($vehiclesByDate as $vehicle) {
-                array_push($vehiclesLabels, $vehicle->reservation_date);
+                array_push($vehiclesLabels, $vehicle->model);
                 array_push($vehiclesData, $vehicle->vehicleCount);
                 $vehiclesColors[] = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
             }
