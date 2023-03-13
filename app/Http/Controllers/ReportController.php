@@ -27,103 +27,6 @@ class ReportController extends Controller
         $data = array('reservations' => $reservations, 'start' => $start, 'end' => $end);
         return view('admin.reports.index')->with($data);
     }
-    // public function reservationReport(Request $request)
-    // {
-    //     try {
-
-    //         $start = $request->input('startDate');
-    //         $end = $request->input('endDate');
-    //         $selectedSources = $request->input('selectedSource', []);
-    //         $user = auth()->user();
-
-    //         //Ciro Report
-    //         $all_payments = ReservationPaymentType::select('payment_types.*', DB::raw('payment_type_id, sum(payment_price) as totalPrice'))
-    //             ->leftJoin('payment_types', 'reservations_payments_types.payment_type_id', '=', 'payment_types.id')
-    //             ->leftJoin('reservations', 'reservations.id', '=', 'payment_types.id')
-    //             ->whereBetween('reservations.reservation_date', [$start, $end])
-    //             ->when($user->hasRole('Performance Marketing Admin'), function ($query) {
-    //                 $query->where(function ($query) {
-    //                     $query->whereIn('reservations.source_id', [1, 12]);
-    //                 });
-    //             })
-    //             ->when(!empty($selectedSources), function ($query) use ($selectedSources) {
-    //                 $query->whereIn('reservations.source_id', $selectedSources);
-    //             }, function ($query) {
-    //                 $query->whereNotNull('reservations.source_id');
-    //             })
-    //             ->groupBy('payment_type_id')
-    //             ->get();
-    //         $all_paymentLabels = [];
-    //         $all_paymentData = [];
-    //         $all_paymentColors = [];
-    //         foreach ($all_payments as $all_payment) {
-    //             array_push($all_paymentLabels, $all_payment->type_name);
-    //             array_push($all_paymentData, $all_payment->totalPrice);
-    //             $all_paymentColors[] = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
-    //         }
-
-    //         //cash tl
-    //         $cashTl = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '1')
-    //             ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-    //             ->sum("payment_price");
-
-    //         //cash euro
-    //         $cashEur = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '2')
-    //             ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-    //             ->sum("payment_price");
-
-    //         //cash usd
-    //         $cashUsd = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '3')
-    //             ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-    //             ->sum("payment_price");
-
-    //         //cash pound
-    //         $cashPound = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '4')
-    //             ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-    //             ->sum("payment_price");
-
-    //         //free
-    //         $free = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '5')
-    //             ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-    //             ->sum("payment_price");
-
-    //         //ziraat kk euro
-    //         $ziraatKkEuro = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '8')
-    //             ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-    //             ->sum("payment_price");
-
-    //         //ziraat kk tl
-    //         $ziraatKkTl = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '9')
-    //             ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-    //             ->sum("payment_price");
-
-    //         //ziraat kk usd
-    //         $ziraatKkUsd = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '10')
-    //             ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-    //             ->sum("payment_price");
-
-    //         $totalData = array(
-    //             'cashTl' => $cashTl,
-    //             'cashEur' => $cashEur,
-    //             'cashUsd' => $cashUsd,
-    //             'cashPound' => $cashPound,
-    //             'free' => $free,
-    //             'ziraatKkEuro' => $ziraatKkEuro,
-    //             'ziraatKkTl' => $ziraatKkTl,
-    //             'ziraatKkUsd' => $ziraatKkUsd,
-    //             'all_paymentLabels' => $all_paymentLabels,
-    //             'all_paymentData' => $all_paymentData,
-    //             'all_paymentColors' => $all_paymentColors,
-    //             'start' => $start,
-    //             'end' => $end
-    //         );
-
-
-    //         return view('admin.reports.reservation_report')->with($totalData);
-    //     } catch (\Throwable $th) {
-    //         throw $th;
-    //     }
-    // }
 
     public function reservationReport(Request $request)
     {
@@ -553,80 +456,15 @@ class ReportController extends Controller
 
     public function sourceReport(Request $request)
     {
-        try {
+        $data = Source::select("sources.*", \DB::raw("(SELECT count(*) FROM reservations a WHERE a.source_id = sources.id) as aCount"))->get();
 
-            $data = Source::select("sources.*", \DB::raw("(SELECT count(*) FROM reservations a WHERE a.source_id = sources.id) as aCount"))->get();
-
-            return json_encode($data);
-        } catch (\Throwable $th) {
-            throw $th;
-        }
+        return json_encode($data);
     }
 
     public function vehicleReport(Request $request)
     {
-        try {
+        $data = Vehicle::select("vehicles.*", \DB::raw("(SELECT count(*) FROM reservations a WHERE a.vehicle_id = vehicles.id) as aCount"))->get();
 
-            $data = Vehicle::select("vehicles.*", \DB::raw("(SELECT count(*) FROM reservations a WHERE a.vehicle_id = vehicles.id) as aCount"))->get();
-
-            return json_encode($data);
-        } catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-
-    public function paymentReport(Request $request)
-    {
-        try {
-
-            $start = $request->input('startDate');
-            $end = $request->input('endDate');
-
-            //cash tl
-            $cashTl = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '1')
-                ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-                ->sum("payment_price");
-
-            //cash euro
-            $cashEur = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '2')
-                ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-                ->sum("payment_price");
-
-            //cash usd
-            $cashUsd = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '3')
-                ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-                ->sum("payment_price");
-
-            //cash pound
-            $cashPound = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '4')
-                ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-                ->sum("payment_price");
-
-            //free
-            $free = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '5')
-                ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-                ->sum("payment_price");
-
-            //ziraat kk euro
-            $ziraatKkEuro = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '8')
-                ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-                ->sum("payment_price");
-
-            //ziraat kk tl
-            $ziraatKkTl = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '9')
-                ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-                ->sum("payment_price");
-
-            //ziraat kk usd
-            $ziraatKkUsd = ReservationPaymentType::where('reservations_payments_types.payment_type_id', '10')
-                ->whereBetween('reservations_payments_types.created_at', [date('Y-m-d', strtotime($start)) . " 00:00:00", date('Y-m-d', strtotime($end)) . " 23:59:59"])
-                ->sum("payment_price");
-
-            $totalData = array('cashTl' => $cashTl, 'cashEur' => $cashEur, 'cashUsd' => $cashUsd, 'cashPound' => $cashPound, 'free' => $free, 'ziraatKkEuro' => $ziraatKkEuro, 'ziraatKkTl' => $ziraatKkTl, 'ziraatKkUsd' => $ziraatKkUsd, 'start' => $start, 'end' => $end);
-
-            return view('admin.reports.payment_report')->with($totalData);
-        } catch (\Throwable $th) {
-            throw $th;
-        }
+        return json_encode($data);
     }
 }
