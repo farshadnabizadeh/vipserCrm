@@ -96,6 +96,11 @@
                                     <span>Rezervasyon Kaynakları</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('routetype.index'); }}">
+                                    <span>Rota Türleri</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item {{ request()->is('reports*') ? 'active' : '' }}">

@@ -32,6 +32,10 @@ class CreateReservations extends Migration
             $table->foreign('source_id')->references('id')
                 ->on('sources')
                 ->onDelete('cascade');
+            $table->integer('route_type_id')->unsigned();
+            $table->foreign('route_type_id')->references('id')
+                ->on('route_types')
+                ->onDelete('cascade');
             $table->longText('reservation_note')->nullable();
             $table->integer('user_id')->unsigned();
             $table->softDeletes();

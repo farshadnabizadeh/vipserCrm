@@ -113,6 +113,18 @@
                                                     </select>
                                                 </div>
                                             </div>
+
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="routeTypeID">Rota Türleri</label>
+                                                    <select id="routeTypeID" name="routeTypeID" class="form-control">
+                                                        <option></option>
+                                                        @foreach ($routeTypes as $routeType)
+                                                        <option value="{{ $routeType->id }}">{{ $routeType->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="note">Rezervasyon Notu</label>
@@ -180,11 +192,18 @@
                                             </div>
                                             <div class="col-lg-3"></div>
                                             <div class="col-lg-3">
-                                                <p>Rezervasyon Notu: <span class="reservation-note"></span></p>
+                                                <p>Rezervasyon Notu: <span class="route-type"></span></p>
                                             </div>
                                             <div class="col-lg-3"></div>
                                         </div>
                                         <hr>
+
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <p>Rezervasyon Notu: <span class="reservation-note"></span></p>
+                                            </div>
+                                            <div class="col-lg-3"></div>
+                                        </div>
                                         <button class="btn btn-primary mt-3 float-right" id="completeReservation">Rezervasyonu Tamamla <i class="fa fa-check"></i></button>
                                     </div>
                                 </div>

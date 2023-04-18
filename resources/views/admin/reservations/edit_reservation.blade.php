@@ -23,6 +23,20 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
+                                        <label for="pickupLocation">Alınış Lokasyonu</label>
+                                        <input type="text" class="form-control datepicker" id="pickupLocation" name="pickupLocation" placeholder="Alınış Lokasyonu" value="{{ $reservation->pickup_location }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="returnLocation">Bırakılış Lokasyonu</label>
+                                        <input type="text" class="form-control" id="returnLocation" name="returnLocation" placeholder="Bırakılış Lokasyonu" maxlength="5" onkeypress="timeFormat(this)" value="{{ $reservation->return_location }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
                                         <label for="reservationDate">Rezervasyon Tarihi</label>
                                         <input type="text" class="form-control datepicker" id="reservationDate" name="reservationDate" placeholder="Rezervasyon Tarihi" value="{{ $reservation->reservation_date }}" required>
                                     </div>
@@ -48,6 +62,20 @@
                                             <option value="{{ $reservation->source_id }}" selected>{{ $reservation->source->name }}</option>
                                             @foreach ($sources as $source)
                                             <option value="{{ $source->id }}">{{ $source->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div><div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="routeTypeID">Rota Türleri</label>
+                                        <select id="routeTypeID" name="routeTypeID" class="form-control">
+                                            @if ($reservation->route_type_id)
+                                            <option value="{{ $reservation->route_type_id }}" selected>{{ $reservation->routeType->name }}</option>
+                                            @else
+                                            <option></option>
+                                            @endif
+                                            @foreach ($routeTypes as $routeType)
+                                            <option value="{{ $routeType->id }}">{{ $routeType->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

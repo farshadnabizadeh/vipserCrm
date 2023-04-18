@@ -32,6 +32,11 @@ class Reservation extends Model
         return $this->belongsTo(Source::class, 'source_id');
     }
 
+    public function routeType()
+    {
+        return $this->belongsTo(RouteType::class, 'route_type_id');
+    }
+
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id');

@@ -26,6 +26,7 @@
                                 <th scope="col">İşlem</th>
                                 <th scope="col">ID</th>
                                 <th scope="col">Kaynak</th>
+                                <th scope="col">Rota Türü</th>
                                 <th scope="col">Rezervasyon Tarihi</th>
                                 <th scope="col">Rezervasyon Saati</th>
                                 <th scope="col">Alınış Yeri</th>
@@ -48,6 +49,11 @@
                                 </td>
                                 <td>{{ date('ymd', strtotime($listAllByDate->created_at)) . $listAllByDate->tId }}</td>
                                 <td class="text-white" style="background-color: {{ $listAllByDate->color }}">{{ $listAllByDate->name }}</td>
+                                @if ($listAllByDate->route_type_id)
+                                    <td class="text-white" style="background-color: {{ $listAllByDate->rTcolor }}">{{ $listAllByDate->rTname }}</td>
+                                @else
+                                <td></td>
+                                @endif
                                 <td>{{ date('d-m-Y', strtotime($listAllByDate->reservation_date)) }}</td>
                                 <td>{{ $listAllByDate->reservation_time }}</td>
                                 <td>{{ $listAllByDate->pickup_location }}</td>

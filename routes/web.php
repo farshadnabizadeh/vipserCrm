@@ -133,6 +133,14 @@ Route::group(['middleware' => ['auth']], function(){
     Route::GET('definitions/formstatuses/destroy/{id}', 'FormStatusesController@destroy')->name('formstatus.destroy');
     //Form Statuses end
 
+    //Route Types
+    Route::GET('definitions/routetypes', 'RouteTypeController@index')->name('routetype.index');
+    Route::POST('definitions/routetypes/store', 'RouteTypeController@store')->name('routetype.store');
+    Route::GET('definitions/routetypes/edit/{id}', 'RouteTypeController@edit')->name('routetype.edit');
+    Route::POST('definitions/routetypes/update/{id}', 'RouteTypeController@update')->name('routetype.update');
+    Route::GET('definitions/routetypes/destroy/{id}', 'RouteTypeController@destroy')->name('routetype.destroy');
+    //Route Types end
+
     //Whatsapp
     Route::GET('whatsappforms', 'WhatsappController@index')->name('whatsapp.index');
     Route::POST('whatsappforms/store', 'WhatsappController@store')->name('whatsapp.store');

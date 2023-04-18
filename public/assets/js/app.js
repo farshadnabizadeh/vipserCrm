@@ -167,6 +167,7 @@ var select2Init = function() {
     $("#vehicleId").select2({ placeholder: "Araç Seçiniz", dropdownAutoWidth: true, allowClear: true });
     $("#brandId").select2({ placeholder: "Marka Seçiniz", dropdownAutoWidth: true, allowClear: true });
     $("#selectedSource").select2({ placeholder: "Rezervasyon Kaynak Seç", dropdownAutoWidth: true, allowClear: true });
+    $("#routeTypeID").select2({ placeholder: "Rota Türü Seçiniz", dropdownAutoWidth: true, allowClear: true });
 
 };
 
@@ -834,15 +835,19 @@ function createPaymentTypeOperation() {
 function addReservationOperation() {
     try {
         $('#reservationSave').on('click', function(){
-            var vehicleName = $("#tab2").find('#vehicleId').children("option:selected").text();
-            var pickupLocation = $("#tab2").find('#pickupLocation').val();
-            var returnLocation = $("#tab2").find('#returnLocation').val();
+            var vehicleName     = $("#tab2").find('#vehicleId').children("option:selected").text();
+            var pickupLocation  = $("#tab2").find('#pickupLocation').val();
+            var returnLocation  = $("#tab2").find('#returnLocation').val();
             var reservationDate = $("#tab2").find('#reservationDate').val();
             var reservationTime = $("#tab2").find('#reservationTime').val();
-            var totalCustomer = $("#tab2").find('#totalCustomer').val();
-            var sourceName = $("#tab2").find("#sobId").children("option:selected").text();
-            var therapistId = $("#tab2").find('#therapistId').children("option:selected").val();
-            if (reservationDate == "" || reservationTime == "" || totalCustomer == "" || therapistId == "" || sourceName == ""){
+            var totalCustomer   = $("#tab2").find('#totalCustomer').val();
+            var sourceName      = $("#tab2").find("#sobId").children("option:selected").text();
+            var therapistId     = $("#tab2").find('#therapistId').children("option:selected").val();
+            var routeType       = $("#tab2").find('#routeTypeID').children("option:selected").val();
+            var routeTypeName   = $("#tab2").find('#routeTypeID').children("option:selected").text();
+            var reservationNote = $('#tab2').find("#note").val();
+
+            if (routeType == "" || reservationDate == "" || reservationTime == "" || totalCustomer == "" || therapistId == "" || sourceName == ""){
                 swal({ icon: 'error', title: 'Lütfen Boşlukları Doldurunuz!', text: '' });
             }
             else {
@@ -853,7 +858,8 @@ function addReservationOperation() {
                 $(".reservation-time").text(reservationTime);
                 $(".total-customer").text(totalCustomer);
                 $(".source-name").text(sourceName);
-                $(".reservation-note").text(sourceName);
+                $(".route-type").text(routeTypeName);
+                $(".reservation-note").text(reservationNote);
                 $("#next-step").trigger("click");
                 if (customerID == undefined) {
                     var nameSurname = $("#addCustomerModal").find('#customerNameSurname').val();
@@ -883,11 +889,12 @@ function completeReservation() {
                     var returnLocation = $("#tab2").find('#returnLocation').val();
                     var reservationDate = $("#tab2").find('#reservationDate').val();
                     var reservationTime = $("#tab2").find('#reservationTime').val();
+                    var routeType       = $("#tab2").find('#routeTypeID').children("option:selected").val();
 
                     var totalCustomer = $("#tab2").find('#totalCustomer').val();
                     var sourceId = $('#tab2').find("#sobId").children("option:selected").val();
                     var reservationNote = $('#tab2').find("#note").val();
-                    addReservation(vehicleId, pickupLocation, returnLocation, reservationDate, reservationTime, totalCustomer, customerID, sourceId, reservationNote);
+                    addReservation(routeType,vehicleId, pickupLocation, returnLocation, reservationDate, reservationTime, totalCustomer, customerID, sourceId, reservationNote);
                 }, 500);
             }
         });
@@ -895,7 +902,7 @@ function completeReservation() {
     catch (error) { }
 }
 
-function addReservation(vehicleId, pickupLocation, returnLocation, reservationDate, reservationTime, totalCustomer, customerID, sourceId, reservationNote){
+function addReservation(routeType, vehicleId, pickupLocation, returnLocation, reservationDate, reservationTime, totalCustomer, customerID, sourceId, reservationNote){
     try {
         $.ajaxSetup({
             headers: {
@@ -914,6 +921,7 @@ function addReservation(vehicleId, pickupLocation, returnLocation, reservationDa
                 'totalCustomer': totalCustomer,
                 'customerId': customerID,
                 'sourceId': sourceId,
+                'routeTypeId': routeType,
                 'reservationNote': reservationNote
             },
             async: false,

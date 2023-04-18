@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use App\Models\RouteType;
 use App\Models\ReservationCustomer;
 use App\Models\ReservationService;
 use App\Models\ReservationTherapist;
@@ -40,7 +41,7 @@ class ReservationController extends Controller
             $storages = array('start' => $start, 'end' => $end);
 
             if (request()->ajax()) {
-                $data = Reservation::with('customer', 'vehicle', 'source')
+                $data = Reservation::with('customer', 'vehicle', 'source', 'routeType')
                 ->orderBy('reservation_date', 'desc')
                 ->orderBy('reservation_time', 'asc')
                 ->whereBetween('reservations.reservation_date', [$start, $end]);
@@ -74,12 +75,18 @@ class ReservationController extends Controller
                     ->editColumn('source.name', function ($item) {
                         return '<span class="badge text-white" style="background-color: '. $item->source->color .'">'. $item->source->name .'</span>';
                     })
+
+                    ->editColumn('routeType.name', function ($item) {
+                        if ($item->route_type_id != null) {
+                            return '<span class="badge text-white" style="background-color: '. $item->routeType->color .'">'. $item->routeType->name .'</span>';
+                        }
+                    })
                     ->editColumn('reservation_date', function ($item) {
                         $action = date('d-m-Y', strtotime($item->reservation_date));
                         return $action;
                     })
 
-                    ->rawColumns(['action', 'id', 'source.name', 'date'])
+                    ->rawColumns(['routeType.name','action', 'id', 'source.name', 'date'])
                     ->toJson();
                 };
                 $columns = [
@@ -89,6 +96,7 @@ class ReservationController extends Controller
                     ['data' => 'vehicle.brand_id', 'name' => 'vehicle.brand_id', 'title' => 'Marka'],
                     ['data' => 'vehicle.model', 'name' => 'vehicle.model', 'title' => 'Model'],
                     ['data' => 'source.name', 'name' => 'source.name', 'title' => 'Kaynak'],
+                    ['data' => 'routeType.name', 'name' => 'routeType.name', 'title' => 'Rota Türü'],
                     ['data' => 'reservation_date', 'name' => 'reservation_date', 'title' => 'Rezervasyon Tarihi'],
                     ['data' => 'reservation_time', 'name' => 'reservation_time', 'title' => 'Rezervasyon Saati'],
                     ['data' => 'pickup_location', 'name' => 'pickup_location', 'title' => 'Alınış Yeri'],
@@ -110,11 +118,12 @@ class ReservationController extends Controller
     {
         try {
             $sources = Source::orderBy('name', 'asc')->get();
+            $routeTypes = RouteType::orderBy('name', 'asc')->get();
             $vehicles = Vehicle::all();
             $customers = Customer::orderBy('name_surname', 'asc')->get();
             $payment_types = PaymentType::orderBy('type_name', 'asc')->get();
 
-            $data = array('sources' => $sources, 'vehicles' => $vehicles, 'customers' => $customers, 'payment_types' => $payment_types);
+            $data = array('routeTypes' => $routeTypes, 'sources' => $sources, 'vehicles' => $vehicles, 'customers' => $customers, 'payment_types' => $payment_types);
             return view('admin.reservations.new_reservation')->with($data);
         }
         catch (\Throwable $th) {
@@ -134,6 +143,7 @@ class ReservationController extends Controller
             $newData->total_customer = $request->input('totalCustomer');
             $newData->customer_id = $request->input('customerId');
             $newData->source_id = $request->input('sourceId');
+            $newData->route_type_id = $request->input('routeTypeId');
             $newData->reservation_note = $request->input('reservationNote');
 
             $newData->user_id = auth()->user()->id;
@@ -203,13 +213,15 @@ class ReservationController extends Controller
             $searchDate = $request->input('s');
             $tpStatus = $request->input('ps');
 
-            $arrivalsA = Reservation::select('reservations.reservation_date as date', 'reservations.*', 'reservations.id as tId','reservations_payments_types.payment_price',  'sources.color', 'sources.name', 'customers.name_surname as Cname')
-                ->leftJoin('sources', 'reservations.source_id', '=', 'sources.id')
-                ->leftJoin('reservations_payments_types', 'reservations.id', '=', 'reservations_payments_types.reservation_id')
+            $arrivalsA = Reservation::select('reservations.reservation_date as date', 'reservations.*', 'reservations.id as tId','reservations_payments_types.payment_price',  'sources.color', 'sources.name','route_types.color as rTcolor', 'route_types.name as rTname', 'customers.name_surname as Cname')
+            ->leftJoin('sources', 'reservations.source_id', '=', 'sources.id')
+            ->leftJoin('route_types', 'reservations.route_type_id', '=', 'route_types.id')
+            ->leftJoin('reservations_payments_types', 'reservations.id', '=', 'reservations_payments_types.reservation_id')
                 ->leftJoin('customers', 'reservations.customer_id', '=', 'customers.id')
                 // ->whereNull('deleted_at')
                 ->whereDate('reservations.reservation_date', '=', $searchDate)
-                ->orderBy('reservation_date');
+                ->orderBy('reservation_date')
+                ->groupBy('reservations.id');
 
             if (!empty($tpStatus)) {
                 $arrivalsA->where('reservations.source_id', '=', $tpStatus);
@@ -262,6 +274,7 @@ class ReservationController extends Controller
             $reservation = Reservation::where('id','=', $id)->first();
             $payment_types = PaymentType::all();
             $sources = Source::all();
+            $routeTypes = RouteType::all();
 
             $reservation_payment_type = ReservationPaymentType::where('reservations_payments_types.reservation_id', '=', $id);
 
@@ -275,7 +288,7 @@ class ReservationController extends Controller
             }
             $totalPayment = array_sum($totalPrice);
 
-            $data = array('reservation' => $reservation, 'sources' => $sources, 'payment_types' => $payment_types, 'hasPaymentType' => $hasPaymentType, 'totalPayment' => $totalPayment);
+            $data = array('routeTypes' => $routeTypes, 'reservation' => $reservation, 'sources' => $sources, 'payment_types' => $payment_types, 'hasPaymentType' => $hasPaymentType, 'totalPayment' => $totalPayment);
 
             $page = $request->input('page');
 
@@ -314,13 +327,14 @@ class ReservationController extends Controller
         try {
             $user = auth()->user();
 
-            $temp['reservation_date'] = $request->input('reservationDate');
-            $temp['reservation_time'] = $request->input('reservationTime');
-            $temp['pickup_location'] = $request->input('pickupLocation');
-            $temp['return_location'] = $request->input('returnLocation');
-            $temp['total_customer'] = $request->input('totalCustomer');
-            $temp['source_id'] = $request->input('sourceId');
-            $temp['reservation_note'] = $request->input('note');
+            $temp['reservation_date']   = $request->input('reservationDate');
+            $temp['reservation_time']   = $request->input('reservationTime');
+            $temp['pickup_location']    = $request->input('pickupLocation');
+            $temp['return_location']    = $request->input('returnLocation');
+            $temp['total_customer']     = $request->input('totalCustomer');
+            $temp['source_id']          = $request->input('sourceId');
+            $temp['reservation_note']   = $request->input('note');
+            $temp['route_type_id']      = $request->input('routeTypeId');
 
             if (Reservation::where('id', '=', $id)->update($temp)) {
                 return redirect()->route('reservation.calendar')->with('message', 'Rezervasyon Başarıyla Güncellendi!');
