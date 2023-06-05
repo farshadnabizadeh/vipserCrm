@@ -965,6 +965,9 @@ function addPaymentTypetoReservation(reservationID, paymentTypeId, paymentPrice)
                 if (response) {
                     swal({ icon: 'success', title: 'Başarılı!', text: 'Ödeme Türleri Başarıyla Eklendi!', timer: 1000 });
                 }
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
             },
 
             error: function () { },
