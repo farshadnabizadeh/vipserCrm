@@ -405,6 +405,31 @@ class ReportController extends Controller
                 array_push($vehiclesData, $vehicle->vehicleCount);
                 $vehiclesColors[] = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
             }
+            $byCountry = Reservation::select('customers.*', 'reservations.*', DB::raw('customer_id, count(customer_id) as customerCount, sum(total_customer) as paxCount'))
+            ->leftJoin('customers', 'reservations.customer_id', '=', 'customers.id')
+            ->whereBetween('reservations.reservation_date', [$start, $end])
+            ->when($user->hasRole('Performance Marketing Admin'), function ($query) {
+                $query->where(function ($query) {
+                    $query->whereIn('reservations.source_id', [1,13,12,14,15]);
+                });
+            })
+            ->when(!empty($selectedSources), function ($query) use ($selectedSources) {
+                $query->whereIn('reservations.source_id', $selectedSources);
+            }, function ($query) {
+                $query->whereNotNull('reservations.source_id');
+            })
+            ->groupBy('customers.country')
+            ->orderBy('customerCount', 'ASC')
+            ->get();
+            $byCountryLabels = [];
+            $byCountryData = [];
+            $byCountryColors = [];
+
+            foreach ($byCountry as $country) {
+                array_push($byCountryLabels, $country->country);
+                array_push($byCountryData, $country->customerCount);
+                $byCountryColors[] = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+            }
 
             $data = array(
                 'payments_customer_count'  => $payments_customer_count,
@@ -440,6 +465,10 @@ class ReportController extends Controller
                 'start'                    => $start,
                 'end'                      => $end,
                 'sourcesSelect'            => $sourcesSelect,
+                'byCountry'                => $byCountry,
+                'byCountryLabels'          => $byCountryLabels,
+                'byCountryData'            => $byCountryData,
+                'byCountryColors'          => $byCountryColors,
                 'selectedSources'          => $selectedSources
 
             );
