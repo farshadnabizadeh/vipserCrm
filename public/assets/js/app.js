@@ -836,17 +836,19 @@ function createPaymentTypeOperation() {
 function addReservationOperation() {
     try {
         $('#reservationSave').on('click', function(){
-            var vehicleName     = $("#tab2").find('#vehicleId').children("option:selected").text();
-            var pickupLocation  = $("#tab2").find('#pickupLocation').val();
-            var returnLocation  = $("#tab2").find('#returnLocation').val();
-            var reservationDate = $("#tab2").find('#reservationDate').val();
-            var reservationTime = $("#tab2").find('#reservationTime').val();
-            var totalCustomer   = $("#tab2").find('#totalCustomer').val();
-            var sourceName      = $("#tab2").find("#sobId").children("option:selected").text();
-            var therapistId     = $("#tab2").find('#therapistId').children("option:selected").val();
-            var routeType       = $("#tab2").find('#routeTypeID').children("option:selected").val();
-            var routeTypeName   = $("#tab2").find('#routeTypeID').children("option:selected").text();
-            var reservationNote = $('#tab2').find("#note").val();
+            var vehicleName           = $("#tab2").find('#vehicleId').children("option:selected").text();
+            var pickupLocation        = $("#tab2").find('#pickupLocation').val();
+            var returnLocation        = $("#tab2").find('#returnLocation').val();
+            var returnPickupLocation  = $("#tab2").find('#returnPickupLocation').val();
+            var returnReturnLocation  = $("#tab2").find('#returnReturnLocation').val();
+            var reservationDate       = $("#tab2").find('#reservationDate').val();
+            var reservationTime       = $("#tab2").find('#reservationTime').val();
+            var totalCustomer         = $("#tab2").find('#totalCustomer').val();
+            var sourceName            = $("#tab2").find("#sobId").children("option:selected").text();
+            var therapistId           = $("#tab2").find('#therapistId').children("option:selected").val();
+            var routeType             = $("#tab2").find('#routeTypeID').children("option:selected").val();
+            var routeTypeName         = $("#tab2").find('#routeTypeID').children("option:selected").text();
+            var reservationNote       = $('#tab2').find("#note").val();
 
             if (routeType == "" || reservationDate == "" || reservationTime == "" || totalCustomer == "" || therapistId == "" || sourceName == ""){
                 swal({ icon: 'error', title: 'Lütfen Boşlukları Doldurunuz!', text: '' });
@@ -885,17 +887,19 @@ function completeReservation() {
             if (customerID != undefined) {
                 setTimeout(() => {
                     //reservation
-                    var vehicleId = $("#tab2").find('#vehicleId').children("option:selected").val();
-                    var pickupLocation = $("#tab2").find('#pickupLocation').val();
-                    var returnLocation = $("#tab2").find('#returnLocation').val();
-                    var reservationDate = $("#tab2").find('#reservationDate').val();
-                    var reservationTime = $("#tab2").find('#reservationTime').val();
-                    var routeType       = $("#tab2").find('#routeTypeID').children("option:selected").val();
+                    var vehicleId             = $("#tab2").find('#vehicleId').children("option:selected").val();
+                    var pickupLocation        = $("#tab2").find('#pickupLocation').val();
+                    var returnLocation        = $("#tab2").find('#returnLocation').val();
+                    var returnPickupLocation  = $("#tab2").find('#returnPickupLocation').val();
+                    var returnReturnLocation  = $("#tab2").find('#returnReturnLocation').val();
+                    var reservationDate       = $("#tab2").find('#reservationDate').val();
+                    var reservationTime       = $("#tab2").find('#reservationTime').val();
+                    var routeType             = $("#tab2").find('#routeTypeID').children("option:selected").val();
 
-                    var totalCustomer = $("#tab2").find('#totalCustomer').val();
-                    var sourceId = $('#tab2').find("#sobId").children("option:selected").val();
-                    var reservationNote = $('#tab2').find("#note").val();
-                    addReservation(routeType,vehicleId, pickupLocation, returnLocation, reservationDate, reservationTime, totalCustomer, customerID, sourceId, reservationNote);
+                    var totalCustomer         = $("#tab2").find('#totalCustomer').val();
+                    var sourceId              = $('#tab2').find("#sobId").children("option:selected").val();
+                    var reservationNote       = $('#tab2').find("#note").val();
+                    addReservation(returnPickupLocation, returnReturnLocation, routeType,vehicleId, pickupLocation, returnLocation, reservationDate, reservationTime, totalCustomer, customerID, sourceId, reservationNote);
                 }, 500);
             }
         });
@@ -903,7 +907,7 @@ function completeReservation() {
     catch (error) { }
 }
 
-function addReservation(routeType, vehicleId, pickupLocation, returnLocation, reservationDate, reservationTime, totalCustomer, customerID, sourceId, reservationNote){
+function addReservation(returnPickupLocation, returnReturnLocation, routeType,vehicleId, pickupLocation, returnLocation, reservationDate, reservationTime, totalCustomer, customerID, sourceId, reservationNote){
     try {
         $.ajaxSetup({
             headers: {
@@ -919,6 +923,8 @@ function addReservation(routeType, vehicleId, pickupLocation, returnLocation, re
                 'reservationTime': reservationTime,
                 'pickupLocation': pickupLocation,
                 'returnLocation': returnLocation,
+                'returnPickupLocation': returnPickupLocation,
+                'returnReturnLocation': returnReturnLocation,
                 'totalCustomer': totalCustomer,
                 'customerId': customerID,
                 'sourceId': sourceId,
@@ -1172,3 +1178,17 @@ function tableCountryExcel() {
     }
     saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'Rezervasyon_Ülke_Özetleri_Raporu_'+now_date+'.xlsx');
 }
+$(document).ready(function() {
+    $('#routeTypeID').change(function() {
+        if ($(this).val() === '3') {
+            $('#rowToToggle').show();
+        } else {
+            $('#rowToToggle').hide();
+        }
+    });
+
+    // Trigger the change event on page load if the initially selected value is 3
+    if ($('#routeTypeID').val() === '3') {
+        $('#rowToToggle').show();
+    }
+});

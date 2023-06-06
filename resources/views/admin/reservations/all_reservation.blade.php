@@ -29,8 +29,10 @@
                                 <th scope="col">Rota Türü</th>
                                 <th scope="col">Rezervasyon Tarihi</th>
                                 <th scope="col">Rezervasyon Saati</th>
-                                <th scope="col">Alınış Yeri</th>
-                                <th scope="col">Bırakılış Yeri</th>
+                                <th scope="col">GidişAlınış Yeri</th>
+                                <th scope="col">GidişBırakılış Yeri</th>
+                                <th scope="col">Dönüş Alınış Yeri</th>
+                                <th scope="col">Dönüş Bırakılış Yeri</th>
                                 <th scope="col">Müşteri Adı</th>
                                 <th scope="col">Ödeme</th>
                                 <th scope="col">Kişi Sayısı</th>
@@ -58,6 +60,8 @@
                                 <td>{{ $listAllByDate->reservation_time }}</td>
                                 <td>{{ $listAllByDate->pickup_location }}</td>
                                 <td>{{ $listAllByDate->return_location }}</td>
+                                <td>{{ $listAllByDate->return_pickup_location }}</td>
+                                <td>{{ $listAllByDate->return_return_location }}</td>
                                 <td>
                                     <a href="{{ route('customer.edit', ['id' => $listAllByDate->customer_id]) }}">{{ $listAllByDate->Cname }}</a>
                                 </td>

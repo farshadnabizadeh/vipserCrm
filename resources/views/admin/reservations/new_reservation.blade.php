@@ -70,28 +70,42 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label for="pickupLocation">Alınış Lokasyonu</label>
-                                                    <input type="text" class="form-control" placeholder="Alınış Lokasyonu" id="pickupLocation" name="pickupLocation" required>
+                                                    <label for="reservationDate">Rezervasyon Tarihi</label>
+                                                    <input type="text" class="form-control datepicker" id="reservationDate" name="reservationDate" placeholder="Rezervasyon Tarihi" autocomplete="off" required>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label for="returnLocation">Bırakılış Lokasyonu</label>
-                                                    <input type="text" class="form-control" placeholder="Bırakılış Lokasyonu" id="returnLocation" name="returnLocation" required>
+                                                    <label for="reservationTime">Rezervasyon Saati</label>
+                                                    <input type="text" class="form-control" id="reservationTime" name="reservationTime" placeholder="Rezervasyon Saati" maxlength="5" onkeypress="timeFormat(this)" autocomplete="off" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="reservationDate">Rezervasyon Tarihi</label>
-                                                    <input type="text" class="form-control datepicker" id="reservationDate" name="reservationDate" placeholder="Rezervasyon Tarihi" autocomplete="off" required>
+                                                    <label for="pickupLocation">Gidiş Alınış Lokasyonu</label>
+                                                    <input type="text" class="form-control" placeholder="Alınış Lokasyonu" id="pickupLocation" name="pickupLocation" required>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="reservationTime">Rezervasyon Saati</label>
-                                                    <input type="text" class="form-control" id="reservationTime" name="reservationTime" placeholder="Rezervasyon Saati" maxlength="5" onkeypress="timeFormat(this)" autocomplete="off" required>
+                                                    <label for="returnLocation">Gidiş Bırakılış Lokasyonu</label>
+                                                    <input type="text" class="form-control" placeholder="Bırakılış Lokasyonu" id="returnLocation" name="returnLocation" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" id="rowToToggle" style="display: none;">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="returnPickupLocation">Dönüş Alınış Lokasyonu</label>
+                                                    <input type="text" class="form-control" placeholder="Alınış Lokasyonu" id="returnPickupLocation" name="returnPickupLocation" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="returnReturnLocation">Dönüş Bırakılış Lokasyonu</label>
+                                                    <input type="text" class="form-control" placeholder="Bırakılış Lokasyonu" id="returnReturnLocation" name="returnReturnLocation" required>
                                                 </div>
                                             </div>
                                         </div>
