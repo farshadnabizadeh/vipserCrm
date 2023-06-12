@@ -133,6 +133,14 @@ Route::group(['middleware' => ['auth']], function(){
     Route::GET('definitions/formstatuses/destroy/{id}', 'FormStatusesController@destroy')->name('formstatus.destroy');
     //Form Statuses end
 
+    //Sales Persons
+    Route::GET('definitions/salespersons', 'SalesPersonController@index')->name('salesperson.index');
+    Route::POST('definitions/salespersons/store', 'SalesPersonController@store')->name('salesperson.store');
+    Route::GET('definitions/salespersons/edit/{id}', 'SalesPersonController@edit')->name('salesperson.edit');
+    Route::POST('definitions/salespersons/update/{id}', 'SalesPersonController@update')->name('salesperson.update');
+    Route::GET('definitions/salespersons/destroy/{id}', 'SalesPersonController@destroy')->name('salesperson.destroy');
+    //Form Statuses end
+
     //Route Types
     Route::GET('definitions/routetypes', 'RouteTypeController@index')->name('routetype.index');
     Route::POST('definitions/routetypes/store', 'RouteTypeController@store')->name('routetype.store');

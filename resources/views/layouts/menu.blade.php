@@ -101,6 +101,11 @@
                                     <span>Rota Türleri</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('salesperson.index'); }}">
+                                    <span>Satışcılar</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item {{ request()->is('reports*') ? 'active' : '' }}">
