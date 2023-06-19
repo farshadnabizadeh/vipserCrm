@@ -350,7 +350,16 @@ class ReservationController extends Controller
             $temp['total_customer']     = $request->input('totalCustomer');
             $temp['source_id']          = $request->input('sourceId');
             $temp['reservation_note']   = $request->input('note');
-            $temp['route_type_id']      = $request->input('routeTypeId');
+            $temp['route_type_id']      = $request->input('routeTypeID');
+
+            //return
+            $temp['return_reservation_date']   = $request->input('returnReservationDate');
+            $temp['return_reservation_time']   = $request->input('returnReservationTime');
+            $temp['return_pickup_location']    = $request->input('returnPickupLocation');
+            $temp['return_return_location']    = $request->input('returnReturnLocation');
+            $temp['return_total_customer']     = $request->input('returnTotalCustomer');
+            $temp['return_source_id']          = $request->input('sourceId2');
+            $temp['return_reservation_note']   = $request->input('returnNote');
 
             if (Reservation::where('id', '=', $id)->update($temp)) {
                 return redirect()->route('reservation.calendar')->with('message', 'Rezervasyon Başarıyla Güncellendi!');
