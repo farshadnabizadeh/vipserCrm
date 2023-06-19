@@ -86,6 +86,11 @@ class ReservationController extends Controller
                         return $action;
                     })
 
+                    ->editColumn('return_reservation_date', function ($item) {
+                        $action = date('d-m-Y', strtotime($item->return_reservation_date));
+                        return $action;
+                    })
+
                     ->rawColumns(['routeType.name','action', 'id', 'source.name', 'date'])
                     ->toJson();
                 };
@@ -97,8 +102,10 @@ class ReservationController extends Controller
                     ['data' => 'vehicle.model', 'name' => 'vehicle.model', 'title' => 'Model'],
                     ['data' => 'source.name', 'name' => 'source.name', 'title' => 'Kaynak'],
                     ['data' => 'routeType.name', 'name' => 'routeType.name', 'title' => 'Rota Türü'],
-                    ['data' => 'reservation_date', 'name' => 'reservation_date', 'title' => 'Rezervasyon Tarihi'],
-                    ['data' => 'reservation_time', 'name' => 'reservation_time', 'title' => 'Rezervasyon Saati'],
+                    ['data' => 'reservation_date', 'name' => 'reservation_date', 'title' => 'Gidiş Rezervasyon Tarihi'],
+                    ['data' => 'reservation_time', 'name' => 'reservation_time', 'title' => 'Gidiş Rezervasyon Saati'],
+                    ['data' => 'return_reservation_date', 'name' => 'return_reservation_date', 'title' => 'Dönüş Rezervasyon Tarihi'],
+                    ['data' => 'return_reservation_time', 'name' => 'return_reservation_time', 'title' => 'Dönüş Rezervasyon Saati'],
                     ['data' => 'pickup_location', 'name' => 'pickup_location', 'title' => 'Gidiş Alınış Yeri'],
                     ['data' => 'return_location', 'name' => 'return_location', 'title' => 'Gidiş Bırakılış Yeri'],
                     ['data' => 'return_pickup_location', 'name' => 'return_pickup_location', 'title' => 'Dönüş Alınış Yeri'],
@@ -137,19 +144,24 @@ class ReservationController extends Controller
     {
         try {
             $newData = new Reservation();
-            $newData->vehicle_id             = $request->input('vehicleId');
-            $newData->reservation_date       = $request->input('reservationDate');
-            $newData->reservation_time       = $request->input('reservationTime');
-            $newData->pickup_location        = $request->input('pickupLocation');
-            $newData->return_location        = $request->input('returnLocation');
-            $newData->return_pickup_location = $request->input('returnPickupLocation');
-            $newData->return_return_location = $request->input('returnReturnLocation');
-            $newData->total_customer         = $request->input('totalCustomer');
-            $newData->customer_id            = $request->input('customerId');
-            $newData->source_id              = $request->input('sourceId');
-            $newData->route_type_id          = $request->input('routeTypeId');
-            $newData->reservation_note       = $request->input('reservationNote');
-
+            $newData->vehicle_id                = $request->input('vehicleId');
+            $newData->reservation_date          = $request->input('reservationDate');
+            $newData->reservation_time          = $request->input('reservationTime');
+            $newData->pickup_location           = $request->input('pickupLocation');
+            $newData->return_location           = $request->input('returnLocation');
+            $newData->return_pickup_location    = $request->input('returnPickupLocation');
+            $newData->return_return_location    = $request->input('returnReturnLocation');
+            $newData->total_customer            = $request->input('totalCustomer');
+            $newData->customer_id               = $request->input('customerId');
+            $newData->source_id                 = $request->input('sourceId');
+            $newData->route_type_id             = $request->input('routeTypeId');
+            $newData->reservation_note          = $request->input('reservationNote');
+            $newData->return_vehicle_id         = $request->input('vehicleId2');
+            $newData->return_reservation_date   = $request->input('reservationDate2');
+            $newData->return_reservation_time   = $request->input('reservationTime2');
+            $newData->return_source_id          = $request->input('sourceId2');
+            $newData->return_total_customer     = $request->input('returnTotalCustomer');
+            $newData->return_reservation_note   = $request->input('returnReservationNote');
             $newData->user_id = auth()->user()->id;
             $result = $newData->save();
 

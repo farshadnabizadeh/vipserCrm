@@ -52,102 +52,266 @@
                                 <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="50" style="width: 50%">
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-12 mt-3">
-                                    <form method="POST">
-                                        @csrf
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <label for="vehicleId">Araç</label>
-                                                    <select class="form-control" name="vehicleId" id="vehicleId">
-                                                        <option></option>
-                                                        @foreach($vehicles as $vehicle)
-                                                            <option value="{{ $vehicle->id }}">{{ $vehicle->brand->name .' '. $vehicle->model }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <label for="reservationDate">Rezervasyon Tarihi</label>
-                                                    <input type="text" class="form-control datepicker" id="reservationDate" name="reservationDate" placeholder="Rezervasyon Tarihi" autocomplete="off" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <label for="reservationTime">Rezervasyon Saati</label>
-                                                    <input type="text" class="form-control" id="reservationTime" name="reservationTime" placeholder="Rezervasyon Saati" maxlength="5" onkeypress="timeFormat(this)" autocomplete="off" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label for="pickupLocation">Gidiş Alınış Lokasyonu</label>
-                                                    <input type="text" class="form-control" placeholder="Alınış Lokasyonu" id="pickupLocation" name="pickupLocation" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label for="returnLocation">Gidiş Bırakılış Lokasyonu</label>
-                                                    <input type="text" class="form-control" placeholder="Bırakılış Lokasyonu" id="returnLocation" name="returnLocation" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row" id="rowToToggle" style="display: none;">
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label for="returnPickupLocation">Dönüş Alınış Lokasyonu</label>
-                                                    <input type="text" class="form-control" placeholder="Alınış Lokasyonu" id="returnPickupLocation" name="returnPickupLocation" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label for="returnReturnLocation">Dönüş Bırakılış Lokasyonu</label>
-                                                    <input type="text" class="form-control" placeholder="Bırakılış Lokasyonu" id="returnReturnLocation" name="returnReturnLocation" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <label for="totalCustomer">Toplam Müşteri</label>
-                                                    <input type="number" class="form-control" maxlength="2" id="totalCustomer" name="totalCustomer" placeholder="Toplam Müşteri" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <label for="sobId">Rezervasyon Kaynağı</label>
-                                                    <select id="sobId" name="sobId" class="form-control">
-                                                        <option></option>
-                                                        @foreach ($sources as $source)
-                                                        <option value="{{ $source->id }}">{{ $source->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
 
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <label for="routeTypeID">Rota Türleri</label>
-                                                    <select id="routeTypeID" name="routeTypeID" class="form-control">
-                                                        <option></option>
-                                                        @foreach ($routeTypes as $routeType)
-                                                        <option value="{{ $routeType->id }}">{{ $routeType->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label for="note">Rezervasyon Notu</label>
-                                                    <textarea class="form-control" id="note" placeholder="Rezervasyon Notu"></textarea>
-                                                </div>
-                                            </div>
+                            <div class="row mt-4">
+                                <div class="col">
+                                    <div class="info-box arrival-departure">
+                                        <span class="info-box-icon bg-info">
+                                            <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                                        </span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Çift Yön</span>
                                         </div>
-                                        <button type="button" class="btn btn-primary float-right" id="reservationSave">İleri <i class="fa fa-arrow-right"></i></button>
-                                    </form>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="info-box departure">
+                                        <span class="info-box-icon bg-danger">
+                                            <i class="fa fa-arrows-alt"></i>
+                                        </span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Tek Yön</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="info-box innercity">
+                                        <span class="info-box-icon bg-dark">
+                                            <i class="fa fa-arrows-alt"></i>
+                                        </span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Tur</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 mt-3 d-none" id="departure">
+                                    <div class="card card-success">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Gidiş</h3>
+                                        </div>
+                                        <form method="POST" class="mt-3">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="vehicleId">Araç</label>
+                                                        <select class="form-control" name="vehicleId" id="vehicleId">
+                                                            <option></option>
+                                                            @foreach($vehicles as $vehicle)
+                                                                <option value="{{ $vehicle->id }}">{{ $vehicle->brand->name .' '. $vehicle->model }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="reservationDate">Rezervasyon Tarihi</label>
+                                                        <input type="text" class="form-control datepicker" id="reservationDate" name="reservationDate" placeholder="Rezervasyon Tarihi" autocomplete="off" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="reservationTime">Rezervasyon Saati</label>
+                                                        <input type="text" class="form-control" id="reservationTime" name="reservationTime" placeholder="Rezervasyon Saati" maxlength="5" onkeypress="timeFormat(this)" autocomplete="off" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="pickupLocation">Alınış Lokasyonu</label>
+                                                        <input type="text" class="form-control" placeholder="Alınış Lokasyonu" id="pickupLocation" name="pickupLocation" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="returnLocation">Bırakılış Lokasyonu</label>
+                                                        <input type="text" class="form-control" placeholder="Bırakılış Lokasyonu" id="returnLocation" name="returnLocation" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="totalCustomer">Toplam Müşteri</label>
+                                                        <input type="number" class="form-control" maxlength="2" id="totalCustomer" name="totalCustomer" placeholder="Toplam Müşteri" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="sobId">Rezervasyon Kaynağı</label>
+                                                        <select id="sobId" name="sobId" class="form-control">
+                                                            <option></option>
+                                                            @foreach ($sources as $source)
+                                                            <option value="{{ $source->id }}">{{ $source->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="note">Rezervasyon Notu</label>
+                                                        <textarea class="form-control" id="note" placeholder="Rezervasyon Notu"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-primary float-right" id="reservationSave">İleri <i class="fa fa-arrow-right"></i></button>
+                                        </form>
+                                </div>
+
+                                </div>
+                                <div class="col-lg-6 mt-3 d-none" id="arrival">
+                                    <div class="card card-warning">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Dönüş</h3>
+                                        </div>
+                                        <form method="POST" class="mt-3">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="vehicleId2">Araç</label>
+                                                        <select class="form-control" name="vehicleId2" id="vehicleId2">
+                                                            <option></option>
+                                                            @foreach($vehicles as $vehicle)
+                                                                <option value="{{ $vehicle->id }}">{{ $vehicle->brand->name .' '. $vehicle->model }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="reservationDate2">Rezervasyon Tarihi</label>
+                                                        <input type="text" class="form-control datepicker" id="reservationDate2" name="reservationDate2" placeholder="Rezervasyon Tarihi" autocomplete="off" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="reservationTime2">Rezervasyon Saati</label>
+                                                        <input type="text" class="form-control" id="reservationTime2" name="reservationTime2" placeholder="Rezervasyon Saati" maxlength="5" onkeypress="timeFormat(this)" autocomplete="off" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="returnPickupLocation">Alınış Lokasyonu</label>
+                                                        <input type="text" class="form-control" placeholder="Alınış Lokasyonu" id="returnPickupLocation" name="returnPickupLocation" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="returnReturnLocation">Bırakılış Lokasyonu</label>
+                                                        <input type="text" class="form-control" placeholder="Bırakılış Lokasyonu" id="returnReturnLocation" name="returnReturnLocation" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="returnTotalCustomer">Toplam Müşteri</label>
+                                                        <input type="number" class="form-control" maxlength="2" id="returnTotalCustomer" name="returnTotalCustomer" placeholder="Toplam Müşteri" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="sobId2">Rezervasyon Kaynağı</label>
+                                                        <select id="sobId2" name="sobId2" class="form-control">
+                                                            <option></option>
+                                                            @foreach ($sources as $source)
+                                                            <option value="{{ $source->id }}">{{ $source->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="returnNote">Rezervasyon Notu</label>
+                                                        <textarea class="form-control" id="returnNote" placeholder="Rezervasyon Notu"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-primary float-right" id="reservationSave">İleri <i class="fa fa-arrow-right"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 mt-3 d-none" id="tur">
+                                    <div class="card card-dark">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Tur</h3>
+                                        </div>
+                                        <form method="POST" class="mt-3">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="vehicleId3">Araç</label>
+                                                        <select class="form-control" name="vehicleId3" id="vehicleId3">
+                                                            <option></option>
+                                                            @foreach($vehicles as $vehicle)
+                                                                <option value="{{ $vehicle->id }}">{{ $vehicle->brand->name .' '. $vehicle->model }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="reservationDate3">Rezervasyon Tarihi</label>
+                                                        <input type="text" class="form-control datepicker" id="reservationDate3" name="reservationDate3" placeholder="Rezervasyon Tarihi" autocomplete="off" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="reservationTime3">Rezervasyon Saati</label>
+                                                        <input type="text" class="form-control" id="reservationTime3" name="reservationTime3" placeholder="Rezervasyon Saati" maxlength="5" onkeypress="timeFormat(this)" autocomplete="off" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="tourPickupLocation">Alınış Lokasyonu</label>
+                                                        <input type="text" class="form-control" placeholder="Alınış Lokasyonu" id="tourPickupLocation" name="tourPickupLocation" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="tourReturnLocation">Bırakılış Lokasyonu</label>
+                                                        <input type="text" class="form-control" placeholder="Bırakılış Lokasyonu" id="tourReturnLocation" name="tourReturnLocation" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="tourTotalCustomer">Toplam Müşteri</label>
+                                                        <input type="number" class="form-control" maxlength="2" id="tourTotalCustomer" name="tourTotalCustomer" placeholder="Toplam Müşteri" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="sobId3">Rezervasyon Kaynağı</label>
+                                                        <select id="sobId3" name="sobId3" class="form-control">
+                                                            <option></option>
+                                                            @foreach ($sources as $source)
+                                                            <option value="{{ $source->id }}">{{ $source->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="tourNote">Rezervasyon Notu</label>
+                                                        <textarea class="form-control" id="tourNote" placeholder="Rezervasyon Notu"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-primary float-right" id="reservationSave">İleri <i class="fa fa-arrow-right"></i></button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                             <form name="frmInfo" class="d-none" id="frmInfo">
@@ -206,7 +370,7 @@
                                             </div>
                                             <div class="col-lg-3"></div>
                                             <div class="col-lg-3">
-                                                <p>Rezervasyon Notu: <span class="route-type"></span></p>
+                                                <p>Rota Türü: <span class="route-type"></span></p>
                                             </div>
                                             <div class="col-lg-3"></div>
                                         </div>

@@ -18,6 +18,9 @@
                 </div>
                 <div class="card h-100">
                     <div class="card-body">
+                        <div class="card-header">
+                            <h3 class="card-title">Gidiş</h3>
+                        </div>
                         <form action="{{ route('reservation.update', ['id' => $reservation->id]) }}" method="POST">
                             @csrf
                             <div class="row">
@@ -87,6 +90,78 @@
                                     </div>
                                 </div>
                             </div>
+                            @if ($reservation->return_reservation_date != NULL)
+                            <div class="card-header">
+                                <h3 class="card-title">Dönüş</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="pickupLocation">Alınış Lokasyonu</label>
+                                        <input type="text" class="form-control datepicker" id="pickupLocation" name="pickupLocation" placeholder="Alınış Lokasyonu" value="{{ $reservation->return_pickup_location }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="returnLocation">Bırakılış Lokasyonu</label>
+                                        <input type="text" class="form-control" id="returnLocation" name="returnLocation" placeholder="Bırakılış Lokasyonu" maxlength="5" onkeypress="timeFormat(this)" value="{{ $reservation->return_return_location }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="reservationDate">Rezervasyon Tarihi</label>
+                                        <input type="text" class="form-control datepicker" id="reservationDate" name="reservationDate" placeholder="Rezervasyon Tarihi" value="{{ $reservation->return_reservation_date }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="reservationTime">Rezervasyon Saati</label>
+                                        <input type="text" class="form-control" id="reservationTime" name="reservationTime" placeholder="Rezervasyon Saati" maxlength="5" onkeypress="timeFormat(this)" value="{{ $reservation->return_reservation_time }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="totalCustomer">Kişi Sayısı</label>
+                                        <input type="number" class="form-control" id="totalCustomer" name="totalCustomer" placeholder="Kişi Sayısı" value="{{ $reservation->return_total_customer }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="sobId">Rezervasyon Kaynağı</label>
+                                        <select id="sobId" name="sourceId" class="form-control">
+                                            <option value="{{ $reservation->return_source_id }}" selected>{{ $reservation->source->name }}</option>
+                                            @foreach ($sources as $source)
+                                            <option value="{{ $source->id }}">{{ $source->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div><div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="routeTypeID">Rota Türleri</label>
+                                        <select id="routeTypeID" name="routeTypeID" class="form-control">
+                                            @if ($reservation->route_type_id)
+                                            <option value="{{ $reservation->return_route_type_id }}" selected>{{ $reservation->routeType->name }}</option>
+                                            @else
+                                            <option></option>
+                                            @endif
+                                            @foreach ($routeTypes as $routeType)
+                                            <option value="{{ $routeType->id }}">{{ $routeType->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="note">Rezervasyon Notu</label>
+                                        <textarea class="form-control" name="note" id="note" placeholder="Rezervasyon Notu">{{ $reservation->return_reservation_note }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                             <button type="submit" class="btn btn-success mt-5 float-right update-page-btn">Güncelle <i class="fa fa-check" aria-hidden="true"></i></button>
                         </form>
                     </div>

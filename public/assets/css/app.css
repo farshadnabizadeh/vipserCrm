@@ -31201,3 +31201,42 @@ input.datetimepicker[data-color='yellow'] + .bootstrap-datetimepicker-widget.dro
     color: red;
     font-size: 23px;
 }
+.bg-info span {
+    color: #fff !important;
+}
+.bg-success span {
+    color: #fff !important;
+}
+.bg-danger span {
+    color: #fff !important;
+}
+.bg-dark span {
+    color: #fff !important;
+}
+#departure .card-header {
+    background: linear-gradient(180deg, #29b679 63%, #2dce89 100%);
+}
+#departure .card-header .card-title {
+    color: #fff;
+}
+.card-title {
+    margin-bottom: 0;
+}
+#departure label {
+    font-size: 13px;
+}
+#arrival label {
+    font-size: 13px;
+}
+#arrival .card-header {
+    background: linear-gradient(45deg, #f5365c, #c9697c);
+}
+#arrival .card-header .card-title {
+    color: #fff;
+}
+#tur .card-header {
+    background: linear-gradient(180deg, #000000 63%, #2c2d2c 100%);
+}
+#tur .card-header .card-title {
+    color: #fff;
+}

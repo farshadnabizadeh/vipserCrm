@@ -27,10 +27,12 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Kaynak</th>
                                 <th scope="col">Rota Türü</th>
-                                <th scope="col">Rezervasyon Tarihi</th>
-                                <th scope="col">Rezervasyon Saati</th>
-                                <th scope="col">GidişAlınış Yeri</th>
-                                <th scope="col">GidişBırakılış Yeri</th>
+                                <th scope="col">Gidiş Rezervasyon Tarihi</th>
+                                <th scope="col">Gidiş Rezervasyon Saati</th>
+                                <th scope="col">Dönüş Rezervasyon Tarihi</th>
+                                <th scope="col">Dönüş Rezervasyon Saati</th>
+                                <th scope="col">Gidiş Alınış Yeri</th>
+                                <th scope="col">Gidiş Bırakılış Yeri</th>
                                 <th scope="col">Dönüş Alınış Yeri</th>
                                 <th scope="col">Dönüş Bırakılış Yeri</th>
                                 <th scope="col">Müşteri Adı</th>
@@ -58,6 +60,8 @@
                                 @endif
                                 <td>{{ date('d-m-Y', strtotime($listAllByDate->reservation_date)) }}</td>
                                 <td>{{ $listAllByDate->reservation_time }}</td>
+                                <td>{{ date('d-m-Y', strtotime($listAllByDate->return_reservation_date)) }}</td>
+                                <td>{{ $listAllByDate->return_reservation_time }}</td>
                                 <td>{{ $listAllByDate->pickup_location }}</td>
                                 <td>{{ $listAllByDate->return_location }}</td>
                                 <td>{{ $listAllByDate->return_pickup_location }}</td>
