@@ -1022,7 +1022,7 @@ function addReservationOperation() {
 function completeReservation() {
     try {
         $("#completeReservation").on("click", function () {
-            if (customerID != undefined) {
+            if (true) {
                 setTimeout(() => {
                     //reservation
                     // var vehicleId             = $("#tab2").find('#vehicleId').children("option:selected").val();
